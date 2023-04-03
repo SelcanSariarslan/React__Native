@@ -1,48 +1,67 @@
-import React from 'react';
-import { StyleSheet,View,Text,Dimensions,TouchableOpacity,Image} from 'react-native';
-import { NavigationActions } from 'react-navigation';
-    const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-        button: {
-          backgroundColor: 'red',
-          padding: 20,
-          borderRadius: 10,
-          marginLeft:20,
-          marginRight:20,
-          marginTop: 30,
-        },
-        buttonText: {
-          color: 'white',
-          fontSize: 18,
-        },
-      });
+
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import firebase from 'firebase/app';
+
+
+export default function LoginScreen({ navigation }) {
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+
+const handleLogin = () => {
+firebase.auth().signInWithEmailAndPassword(email, password)
+.then((userCredential) => {
+  // Kullanıcının kimliğini alma
+  const { user } = userCredential;
+
+  console.log('User logged in successfully');
+
   
-const{width,height}= Dimensions.get('window');
-
-export default class Login extends React.Component{
-  handleFirstButtonPress = () => {
-    this.props.navigation.navigate('Vehicle');
-  };
-  handleSecondButtonPress = () => {
-    this.props.navigation.navigate('Adminmain');
-  };
- 
-
-  render(){
-    return (
-      <View style={{flex:1}}>
-        <TouchableOpacity style={styles.button} onPress={this.handleFirstButtonPress}>
-        <Text style={styles.buttonText}>Kullanici Girişi</Text> 
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={this.handleSecondButtonPress}>
-        <Text style={styles.buttonText}>Admin Girişi</Text>
-        </TouchableOpacity>
-     
-      </View>
-    );
+  if (email === 'admin@gmail.com' && password === 'admin123') {
+    navigation.navigate('Adminmain');
+  } else {
+    navigation.navigate('Vehicle');
   }
+})
+.catch(error => console.log('An error occurred:', error.message));
 }
+
+return (
+<View style={styles.container}>
+<Text style={{ fontSize: 24, marginBottom: 20 }}>Login</Text>
+<TextInput
+     style={styles.input}
+     placeholder="Email"
+     onChangeText={setEmail}
+     value={email}
+     autoCapitalize="none"
+   />
+<TextInput
+     style={styles.input}
+     placeholder="Password"
+     onChangeText={setPassword}
+     value={password}
+     secureTextEntry
+   />
+<Button title="Login" onPress={handleLogin} />
+<Button title="Don't have an account? Sign up" onPress={() => navigation.navigate('Vehicle')} />
+</View>
+);
+}
+
+const styles = StyleSheet.create({
+container: {
+flex: 1,
+alignItems: 'center',
+justifyContent: 'center',
+backgroundColor: '#fff',
+},
+input: {
+width: '80%',
+height: 50,
+borderWidth: 1,
+borderColor: '#ccc',
+marginBottom: 20,
+padding: 10,
+},
+});
