@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet,Image} from 'react-native';
 import firebase from 'firebase/app';
 
 export default function LoginScreen({ navigation }) {
@@ -26,14 +26,19 @@ firebase.auth().signInWithEmailAndPassword(email, password)
 }
 
 return (
-<View style={styles.container}>
-<Text style={{ fontSize: 24, marginBottom: 20 }}>Login</Text>
+  <View style={{ flex: 1 }}>
+  <View style={{ alignItems: 'center', paddingTop: 20,paddingBottom:20,backgroundColor:'red',marginBottom:30 }}>
+    <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
+    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 , color:'white'}}>ACIL GIRIŞ</Text>
+  </View>
+
 <TextInput
      style={styles.input}
      placeholder="Email"
      onChangeText={setEmail}
      value={email}
      autoCapitalize="none"
+     
    />
 <TextInput
      style={styles.input}
@@ -54,6 +59,8 @@ flex: 1,
 alignItems: 'center',
 justifyContent: 'center',
 backgroundColor: '#fff',
+paddingLeft: 20,
+
 },
 input: {
 width: '80%',
@@ -62,5 +69,8 @@ borderWidth: 1,
 borderColor: '#ccc',
 marginBottom: 20,
 padding: 10,
+marginLeft :30,
+
+
 },
 });
