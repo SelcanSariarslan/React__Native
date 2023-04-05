@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { WebView } from 'react-native-webview';
-import { Text, View } from 'react-native';
+import { Text, View, Alert, TouchableOpacity } from 'react-native';
 import { Result } from './ShortestPath';
 import { Fastest_Result } from './FastestPath';
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads';
-const LeafletMap = () => {
+import Cancel_Button from '../smalComponent/CancelButton';
+const LeafletMap = (props) => {
+    const { vehicleName } = props.route.params ? props.route.params : "";
+    const [showCancelButton, setShowCancelButton] = useState(true);
+    const [showMinimizeButton, setShowMinimizeButton] = useState(false);
+
+
+    const handleViewMapButtonPress = () => {
+        setShowMinimizeButton(true);
+        setShowCancelButton(false);
+    };
+
+    const handleMinimizeButtonPress = () => {
+        setShowMinimizeButton(false);
+        setShowCancelButton(true);
+    };
+
+    useEffect(() => {
+        if (!vehicleName) {
+            Alert.alert('Lütfen bir araç seçin!', '', [
+                { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+            ]);
+        }
+    }, [vehicleName]);
+
+
+    const handleCancelButtonPress = () => {
+        if (!vehicleName) {
+            Alert.alert('Önce acil bir araç seçmelisiniz!!!', '', [
+                { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+            ]);
+            return;
+        }
+
+    };
+
     const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +100,7 @@ map.fitBounds(polyline.getBounds());-->
 <script src ="map.js"></script> 
 
  <script>
- var map = L.map('map').setView([39.925533, 32.866287], 12);
+ var map = L.map('map').setView([39.970277, 32.832307], 14);
     var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -183,15 +218,54 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
   `;
 
     return (
-
-        <View style={{ flex: 50, width: 425 }}>
-            <WebView
-                originWhitelist={['*']}
-                source={{ html: htmlContent }}
-                style={{ flex: 1 }}
-            />
+        <View style={{ flex: 1 }}>
+            <View style={{ flex: 2, width: '100%', position: 'relative' }}>
+                {showCancelButton ? (
+                    <Cancel_Button onPress={handleCancelButtonPress} />)
+                    : (
+                        showMinimizeButton && (
+                            <TouchableOpacity
+                                style={{
+                                    position: 'absolute',
+                                    top: 15,
+                                    right: 15,
+                                    backgroundColor: 'red',
+                                    padding: 10,
+                                    borderRadius: 5,
+                                    zIndex: 1,
+                                }}
+                                onPress={handleMinimizeButtonPress}>
+                                <Text style={{ color: 'white', fontSize: 15 }}> Harıtayı küçült</Text>
+                            </TouchableOpacity>
+                        )
+                    )}
+                <View style={{ flex: 1, width: '100%' }}>
+                    <WebView
+                        originWhitelist={['*']}
+                        source={{ html: htmlContent }}
+                        style={{ flex: 1 }}
+                    />
+                    {showCancelButton && (
+                        <TouchableOpacity
+                            style={{
+                                position: 'absolute',
+                                top: 15,
+                                right: 15,
+                                backgroundColor: 'red',
+                                padding: 10,
+                                borderRadius: 5,
+                            }}
+                            onPress={handleViewMapButtonPress}>
+                            <Text style={{ color: 'white', fontSize: 15 }}>Haritayı incele</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </View>
         </View>
     );
+
 };
 
 export default LeafletMap;
+
+
