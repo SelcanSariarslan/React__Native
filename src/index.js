@@ -12,7 +12,7 @@ import Adminmain from './component/Adminmain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
+import MainContianer from '../navigation/mainContainer';
 /*var config = {
     apiKey: "AIzaSyCP3foqdkk2hd_3qAyc6-_FyPchcVeT70M",
     authDomain: "graduation-app-41c23.firebaseapp.com",
@@ -30,7 +30,7 @@ const MainNavigator = createStackNavigator({
   //Login: { screen: Login },
   Login: { screen: Login },
   
-  Vehicle: { screen: Vehicle },
+  Vehicle: { screen: MainContianer },
   Station: { screen: Station },
   Map: { screen: Map },
   Adminmain: { screen: Adminmain },

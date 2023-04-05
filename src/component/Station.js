@@ -1,45 +1,111 @@
-import React from 'react';
-import { StyleSheet,View,Text,Dimensions,TouchableOpacity,Image} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+
 const styles = StyleSheet.create({
-    imageStyle: {
-      width: 150,
-      height: 150,
-      borderRadius: 50,
-      borderWidth: 2,
-      borderColor: 'red',
-      alignSelf:'center',
-      marginTop: 20,
-    },
-  });
-const{width,height}= Dimensions.get('window');
+  imageStyle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: 'red',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+});
 
-export default class Vehicle extends React.Component{
-  handleFirstButtonPress = () => {
-    this.props.navigation.navigate('Map');
-  };
-  handleSecondButtonPress = () => {
-    this.props.navigation.navigate('Map');
-  };
-  handleThirdButtonPress = () => {
-    this.props.navigation.navigate('Map');
+const { width, height } = Dimensions.get('window');
+console.log("test");
+
+export default function Vehicle(props) {
+  const { vehicleName } = props.route.params || "";
+
+  const handleFirstButtonPress = () => {
+    if (!vehicleName) {
+      Alert.alert('Lütfen bir araç seçin!', '', [
+        { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+      ]);
+      return;
+    }
+    console.log("Selected vehicle: ", vehicleName);
+    props.navigation.navigate('Map', { vehiclename: vehicleName });
   };
 
-  render(){
-    return (
-      <View style={{flex:1}}>
-         <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: 'bold',}}>Select your urgency </Text>
-         <Text style={{alignSelf: 'center', fontSize: 18,}}>(Red most urgent, green medium urgency, yellow less urgent)</Text>
-        <TouchableOpacity onPress={this.handleFirstButtonPress}>
-          <View style={{ width: 150, height: 150, backgroundColor: 'red' ,width: 150, borderRadius: 50, borderWidth: 2,borderColor: 'red',alignSelf:'center',marginTop: 20,}} />
+  const handleSecondButtonPress = () => {
+    if (!vehicleName) {
+      Alert.alert('Lütfen bir araç seçin!', '', [
+        { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+      ]);
+      return;
+    }
+    console.log("Selected vehicle: ", vehicleName);
+    props.navigation.navigate('Map', { vehiclename: vehicleName });
+  };
+
+  const handleThirdButtonPress = () => {
+    if (!vehicleName) {
+      Alert.alert('Lütfen bir araç seçin!', '', [
+        { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+      ]);
+      return;
+    }
+    console.log("Selected vehicle: ", vehicleName);
+    props.navigation.navigate('Map', { vehiclename: vehicleName });
+  };
+
+  useEffect(() => {
+    if (!vehicleName) {
+      Alert.alert('Lütfen bir araç seçin!', '', [
+        { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+      ]);
+    }
+  }, [vehicleName]);
+
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={{ backgroundColor: 'red', padding: 20 }}>
+        <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
+          İstediğiniz araç        "{vehicleName}"
+        </Text>
+      </View>
+      <View style={{paddingTop:20}}></View>
+      <View style={{ backgroundColor:'red',  justifyContent: 'center', alignItems: 'center', height: 50 ,borderRadius: 45}}>
+  <Text style={{ color: 'white', fontSize: 28,fontWeight:'bold' }}>lütfen acil durum seviyesini seçin</Text>
+</View>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        <TouchableOpacity onPress={handleFirstButtonPress}>
+          <View style={{ width: 100, height: 100, backgroundColor: 'white', borderRadius: 55, borderWidth: 1, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+            <Image
+              source={require('./../image/acil1.webp')}
+              style={{ width: 80, height: 80, alignSelf: 'center' }}
+            />
+          </View>
+          <Text style={{ alignSelf: 'center', fontSize: 30, color: 'black', fontWeight: 'bold' }}>Acil</Text>
+
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.handleSecondButtonPress}>
-        <View style={{ width: 150, height: 150, backgroundColor: 'green' ,width: 150, borderRadius: 50, borderWidth: 2,borderColor: 'green',alignSelf:'center',marginTop: 20,}} />
+        <TouchableOpacity onPress={handleSecondButtonPress}>
+          <View style={{ width: 100, height: 100, backgroundColor: 'white', borderRadius: 55, borderWidth: 1, borderColor: 'green', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+            <Image
+              source={require('./../image/orta1.webp')}
+              style={{ width: 80, height: 80, alignSelf: 'center' }}
+            />
+          </View>
+          <Text style={{ alignSelf: 'center', fontSize: 30, color: 'black', fontWeight: 'bold' }}>Orta</Text>
+
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.handleThirdButtonPress}>
-        <View style={{ width: 150, height: 150, backgroundColor: 'yellow' ,width: 150, borderRadius: 50, borderWidth: 2,borderColor: 'yellow',alignSelf:'center',marginTop: 20,}} />
+        <TouchableOpacity onPress={handleThirdButtonPress}>
+          <View style={{ width: 100, height: 100, backgroundColor: 'white', borderRadius: 55, borderWidth: 1, borderColor: '#FFD700', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+            <Image
+              source={require('./../image/normal1.webp')}
+              style={{ width: 80, height: 80, alignSelf: 'center' }}
+            />
+          </View>
+          <Text style={{ alignSelf: 'center', fontSize: 30, color: 'black', fontWeight: 'bold' }}>Normal</Text>
+
         </TouchableOpacity>
       </View>
-    );
-  }
+
+    </View>
+  );
 }
