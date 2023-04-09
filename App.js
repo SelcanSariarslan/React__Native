@@ -7,6 +7,7 @@ import Home from './src/component/Home';
 import Vehicle from './src/component/Vehicle';
 import Station from './src/component/Station';
 import Map from './src/component/Map';
+import RegisterScreen from './src/component/RegisterScreen';
 //import CameraScreen from'./component/CameraScreen';
 import Adminmain from './src/component/Adminmain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,7 +30,7 @@ const MainNavigator = createStackNavigator({
   
   //Login: { screen: Login },
   Login: { screen: Login },
-  
+  RegisterScreen: { screen: RegisterScreen },
   Vehicle: { screen: MainContianer },
   Station: { screen: Station },
   Map: { screen: Map },
