@@ -19,7 +19,7 @@ firebase.auth().signInWithEmailAndPassword(email, password)
   if (email === 'admin@gmail.com' && password === 'admin123') {
     navigation.navigate('Adminmain');
   } else {
-    navigation.navigate('RegisterScreen');
+    navigation.navigate('Vehicle');
   }
 })
 .catch(error => console.log('An error occurred:', error.message));
@@ -48,7 +48,7 @@ return (
      secureTextEntry
    />
 <Button color= "red" title="Login" onPress={handleLogin} />
-<Button color="red" title="Don't have an account? Sign up" onPress={() => navigation.navigate('Vehicle')} />
+<Button color= "red" title="Don't have an account? Sign up" onPress={() => navigation.navigate('RegisterScreen')} />
 </View>
 );
 }

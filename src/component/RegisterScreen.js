@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import firebase from 'firebase/app';
 
 export default function RegisterScreen({ navigation }) {
@@ -30,7 +30,10 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{color: "red", fontSize: 20, marginBottom: 30, fontWeight: 'bold'}}>Register</Text>
+       <View style={{ alignItems: 'center', paddingTop: 20,paddingBottom:20, backgroundColor:'red', marginBottom:30 }}>
+    <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
+    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 , color:'white',paddingLeft: 100, paddingRight: 100,}}>REGISTER</Text>
+  </View>
       <TextInput
         style={styles.input}
         placeholder="Ad"
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 20,
   },
+  
   input: {
     width: '80%',
     height: 50,
