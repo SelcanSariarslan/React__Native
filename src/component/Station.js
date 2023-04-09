@@ -59,40 +59,40 @@ export default function Vehicle(props) {
       <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>lütfen acil durum seviyesini seçin</Text>
       </View>
-
+      <View style={{ paddingTop: 20 }}></View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <TouchableOpacity onPress={handleFirstButtonPress} style={{ opacity: selectedLevel === "Acil" ? 1 : selectedLevel === "" ? 1 : 0.3 }}
-        >
-          <View style={{ width: 100, height: 100, backgroundColor: 'white', borderRadius: 55, borderWidth: 1, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
-            <Image
-              source={require('.././image/acil1.webp')}
-              style={{ width: 80, height: 80, alignSelf: 'center' }}
-            />
+        <TouchableOpacity onPress={handleFirstButtonPress} style={{ opacity: selectedLevel === "Acil" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
+          <View style={{ borderWidth: 2, borderColor: 'red', borderRadius: 10 }}>
+            <View style={{ width: 90, height: 90, borderRadius: 55, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+              <Image
+                source={require('.././image/heart.webp')}
+                style={{ width: 100, height: 100, alignSelf: 'center' }}
+              />
+            </View>
+            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'red', fontWeight: 'bold' }}>Acil</Text>
           </View>
-          <Text style={{ alignSelf: 'center', fontSize: 30, color: 'black', fontWeight: 'bold' }}>Acil</Text>
-
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSecondButtonPress} style={{ opacity: selectedLevel === "Orta" ? 1 : selectedLevel === "" ? 1 : 0.3 }}
-        >
-          <View style={{ width: 100, height: 100, backgroundColor: 'white', borderRadius: 55, borderWidth: 1, borderColor: 'blue', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
-            <Image
-              source={require('.././image/orta1.webp')}
-              style={{ width: 80, height: 80, alignSelf: 'center' }}
-            />
+        <TouchableOpacity onPress={handleSecondButtonPress} style={{ opacity: selectedLevel === "Orta" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
+          <View style={{ borderWidth: 2, borderColor: 'red', borderRadius: 10 }}>
+            <View style={{ width: 90, height: 90, borderRadius: 55, alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+              <Image
+                source={require('.././image/heart.webp')}
+                style={{ width: 100, height: 100, alignSelf: 'center' }}
+              />
+            </View>
+            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'red', fontWeight: 'bold' }}>Orta</Text>
           </View>
-          <Text style={{ alignSelf: 'center', fontSize: 30, color: 'black', fontWeight: 'bold' }}>Orta</Text>
-
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleThirdButtonPress} style={{ opacity: selectedLevel === "Normal" ? 1 : selectedLevel === "" ? 1 : 0.3 }}
-        >
-          <View style={{ width: 100, height: 100, backgroundColor: 'white', borderRadius: 55, borderWidth: 1, borderColor: '#FFA500', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
-            <Image
-              source={require('.././image/normal1.webp')}
-              style={{ width: 80, height: 80, alignSelf: 'center' }}
-            />
+        <TouchableOpacity onPress={handleThirdButtonPress} style={{ opacity: selectedLevel === "Normal" ? 1 : selectedLevel === "" ? 1 : 0.3 }}>
+          <View style={{ borderWidth: 2, borderColor: 'red', borderRadius: 10 }}>
+            <View style={{ width: 90, height: 90, borderRadius: 55, borderColor: '#FFA500', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+              <Image
+                source={require('.././image/heart.webp')}
+                style={{ width: 100, height: 100, alignSelf: 'center' }}
+              />
+            </View>
+            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'red', fontWeight: 'bold' }}>Normal</Text>
           </View>
-          <Text style={{ alignSelf: 'center', fontSize: 30, color: 'black', fontWeight: 'bold' }}>Normal</Text>
-
         </TouchableOpacity>
       </View>
 
