@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import firebase from 'firebase/app';
-
+import 'firebase/auth';
+import { auth, firestore, database } from '../../node_modules/expo/AppEntry';
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,6 +27,7 @@ export default function RegisterScreen({ navigation }) {
         }
       })
       .catch(error => console.log('An error occurred while creating user account:', error.message));
+     
   }
 
   return (
