@@ -4,7 +4,7 @@ import{StackNavigator}from 'react-navigation';
 import { StyleSheet, View,Text } from 'react-native';
 import Login from './src/component/Login';
 import Home from './src/component/Home';
-import Vehicle from './src/component/Vehicle';
+import Vehicle from './src/component/Araçlar';
 import Station from './src/component/Station';
 import Map from './src/component/Map';
 import RegisterScreen from './src/component/RegisterScreen';

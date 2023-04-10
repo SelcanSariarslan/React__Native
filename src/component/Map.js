@@ -24,7 +24,7 @@ const LeafletMap = (props) => {
     useEffect(() => {
         if (!vehicleName) {
             Alert.alert('Lütfen bir araç seçin!', '', [
-                { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+                { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
         }
     }, [vehicleName]);
