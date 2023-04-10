@@ -33,7 +33,7 @@ const LeafletMap = (props) => {
     const handleCancelButtonPress = () => {
         if (!vehicleName) {
             Alert.alert('Önce acil bir araç seçmelisiniz!!!', '', [
-                { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+                { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
             return;
         }
