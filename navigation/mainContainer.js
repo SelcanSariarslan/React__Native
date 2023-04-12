@@ -12,10 +12,10 @@ import HomeScrean from './screans/HomeScreen';
 import SettingScrean from './screans/SettingSecreen';
 import Station from '../src/component/Station'
 import Map from '../src/component/Map'
-import Vehicle from '../src/component/Vehicle'
+import Araçlar from '../src/component/Araçlar'
 
 //Screan names
-const homeName = 'Vehicle';
+const homeName = 'Araçlar';
 const StationName = 'Station';
 const MapName = 'Map';
 
@@ -34,7 +34,7 @@ export default function MainContianer() {
                         let rn = route.name;
 
                         if (rn === homeName) {
-                            iconName = focused ? 'medkit' : 'medkit-outline';
+                            iconName = focused ? 'car' : 'car-outline';
                         } else if (rn === StationName) {
                             iconName = focused ? 'options' : 'options-outline';
                         } else if (rn === MapName) {
@@ -51,7 +51,7 @@ export default function MainContianer() {
                 }}
                 
                 >
-                <Tab.Screen name={homeName} component={Vehicle} options={{ headerShown: false }} />
+                <Tab.Screen name={homeName} component={Araçlar} options={{ headerShown: false }} />
                 <Tab.Screen name={StationName} component={Station} options={{ headerShown: false }} />
                 <Tab.Screen name={MapName} component={Map} options={{ headerShown: false }}/>
 

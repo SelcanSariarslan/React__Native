@@ -24,7 +24,7 @@ const LeafletMap = (props) => {
     useEffect(() => {
         if (!vehicleName) {
             Alert.alert('Lütfen bir araç seçin!', '', [
-                { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+                { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
         }
     }, [vehicleName]);
@@ -33,7 +33,7 @@ const LeafletMap = (props) => {
     const handleCancelButtonPress = () => {
         if (!vehicleName) {
             Alert.alert('Önce acil bir araç seçmelisiniz!!!', '', [
-                { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
+                { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
             return;
         }
@@ -219,6 +219,7 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
 
     return (
         <View style={{ flex: 1 }}>
+        <View style={{paddingTop:30,backgroundColor:'white'}}></View>
             <View style={{ flex: 2, width: '100%', position: 'relative' }}>
                 {showCancelButton ? (
                     <Cancel_Button onPress={handleCancelButtonPress} />)
