@@ -50,6 +50,7 @@ export default function Vehicle(props) {
   console.log(selectedLevel);
   return (
     <View style={{ flex: 1 }}>
+    <View style={{paddingTop:30,backgroundColor:'red'}}></View>
       <View style={{ backgroundColor: 'red', padding: 20 }}>
         <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
           İstediğiniz araç        "{vehicleName}"

@@ -1,37 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Modal } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-
-
-
-
-const ConfirmationModal = ({ visible, name, onCancel, onConfirm }) => {
-
-  return (
-    <Modal visible={visible} animationType="fade" transparent={true}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
-        <View style={{ backgroundColor: '#fff', padding: 20, width: 350, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderRadius: 10, borderColor: 'red' }}>
-          <Image source={require('./../image/ok.jpg')} style={{ width: 250, height: 100 }} />
-          <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 20, color: 'red' }}>
-            İstediğiniz Araç
-          </Text>
-          <Text style={{  textAlign: 'center', marginTop: 20, color: 'red', fontSize: 40,fontWeight:'bold'  }}>
-            {'"'+name+'"'}
-          </Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-            <TouchableOpacity onPress={onCancel}>
-              <Text style={{ fontSize: 18, color: 'red', paddingRight: 230, fontSize: 20,fontWeight:'bold' }}>Hayır</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onConfirm}>
-              <Text style={{ fontSize: 18, color: 'green', fontSize: 20,fontWeight:'bold' }}>Evet</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </Modal>
-  );
-};
-
+import ConfirmationModal from '../smalComponent/ConfirmationModal';
+import HelpModel from '../smalComponent/HelpModel';
 
 
 const styles = StyleSheet.create({
@@ -90,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
     borderWidth: 2,
-    borderRadius: 20,
+    borderRadius: 7,
     borderColor: 'red',
   },
   textContainer: {
@@ -107,30 +78,28 @@ const styles = StyleSheet.create({
 
 
 const { width, height } = Dimensions.get('window');
-
 export default function Vehicle(props) {
-
+  const [stateHelp, setstateHelp] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [Vehicle, setVehicle] = useState("");
 
   const handlePressForVehicle = (name) => {
     setModalVisible(true);
     setVehicle(name);
-    
   };
-
   const handleCancel = () => {
     setModalVisible(false);
   };
-
   const handleConfirm = (name) => {
     navigateToPage(name);
     console.log(name);
     setModalVisible(false);
-    
-    
   };
 
+  const handleDetails = () => {
+    setstateHelp(false);
+
+  };
 
 
   const navigateToPage = (vehicleName) => {
@@ -140,40 +109,12 @@ export default function Vehicle(props) {
   }
 
 
-
-  const handlePressForVehichle = (name) => {
-    Alert.alert(
-      'ACİL ARAÇ',
-      ' İstediğiniz araç ' + '"' + name + '"',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'OK',
-          onPress: () => navigateToPage(name),
-          style: 'default',
-          image: (
-            <Image
-              source={require('./../image/ampu.png')}
-              style={{ width: 40, height: 40 }}
-            />
-          ),
-        },
-      ]
-    );
-  };
-
-  const handlePress = () => {
-    Alert.alert(
-      'Nasıl kullanılır!!!',
-      'Are you sure you want to navigate to another page?Are you sure you want to navigate to another page?Are you sure you want to navigate to another page?Are you sure you want to navigate to another page?Are you sure you want to navigate to another page?',
-
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => navigateToAnotherPage() },
-      ],
-      { titleStyle: { color: 'red' } }
-    );
-  };
+  const handlePressTrue = () => {
+    setstateHelp(true);
+  }
+  const handlePressFalse = () => {
+    setstateHelp(false);
+  }
 
 
 
@@ -186,6 +127,7 @@ export default function Vehicle(props) {
 
 
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{paddingTop:30,backgroundColor:'red'}}></View>
       <View >
 
         <ConfirmationModal
@@ -196,7 +138,7 @@ export default function Vehicle(props) {
         />
       </View>
       <TouchableOpacity
-        onPress={handlePress}
+        onPress={handlePressTrue}
         style={{
           backgroundColor: '',
           width: 100,
@@ -213,17 +155,17 @@ export default function Vehicle(props) {
             width: 30,
             height: 30,
             position: 'absolute',
-            top: 5,
+            top: 30,
             left: 5,
             zIndex: 1,
             backgroundColor: 'white',
             borderRadius: 20,
           }}
         />
-        <TouchableOpacity
+        <View
           style={{
             position: 'absolute',
-            top: 5,  // adjust the top position to align with the image
+            top: 30,  // adjust the top position to align with the image
             left: 29,  // adjust the left position to add some space between the text and image
             zIndex: 1,
             alignItems: 'center',  // center the text horizontally
@@ -233,10 +175,16 @@ export default function Vehicle(props) {
           }}
         >
           <Text style={{ color: 'white' }}>Yardım</Text>
-        </TouchableOpacity>
+        </View>
       </TouchableOpacity>
 
-
+      {stateHelp && (
+        <View>
+          <HelpModel
+            onCancel={handlePressFalse}
+            onDetails={ handleDetails} />
+        </View>
+      )}
 
 
 
@@ -248,7 +196,7 @@ export default function Vehicle(props) {
       <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Lütfen bir arac seçiniz</Text>
       </View>
-      <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: '', flex: 1, justifyContent: 'center' }}>
+      <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: 'white', flex: 1, justifyContent: 'center' }}>
         <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={styles.textstyle}>AMBULANS</Text>
