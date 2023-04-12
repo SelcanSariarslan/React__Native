@@ -1,7 +1,19 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native';
+import FirstInstruction from '../instructions/Instruction';
 
-const HelpModel = ({ visible, onCancel, onDetails }) => {
+
+const HelpModel = ({ visible, onCancel, onDetails, oncancelShow }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [showDetailes, setshowDetailes] = useState(false);
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
+    const handleConfirm = () => {
+        setModalVisible(true);
+        
+    };
+   
     return (
         <Modal visible={visible} animationType="slide" transparent={true}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 7 }}>
@@ -10,8 +22,8 @@ const HelpModel = ({ visible, onCancel, onDetails }) => {
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ fontSize: 40, fontWeight: 'bold', marginBottom: 20, color: 'red' }}>How to Use!!!</Text>
                     </View>
-                    <View style={{  }}></View>
-                    <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center',borderRadius: 3 }}>
+                    <View style={{}}></View>
+                    <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', borderRadius: 3 }}>
                         <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Fast Explenation</Text>
                     </View>
 
@@ -21,10 +33,18 @@ const HelpModel = ({ visible, onCancel, onDetails }) => {
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>For More Details please Click </Text>
-                        <TouchableOpacity onPress={onDetails} style={{ flex: 1 }}>
+                        <TouchableOpacity onPress={handleConfirm} style={{ flex: 1 }}>
                             <Text style={{ fontSize: 20, color: 'red', fontWeight: 'bold' }}>Here</Text>
                         </TouchableOpacity>
                     </View>
+                    
+                    {modalVisible  && (
+                        <View>
+                            <FirstInstruction
+                                onCancel={onCancel}
+                                onConfirm={handleConfirm} />
+                        </View>
+                    )}
 
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: 20, paddingTop: '50%' }}>
