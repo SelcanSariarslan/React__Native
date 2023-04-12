@@ -48,7 +48,7 @@ return (
      secureTextEntry
    />
 <Button color= "red" title="Login" onPress={handleLogin} />
-<Button color= "red" title="Don't have an account? Sign up" onPress={() => navigation.navigate('RegisterScreen')} />
+<Button color= "red" title="Don't have an account? Sign up" onPress={() => navigation.navigate('Vehicle')} />
 </View>
 );
 }

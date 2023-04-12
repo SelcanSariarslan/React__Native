@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-
+import DataPhotograph from '../smalComponent/DataPhotograph';
+//import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
   imageStyle: {
     width: 100,
@@ -96,6 +97,10 @@ export default function Vehicle(props) {
         </TouchableOpacity>
       </View>
 
+      <View>
+      <Text>This is the Vehicle page</Text>
+      <DataPhotograph />
+    </View>
 
     </View>
   );

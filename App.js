@@ -37,5 +37,7 @@ const MainNavigator = createStackNavigator({
   Adminmain: { screen: Adminmain },
   //CameraScreen:{screen: CameraScreen},
  });
+ 
  const AppContainer = createAppContainer(MainNavigator);
+
  export default AppContainer;
