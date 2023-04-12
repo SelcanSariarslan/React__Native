@@ -80,7 +80,7 @@ export default function Vehicle(props) {
               <Image
                borderRadius={400}
                 style={{ width: 70, height: 70, alignSelf: 'center' }}
-                backgroundColor='yellow' />
+                backgroundColor='#FFC900' />
             </View>
             <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Orta</Text>
           </View>
