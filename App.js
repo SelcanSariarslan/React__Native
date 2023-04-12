@@ -52,15 +52,6 @@ const MainNavigator = createStackNavigator({
     },
   },
   Map: { screen: Map },
-<<<<<<< HEAD
-  Adminmain: { screen: Adminmain },
-  //CameraScreen:{screen: CameraScreen},
- });
- 
- const AppContainer = createAppContainer(MainNavigator);
-
- export default AppContainer;
-=======
   Adminmain: {
     screen: Adminmain,
     navigationOptions: {
@@ -73,4 +64,3 @@ const MainNavigator = createStackNavigator({
 
 const AppContainer = createAppContainer(MainNavigator);
 export default AppContainer;
->>>>>>> 9834659430752d5a4817c9046cf205c078019ecd
