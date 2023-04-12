@@ -29,7 +29,7 @@ return (
   <View style={{ flex: 1 }}>
   <View style={{ alignItems: 'center', paddingTop: 20,paddingBottom:20,backgroundColor:'red',marginBottom:30 }}>
     <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
-    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 , color:'white'}}>ACIL GIRIŞ</Text>
+    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 , color:'white'}}>EMERGENCY ENTRY</Text>
   </View>
 
 <TextInput

@@ -15,7 +15,7 @@ import Map from '../src/component/Map'
 import Araçlar from '../src/component/Araçlar'
 
 //Screan names
-const homeName = 'Araçlar';
+const homeName = 'Vehicle';
 const StationName = 'Station';
 const MapName = 'Map';
 

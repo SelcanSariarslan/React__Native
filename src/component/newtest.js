@@ -8,10 +8,10 @@ const ConfirmationModal = ({ visible, name, onCancel, onConfirm }) => {
         <View style={{ backgroundColor: '#fff', borderRadius: 10, padding: 20 }}>
           <Image source={require('./path/to/your/image.png')} style={{ width: 100, height: 100 }} />
           <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 20 }}>
-            ACİL ARAÇ
+          EMERGENCY VEHICLE
           </Text>
           <Text style={{ fontSize: 16, textAlign: 'center', marginTop: 20 }}>
-            {'İstediğiniz araç ' + name}
+            {'The vehicle you want ' + name}
           </Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
             <TouchableOpacity onPress={onCancel}>

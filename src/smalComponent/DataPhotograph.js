@@ -184,13 +184,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import * as Permissions from 'expo-permissions'; // yeni eklendi
-import { Audio } from 'expo-av'; // yeni eklendi
+import * as Permissions from 'expo-permissions';
+import { Audio } from 'expo-av';
 
 const DataPhotograph = () => {
   const [userName, setUserName] = useState('');
   const [voiceRecorded, setVoiceRecorded] = useState(false);
   const [voiceURI, setVoiceURI] = useState(null);
+  const [sound, setSound] = useState(null);
 
   const fetchUserName = async () => {
     const currentUser = firebase.auth().currentUser;
@@ -224,6 +225,23 @@ const DataPhotograph = () => {
     }
   }
 
+  const playVoice = async () => {
+    if (sound) {
+      console.log('Ses zaten çalıyor.');
+      return;
+    }
+
+    try {
+      const { sound: audioSound } = await Audio.Sound.createAsync({ uri: voiceURI });
+      setSound(audioSound);
+      console.log('Ses başarıyla yüklendi.');
+      await audioSound.playAsync();
+      console.log('Ses başarıyla çalındı.');
+    } catch (error) {
+      console.log('Ses çalınırken bir hata oluştu: ', error);
+    }
+  }
+
   useEffect(() => {
     fetchUserName();
   }, []);
@@ -247,26 +265,26 @@ const DataPhotograph = () => {
         setVoiceURI(uri);
         setVoiceRecorded(true);
         console.log('Ses kaydı başarıyla kaydedildi.');
-      }, 5000); // 5 saniye sonra kayıt otomatik olarak durdurulacak
+      }, 5000);
     } catch (error) {
       console.log('Ses kaydı sırasında bir hata oluştu: ', error);
     }
   }
-
   return (
     <View>
       <Text>Kullanıcının adı: {userName}</Text>
       {voiceRecorded ? (
-        <Text style={{ marginTop: 10 }}>Kaydedilen ses: {voiceURI}</Text>
+        <View>
+          <Text style={{ marginTop: 10 }}>Kaydedilen ses: {voiceURI}</Text>
+          <Button title="Kaydedilen Sesleri Dinle" onPress={playVoice} />
+        </View>
       ) : null}
       <Button title="Ses Kaydı Yap" onPress={handleRecordVoice} />
       <Button title="Ses Kaydını Kaydet" onPress={addVoiceRecord} />
     </View>
   );
-};
-
-export default DataPhotograph;
-
+      };
+      export default DataPhotograph;
 
 
 

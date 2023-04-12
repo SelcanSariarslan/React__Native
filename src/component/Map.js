@@ -23,7 +23,7 @@ const LeafletMap = (props) => {
 
     useEffect(() => {
         if (!vehicleName) {
-            Alert.alert('Lütfen bir araç seçin!', '', [
+            Alert.alert('Please choose a vehicle!', '', [
                 { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
         }
@@ -32,7 +32,7 @@ const LeafletMap = (props) => {
 
     const handleCancelButtonPress = () => {
         if (!vehicleName) {
-            Alert.alert('Önce acil bir araç seçmelisiniz!!!', '', [
+            Alert.alert('First you have to choose an emergency vehicle!!!', '', [
                 { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
             return;
@@ -236,7 +236,7 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
                                     zIndex: 1,
                                 }}
                                 onPress={handleMinimizeButtonPress}>
-                                <Text style={{ color: 'white', fontSize: 15 }}> Harıtayı küçült</Text>
+                                <Text style={{ color: 'white', fontSize: 15 }}>Shrinking the map</Text>
                             </TouchableOpacity>
                         )
                     )}
@@ -257,7 +257,7 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
                                 borderRadius: 5,
                             }}
                             onPress={handleViewMapButtonPress}>
-                            <Text style={{ color: 'white', fontSize: 15 }}>Haritayı incele</Text>
+                            <Text style={{ color: 'white', fontSize: 15 }}>View Map</Text>
                         </TouchableOpacity>
                     )}
                 </View>

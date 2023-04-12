@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DataPhotograph from '../smalComponent/DataPhotograph';
+import TextArea from '../smalComponent/TextArea';
 //import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
   imageStyle: {
@@ -43,7 +44,7 @@ export default function Vehicle(props) {
 
   useEffect(() => {
     if (!vehicleName) {
-      Alert.alert('Lütfen bir araç seçin!', '', [
+      Alert.alert('Please select a vehicle!', '', [
         { text: 'Tamam', onPress: () => props.navigation.navigate('Vehicle') }
       ]);
     }
@@ -54,54 +55,53 @@ export default function Vehicle(props) {
     <View style={{paddingTop:30,backgroundColor:'red'}}></View>
       <View style={{ backgroundColor: 'red', padding: 20 }}>
         <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
-          İstediğiniz araç        "{vehicleName}"
+          The vehicle you want "{vehicleName}"
         </Text>
       </View>
       <View style={{ paddingTop: 20 }}></View>
       <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>lütfen acil durum seviyesini seçin</Text>
+        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Please select emergency level</Text>
       </View>
       <View style={{ paddingTop: 20 }}></View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <TouchableOpacity onPress={handleFirstButtonPress} style={{ opacity: selectedLevel === "Acil" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
           <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
-            <View style={{ width: 90, height: 90, borderRadius: 55, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+            <View style={{ width: 90, height: 70, borderRadius: 55, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
               <Image
                 borderRadius={400}
                 style={{ width: 70, height: 70, alignSelf: 'center' }}
                 backgroundColor='red'
               />
             </View>
-            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Acil</Text>
+            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>High</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSecondButtonPress} style={{ opacity: selectedLevel === "Orta" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
           <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
-            <View style={{ width: 90, height: 90, borderRadius: 55, alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+            <View style={{ width: 90, height: 70, borderRadius: 55, alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
               <Image
                borderRadius={400}
                 style={{ width: 70, height: 70, alignSelf: 'center' }}
                 backgroundColor='#FFC900' />
             </View>
-            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Orta</Text>
+            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Middle</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleThirdButtonPress} style={{ opacity: selectedLevel === "Normal" ? 1 : selectedLevel === "" ? 1 : 0.3 }}>
           <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
-            <View style={{ width: 90, height: 90, borderRadius: 55, borderColor: '#FFA500', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+            <View style={{ width: 90, height: 70, borderRadius: 55, borderColor: '#FFA500', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
               <Image
               borderRadius={400}
                 style={{ width: 70, height: 70, alignSelf: 'center' }}
                 backgroundColor='green'  />
             </View>
-            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Normal</Text>
+            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Low</Text>
           </View>
         </TouchableOpacity>
       </View>
 
-      <View>
-      <Text>This is the Vehicle page</Text>
-      <DataPhotograph />
+      <View style={{ marginTop: 10 }}>
+      <TextArea />
     </View>
 
     </View>

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'white',
     backgroundColor: 'red',
-    fontSize: 50,
+    fontSize: 40,
     color: 'white',
     fontWeight: '800',
   },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   textstyle: {
     color: 'red',
     alignSelf: 'center',
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: 'bold',
     backgroundColor: ''
   }
@@ -180,7 +180,7 @@ export default function Vehicle(props) {
             height: 30,  // adjust the height to fit the text
           }}
         >
-          <Text style={{ color: 'white' }}>Yardım</Text>
+          <Text style={{ color: 'white' ,fontSize:19}}>Help</Text>
         </View>
       </TouchableOpacity>
 
@@ -198,16 +198,16 @@ export default function Vehicle(props) {
 
 
       <View style={styles.border}>
-        <Text style={styles.text}>ACİL ARAÇLAR</Text>
+        <Text style={styles.text}>EMERGENCY VEHICLES</Text>
       </View>
       <View style={{ paddingTop: 20 }}></View>
       <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Lütfen bir arac seçiniz</Text>
+        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Please select a vehicle</Text>
       </View>
       <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: 'white', flex: 1, justifyContent: 'center' }}>
         <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.container}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyle}>AMBULANS</Text>
+            <Text style={styles.textstyle}>AMBULANCE</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image source={require('./../image/ampu.png')} style={styles.imageStyle} />
@@ -216,7 +216,7 @@ export default function Vehicle(props) {
 
         <TouchableOpacity onPress={() => handlePressForVehicle('Polis')} style={styles.container}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyle}>POLİS</Text>
+            <Text style={styles.textstyle}>POLICE</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image source={require('./../image/polic.png')} style={styles.imageStyle} />
@@ -225,7 +225,7 @@ export default function Vehicle(props) {
 
         <TouchableOpacity onPress={() => handlePressForVehicle('İtfaiye')} style={styles.container}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyle}>ITFAIYE</Text>
+            <Text style={styles.textstyle}>FIRE-FIGHTING</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image source={require('./../image/itfa.png')} style={styles.imageStyle} />

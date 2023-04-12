@@ -8,17 +8,17 @@ const ConfirmationModal = ({ visible, name, onCancel, onConfirm }) => {
         <View style={{ backgroundColor: '#fff', padding: 20, width: '92%', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderRadius: 10, borderColor: 'red' }}>
           <Image source={require('./../image/ok.jpg')} style={{ width: 250, height: 100 }} />
           <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 20, color: 'red' }}>
-            İstediğiniz Araç
+          The Vehicle You Want
           </Text>
           <Text style={{  textAlign: 'center', marginTop: 20, color: 'red', fontSize: 40,fontWeight:'bold'  }}>
             {'"'+name+'"'}
           </Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
             <TouchableOpacity onPress={onCancel}>
-              <Text style={{ fontSize: 18, color: 'red', paddingRight: 230, fontSize: 20,fontWeight:'bold' }}>Hayır</Text>
+              <Text style={{ fontSize: 18, color: 'red', paddingRight: 230, fontSize: 20,fontWeight:'bold' }}>No</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onConfirm}>
-              <Text style={{ fontSize: 18, color: 'green', fontSize: 20,fontWeight:'bold' }}>Evet</Text>
+              <Text style={{ fontSize: 18, color: 'green', fontSize: 20,fontWeight:'bold' }}>Yes</Text>
             </TouchableOpacity>
           </View>
         </View>
