@@ -32,7 +32,7 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-       <View style={{ alignItems: 'center', paddingTop: 20,paddingBottom:20, backgroundColor:'red', marginBottom:30 }}>
+       <View style={{ alignItems: 'center', paddingTop: 20,paddingBottom:20, backgroundColor:'red', marginBottom:30,borderRadius:3 }}>
     <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
     <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 , color:'white',paddingLeft: 100, paddingRight: 100,}}>REGISTER</Text>
   </View>

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Mod
 import { NavigationActions } from 'react-navigation';
 import ConfirmationModal from '../smalComponent/ConfirmationModal';
 import HelpModel from '../smalComponent/HelpModel';
+import FirstInstruction from '../instructions/Instruction';
 
 
 const styles = StyleSheet.create({
@@ -100,6 +101,11 @@ export default function Vehicle(props) {
     setstateHelp(false);
 
   };
+  const cancelShow = () => {
+    setstateHelp(false);
+
+  };
+  
 
 
   const navigateToPage = (vehicleName) => {
@@ -182,7 +188,9 @@ export default function Vehicle(props) {
         <View>
           <HelpModel
             onCancel={handlePressFalse}
-            onDetails={ handleDetails} />
+            onDetails={ handleDetails}
+            oncancelShow={cancelShow} />
+            
         </View>
       )}
 
