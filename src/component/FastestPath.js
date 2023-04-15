@@ -1,10 +1,74 @@
 
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
+import { lights } from '../assets/private_map/TrafficSignals';
+
+// -------------------------------------------------------- Traffic lights  ---------------------------------------
 
 
+
+
+var all_signals = [];  //---------------------  we found the commen signal traffics and assghin a new property to hold "yes" and its cordinates ------------------
+
+
+var lights_lenth = lights.features.length;                    // dikkat to the lenth in this row
 var Traffic_lenth = Traffic_Roads.features.length;
 //var Road_lenth =Traffic_Roads.features[0].geometry.coordinates.length;
+var counter = 0;
 var counter1 = 0;
+//var min = Traffic_Roads.features[0].geometry.coordinates[0][0];
+Find_traffic_signals();
+
+
+function Find_traffic_signals() {
+
+    for (let i = 0; i < lights_lenth; i++)  // for the traffic signals
+    {
+        var signal_lat = lights.features[i].geometry.coordinates[0];
+        var signal_lon = lights.features[i].geometry.coordinates[1];
+
+        if (signal_lon <= 39.9846044 /*max */ && signal_lat >= 32.8163794 && /*min*/signal_lon <= 39.9846044 && signal_lat >= 32.8163794) {  // for getting red of the lamb that does not bellong to this area
+            for (let x = 0; x < Traffic_lenth; x++) {  // for the roads in this graph in this page (represents the rows in this page)
+                var Road_lenth = Traffic_Roads.features[x].geometry.coordinates.length;
+
+               
+                for (let y = 0; y < Road_lenth; y++) { //for the node numbers (cordinates) in each row in this page 
+
+
+                    if (signal_lat == Traffic_Roads.features[x].geometry.coordinates[y][0] && signal_lon == Traffic_Roads.features[x].geometry.coordinates[y][1]) {
+
+                        Traffic_Roads.features[x].properties.traffic_signal = "yes";
+                        Traffic_Roads.features[x].properties.traffic_signal_coordinates = [signal_lat, signal_lon];
+                        all_signals[counter1] = [signal_lat, signal_lon];
+
+                        console.log("var in " + x);
+                        counter1++;
+                    } else {
+                        if (Traffic_Roads.features[x].properties.traffic_signal != "yes") {
+
+                            Traffic_Roads.features[x].properties.traffic_signal = "no";
+
+                        }
+                    }
+                    counter++;
+                }
+            }
+        }
+
+    }
+}
+console.log("loop was 6700000 now is " + counter);
+console.log("Lamba is " + counter1);
+
+var last = Traffic_Roads.features[26].properties.traffic_signal;
+console.log("Traffic_Signals--------------------------- is " + last);
+console.log(Traffic_Roads.features[114].properties);
+//console.log("Result is: "+ Result.features[0].geometry.coordinates[0]);
+
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 // -------------------------------------------------------- intersections  ---------------------------------------
 
@@ -176,6 +240,7 @@ var length_of_current_row_counter = 0;
 function creating_graph() {
     for (let i = 0; i < Traffic_Roads.features.length; i++) { // rows
         var LenthOfRoad = Traffic_Roads.features[i].geometry.coordinates.length;
+        
 
         for (let j = 0; j < LenthOfRoad; j++) { // coordinates
             var x = Traffic_Roads.features[i].geometry.coordinates[j][0];
@@ -190,7 +255,13 @@ function creating_graph() {
                     var llength = Calculate_lent_of_edge(edge_long);
 
                     // add_nodes(edge_long);
-                    add_edgs_fasttest(edge_long, llength + edge_counter); // adding edgs with its real length + number of dotes of the roads to the graph of the fastest
+                    if(Traffic_Roads.features[i].properties.traffic_signal == "yes"){  //we are testing if we have a traffic light in a part of a road, if yes we make this part longer by adding value '5' as distance to be avoided by our algorithm
+                         // console.log(Traffic_Roads.features[i].properties.traffic_signal);
+                        add_edgs_fasttest(edge_long, llength + edge_counter + 5);  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
+                    }else{
+                        add_edgs_fasttest(edge_long, llength + edge_counter);
+                    }
+                     // adding edgs with its real length + number of dotes of the roads to the graph of the fastest
                     edge_long.length = 0;
                     edge_counter = 0;
                     edge_long[edge_counter++] = Traffic_Roads.features[i].geometry.coordinates[j];
@@ -315,8 +386,8 @@ Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
 //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
 
 function fastest_Path(){
-    fasttest.dijkstra(unique_intersection[200]); // from  5
-    fasttest.findOptimalPath(unique_intersection[210]);  // to  22
+    fasttest.dijkstra(unique_intersection[177]); // from  129
+    fasttest.findOptimalPath(unique_intersection[14]);  // to  22
     
     }
     //console.log("Fastest_Result is: "+Fastest_Result.features[0].geometry.coordinates);

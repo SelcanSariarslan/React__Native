@@ -9274,7 +9274,7 @@ export var lights ={
     }
   ]
 }
-
+/*
 var lights_lenth =lights.features.length;
 
 for (let i = 0; i < lights_lenth; i++)
@@ -9283,6 +9283,6 @@ for (let i = 0; i < lights_lenth; i++)
 if(lights.features[i].geometry.coordinates[0] == 32.937455  &&  lights.features[i].geometry.coordinates[1] == 39.900924)
 console.log("Lambs that we have  "+ i);
 }
-
+ */
 /*var C_lights = lights.features[0].geometry.coordinates;
 console.log("rrrrr  "+C_lights); */

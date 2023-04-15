@@ -306,7 +306,7 @@ Result.features[0].geometry.coordinates = for_cordinate; // Adding the coordinat
 
 
 function shortest_path(){
-    g.dijkstra(unique_intersection[200]); // from  5
-g.findOptimalPath(unique_intersection[210]);  // to  22
+    g.dijkstra(unique_intersection[177]); // from  129
+g.findOptimalPath(unique_intersection[14]);  // to  14
 }
 //console.log("Shortest_Result is: "+Result.features[0].geometry.coordinates);
