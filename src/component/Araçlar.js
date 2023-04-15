@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 10,
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 20,
     borderColor: 'white',
     backgroundColor: 'red',
     fontSize: 40,
     color: 'white',
     fontWeight: '800',
+    paddingLeft:25,
   },
   imageStyle: {
     borderColor: 'red',
@@ -198,7 +199,7 @@ export default function Vehicle(props) {
 
 
       <View style={styles.border}>
-        <Text style={styles.text}>EMERGENCY VEHICLES</Text>
+        <Text style={styles.text}>EMERGENCY{'\n'}   VEHICLES</Text>
       </View>
       <View style={{ paddingTop: 20 }}></View>
       <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
