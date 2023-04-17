@@ -389,7 +389,7 @@ var roads3 = { // the right red roads
         var BPR=roads3.features[i];
       }
     }
-    console.log("opopopop");
+  
         
 
     console.log("this is a new printing"+"  "+ newthing.features[0].type);

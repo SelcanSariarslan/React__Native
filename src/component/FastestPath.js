@@ -40,7 +40,7 @@ function Find_traffic_signals() {
                         Traffic_Roads.features[x].properties.traffic_signal_coordinates = [signal_lat, signal_lon];
                         all_signals[counter1] = [signal_lat, signal_lon];
 
-                        console.log("var in " + x);
+                       // console.log("var in " + x);
                         counter1++;
                     } else {
                         if (Traffic_Roads.features[x].properties.traffic_signal != "yes") {
@@ -56,12 +56,12 @@ function Find_traffic_signals() {
 
     }
 }
-console.log("loop was 6700000 now is " + counter);
-console.log("Lamba is " + counter1);
+//console.log("loop was 6700000 now is " + counter);
+//console.log("Lamba is " + counter1);
 
 var last = Traffic_Roads.features[26].properties.traffic_signal;
-console.log("Traffic_Signals--------------------------- is " + last);
-console.log(Traffic_Roads.features[114].properties);
+//console.log("Traffic_Signals--------------------------- is " + last);
+//console.log(Traffic_Roads.features[114].properties);
 //console.log("Result is: "+ Result.features[0].geometry.coordinates[0]);
 
 //--------------------------------------------------------------------------------------------------------------
@@ -257,7 +257,7 @@ function creating_graph() {
                     // add_nodes(edge_long);
                     if(Traffic_Roads.features[i].properties.traffic_signal == "yes"){  //we are testing if we have a traffic light in a part of a road, if yes we make this part longer by adding value '5' as distance to be avoided by our algorithm
                          // console.log(Traffic_Roads.features[i].properties.traffic_signal);
-                        add_edgs_fasttest(edge_long, llength + edge_counter + 5);  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
+                        add_edgs_fasttest(edge_long, llength*(2) + edge_counter );  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
                     }else{
                         add_edgs_fasttest(edge_long, llength + edge_counter);
                     }

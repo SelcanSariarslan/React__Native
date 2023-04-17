@@ -157,11 +157,11 @@ var allVertex_counter = 0;
 //console.log("ooo Traffic_Roads.features[i].geometry.coordinates[j]",Traffic_Roads.features[1].geometry.coordinates);
 //               ----------------dikkaaaaaaaaaat--------------
 add_vertices();
-console.log("1111  "+g.vertices.length);
+//console.log("1111  "+g.vertices.length);
 //matchArrays(allVertex, unique_intersection);
 creating_graph();
 //combined_arrays(firstArray,secondArray);
-console.log("22222  "+g.vertices.length);
+//console.log("22222  "+g.vertices.length);
 
 var length_of_current_row_counter = 0;
 function creating_graph() {
@@ -183,7 +183,7 @@ function creating_graph() {
                    // add_nodes(edge_long);
                     add_edgs(edge_long, llength);   // adding edgs with its real length to the graph
 
-                    console.log("looong" + llength);
+                    //console.log("looong" + llength);
                     edge_long.length = 0;
                     edge_counter = 0;
 
@@ -252,9 +252,9 @@ function combined_arrays(firstArray, secondArray) {
 
 
     }
-    console.log("first is :" + firstArray.length);
-    console.log("secondArray is :" + secondArray.length);
-    console.log("lentheeeeeeee is :" + combinedMatrex.length);
+   // console.log("first is :" + firstArray.length);
+   // console.log("secondArray is :" + secondArray.length);
+  //console.log("lentheeeeeeee is :" + combinedMatrex.length);
 
 }
 
@@ -282,7 +282,7 @@ function add_nodes(edge_long) {
 function add_vertices() {
     for (let q = 0; q < unique_intersection.length; q++) {
         g.addVertex(unique_intersection[q]);
-        console.log(unique_intersection.length);
+      //  console.log(unique_intersection.length);
 
 
     }
@@ -327,7 +327,7 @@ function isExist(num) {
 function print(edge_long) {
 
     for (let q = 0; q < edge_long.length; q++) {
-        console.log(edge_long[q]);
+      //  console.log(edge_long[q]);
     }
 
 }
@@ -442,7 +442,7 @@ function Find_Between_two_intersecions() {
     var end = Result.features[0 + 1].geometry.coordinates[0];
 
     if (isExistInRow(start, end, Traffic_Roads.features[0].geometry.coordinates[0])) {
-        console.log("okk" + j);
+       // console.log("okk" + j);
 
 
     }
