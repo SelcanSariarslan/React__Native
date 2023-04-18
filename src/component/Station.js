@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, ScrollView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import DataPhotograph from '../smalComponent/DataPhotograph';
-import TextArea from '../smalComponent/TextArea';
+import Photograph from '../smalComponent/Photograph';
+import Voice from '../smalComponent/Voice';
+
 //import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
   imageStyle: {
@@ -51,6 +52,7 @@ export default function Vehicle(props) {
   }, [vehicleName]);
   console.log(selectedLevel);
   return (
+    <ScrollView>
     <View style={{ flex: 1 }}>
     <View style={{paddingTop:30,backgroundColor:'red'}}></View>
       <View style={{ backgroundColor: 'red', padding: 20 }}>
@@ -101,9 +103,12 @@ export default function Vehicle(props) {
       </View>
 
       <View style={{ marginTop: 10 }}>
-      <TextArea />
+      <Voice />
+      <Photograph />
+      
     </View>
 
     </View>
+    </ScrollView>
   );
 }
