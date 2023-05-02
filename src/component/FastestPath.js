@@ -257,7 +257,7 @@ function creating_graph() {
                     // add_nodes(edge_long);
                     if(Traffic_Roads.features[i].properties.traffic_signal == "yes"){  //we are testing if we have a traffic light in a part of a road, if yes we make this part longer by adding value '5' as distance to be avoided by our algorithm
                          // console.log(Traffic_Roads.features[i].properties.traffic_signal);
-                        add_edgs_fasttest(edge_long, llength*(2) + edge_counter );  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
+                        add_edgs_fasttest(edge_long, llength + edge_counter + llength*(2));  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
                     }else{
                         add_edgs_fasttest(edge_long, llength + edge_counter);
                     }

@@ -4,6 +4,9 @@ import { NavigationActions } from 'react-navigation';
 import ConfirmationModal from '../smalComponent/ConfirmationModal';
 import HelpModel from '../smalComponent/HelpModel';
 import FirstInstruction from '../instructions/Instruction';
+import { useNavigation } from '@react-navigation/native';
+import LoginScreen from './Map';
+
 
 
 const styles = StyleSheet.create({
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: 'white',
     fontWeight: '800',
-    paddingLeft:25,
+    paddingLeft: 25,
   },
   imageStyle: {
     borderColor: 'red',
@@ -81,6 +84,12 @@ const styles = StyleSheet.create({
 
 const { width, height } = Dimensions.get('window');
 export default function Vehicle(props) {
+
+  const navigation = useNavigation();
+
+  const handleLogout = () => {
+    // props.navigation.navigate('LoginScreen');
+  };
   const [stateHelp, setstateHelp] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [Vehicle, setVehicle] = useState("");
@@ -106,7 +115,7 @@ export default function Vehicle(props) {
     setstateHelp(false);
 
   };
-  
+
 
 
   const navigateToPage = (vehicleName) => {
@@ -130,13 +139,9 @@ export default function Vehicle(props) {
   };
 
   return (
-
-
-
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-    <View style={{paddingTop:30,backgroundColor:'red'}}></View>
-      <View >
-
+      <View style={{ paddingTop: 30, backgroundColor: 'red' }}></View>
+      <View>
         <ConfirmationModal
           visible={modalVisible}
           name={Vehicle}
@@ -144,6 +149,7 @@ export default function Vehicle(props) {
           onConfirm={() => handleConfirm(Vehicle)}
         />
       </View>
+
       <TouchableOpacity
         onPress={handlePressTrue}
         style={{
@@ -164,7 +170,6 @@ export default function Vehicle(props) {
             position: 'absolute',
             top: 30,
             left: 5,
-            zIndex: 1,
             backgroundColor: 'white',
             borderRadius: 20,
           }}
@@ -172,26 +177,71 @@ export default function Vehicle(props) {
         <View
           style={{
             position: 'absolute',
-            top: 30,  // adjust the top position to align with the image
-            left: 29,  // adjust the left position to add some space between the text and image
-            zIndex: 1,
-            alignItems: 'center',  // center the text horizontally
-            justifyContent: 'center',  // center the text vertically
-            width: 60,  // adjust the width to fit the text
-            height: 30,  // adjust the height to fit the text
+            top: 30,
+            left: 29,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 60,
+            height: 30,
+            borderRadius: 5,
           }}
         >
-          <Text style={{ color: 'white' ,fontSize:19}}>Help</Text>
+          <Text style={{ color: 'white', fontSize: 19 }}>Help</Text>
         </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert(
+            'Log out',
+            'Are you sure you want to log out?',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+              },
+              {
+                text: 'Yes',
+                onPress: () => handleLogout(),
+              }
+            ]
+          )
+        }}
+
+        style={{
+          backgroundColor: '',
+          width: 50,
+          height: 50,
+          position: 'absolute',
+          top: 5,
+          right: 5,
+          zIndex: 1,
+        }}
+      >
+        <Image
+          source={require('./../image/out.png')}
+          style={{
+            width: 35,
+            height: 35,
+            position: 'absolute',
+            top: 30,
+            left: 7.5,
+            borderWidth: 2,
+            borderRadius: 100,
+            borderColor: 'white',
+            backgroundColor: 'white',
+          }}
+        />
       </TouchableOpacity>
 
       {stateHelp && (
         <View>
           <HelpModel
             onCancel={handlePressFalse}
-            onDetails={ handleDetails}
+            onDetails={handleDetails}
             oncancelShow={cancelShow} />
-            
+
         </View>
       )}
 

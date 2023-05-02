@@ -16,9 +16,9 @@ const HelpModel = ({ visible, onCancel, onDetails, oncancelShow }) => {
    
     return (
         <Modal visible={visible} animationType="slide" transparent={true}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 7 }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 1 }}>
 
-                <View style={{ backgroundColor: '#fff', padding: 20, width: '95%', height: '84%', borderWidth: 2, borderRadius: 10, borderColor: 'red' }}>
+                <View style={{ backgroundColor: '#fff', padding: 20, width: '95%', height: '85%', borderWidth: 2, borderRadius: 10, borderColor: 'red' }}>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ fontSize: 40, fontWeight: 'bold', marginBottom: 20, color: 'red' }}>How to Use!!!</Text>
                     </View>
