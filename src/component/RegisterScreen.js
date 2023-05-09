@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { auth, firestore, database } from '../../node_modules/expo/AppEntry';
@@ -8,26 +9,42 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [userType, setUserType] = useState('user'); // default value is 'user'
+
 
   const handleRegister = () => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        // Kullanıcının kimliğini alma
         const { user } = userCredential;
         if (user != null) {
           console.log('User account created successfully');
-
-          // Kullanıcının adını ve soyadını güncelleme
           user.updateProfile({
             displayName: `${name} ${surname}`
           }).then(() => {
             console.log('User display name updated successfully');
-            navigation.navigate('Login');
+            if (userType === 'ambulance' || userType === 'fire' || userType === 'police') {
+              firebase.firestore().collection(userType).doc(user.uid).set({ // firestore koleksiyonu ve doküman eklendi
+                name,
+                surname,
+                email
+              }).then(() => {
+                console.log('User data saved successfully');
+                navigation.navigate('Login');
+              }).catch((error) => console.log('An error occurred while saving user data:', error.message));
+            } else {
+              firebase.firestore().collection('users').doc(user.uid).set({ // firestore koleksiyonu ve doküman eklendi
+                name,
+                surname,
+                email
+              }).then(() => {
+                console.log('User data saved successfully');
+                navigation.navigate('Login');
+              }).catch((error) => console.log('An error occurred while saving user data:', error.message));
+            }
           }).catch((error) => console.log('An error occurred while updating user display name:', error.message));
         }
       })
       .catch(error => console.log('An error occurred while creating user account:', error.message));
-     
   }
 
   return (
@@ -36,6 +53,8 @@ export default function RegisterScreen({ navigation }) {
     <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
     <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 , color:'white',paddingLeft: 100, paddingRight: 100,}}>REGISTER</Text>
   </View>
+        
+
       <TextInput
         style={styles.input}
         placeholder="Ad"
@@ -64,9 +83,22 @@ export default function RegisterScreen({ navigation }) {
         value={password}
         secureTextEntry
       />
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={{ marginRight: 10 }}>User type:</Text>
+        <Picker
+          selectedValue={userType}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue) => setUserType(itemValue)}
+        >
+          <Picker.Item label="User" value="user" />
+          <Picker.Item label="Ambulance" value="ambulance" />
+          <Picker.Item label="Fire Department" value="fire" />
+          <Picker.Item label="Police" value="police" />
+        </Picker>
+      </View>
       <Button style={styles.button} color="red" title="Kaydol" onPress={handleRegister} />
       <View style={{ marginTop: 10 }} /> 
-      <Button style={styles.button} color="red" title="Zaten hesabım var, giriş yap" onPress={() => navigation.navigate('Vehicle')} />
+      <Button style={styles.button} color="red" title="Zaten hesabım var, giriş yap" onPress={() => navigation.navigate('login')} />
     </View>
   );
 }

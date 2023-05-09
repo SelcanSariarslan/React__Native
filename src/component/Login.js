@@ -1,42 +1,79 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import firebase from 'firebase/app';
-
+import 'firebase/firestore';
 import FirstInstruction from '../instructions/Instruction';
 import { NavigationContainer } from '@react-navigation/native';
+
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [modalVisible, setModalVisible] = useState(true);
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [modalVisible, setModalVisible] = useState(true);
 
-  const onCancel = () => {
-    setModalVisible(false);
-  };
-  const handleConfirm = () => {
-    setModalVisible(true);
+const onCancel = () => {
+setModalVisible(false);
+};
 
-  };
+const handleConfirm = () => {
+setModalVisible(false);
+};
 
+useEffect(() => {
+if (firebase.auth().currentUser) {
+firebase.auth().signOut();
+}
+}, []);
 
-  const handleLogin = () => {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Kullanıcının kimliğini alma
-        const { user } = userCredential;
+const navigationRef = useRef(null);
 
-        console.log('User logged in successfully');
+const handleLogin = () => {
+firebase.auth().signInWithEmailAndPassword(email, password)
+.then((userCredential) => {
+const { user } = userCredential;
+console.log('User logged in successfully');
 
+firebase.firestore().collection('users').doc(user.uid).get()
+  .then((doc) => {
+    if (doc.exists) {
+      //prop.navigation.navigate('Station');
+      console.log("yazz");
+    } else {
+      firebase.firestore().collection('ambulance').doc(user.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            navigation.navigate('Ambulancemain');
+          } else {
+            firebase.firestore().collection('fire').doc(user.uid).get()
+              .then((doc) => {
+                if (doc.exists) {
+                  navigation.navigate('Firemain');
+                } else {
+                  console.log('User type not found');
+                }
+              })
+              .catch((error) => {
+                console.log('An error occurred:', error.message);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log('An error occurred:', error.message);
+        });
+    }
+  })
+  .catch((error) => {
+    console.log('An error occurred:', error.message);
+  });
+})
+.catch(error => console.log('An error occurred:', error.message));
+};
 
-        if (email === 'admin@gmail.com' && password === 'admin123') {
-          navigation.navigate('Adminmain');
-        } else {
-          navigation.navigate('Vehicle');
-        }
-      })
-      .catch(error => console.log('An error occurred:', error.message));
-  }
-
+useEffect(() => {
+if (navigation.isFocused()) {
+setModalVisible(true);
+}
+}, [navigation]);
+  
   return (
     <View style={{ flex: 1 }}>
       <View style={{ alignItems: 'center', paddingTop: 20, paddingBottom: 20, backgroundColor: 'red', marginBottom: 30 }}>
@@ -60,7 +97,7 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
       />
       <Button color="red" title="Login" onPress={handleLogin} />
-      <Button color="red" title="Don't have an account? Sign up" onPress={() => navigation.navigate('Vehicle')} />
+      <Button color="red" title="Don't have an account? Sign up" onPress={() => navigation.navigate('RegisterScreen')} />
       <NavigationContainer>
       {modalVisible && (
         <View>

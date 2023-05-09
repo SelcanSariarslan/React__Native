@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Scr
 import { NavigationActions } from 'react-navigation';
 import Photograph from '../smalComponent/Photograph';
 import Voice from '../smalComponent/Voice';
-
 //import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
   imageStyle: {
@@ -105,6 +104,7 @@ export default function Vehicle(props) {
       <View style={{ marginTop: 10 }}>
       <Voice />
       <Photograph />
+
       
     </View>
 
