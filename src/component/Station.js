@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Scr
 import { NavigationActions } from 'react-navigation';
 import Photograph from '../smalComponent/Photograph';
 import Voice from '../smalComponent/Voice';
+import { unique_intersection } from './ShortestPath';
 //import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
   imageStyle: {
@@ -12,6 +13,22 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'red',
     alignSelf: 'center',
+    marginTop: 20,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'flex-end',
+    position: 'absolute',
+    justifyContent: 'flex-start',
+    marginTop: 540,
+    paddingLeft: 300,
+  },
+  image: {
+    width: 50,
+    height: 50,
+  },
+ 
+  selectedNumber: {
     marginTop: 20,
   },
 });
@@ -29,6 +46,23 @@ const { width, height } = Dimensions.get('window');
 export default function Vehicle(props) {
   const { vehicleName } = props.route.params || "";
   const [selectedLevel, setSelectedLevel] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState(null);
+
+
+  const handleImagePress = () => {
+
+    if (selectedNumber) {
+      const randomNum = Math.floor(Math.random() * unique_intersection.length) + 1;
+      setSelectedNumber(randomNum);
+    }
+
+  };
+
+  const handleOptionPress = (number) => {
+    setSelectedNumber(number);
+    setShowMenu(false);
+  };
 
   const handleFirstButtonPress = () => {
     setSelectedLevel("Acil");
@@ -52,63 +86,81 @@ export default function Vehicle(props) {
   console.log(selectedLevel);
   return (
     <ScrollView>
-    <View style={{ flex: 1 }}>
-    <View style={{paddingTop:30,backgroundColor:'red'}}></View>
-      <View style={{ backgroundColor: 'red', padding: 20 }}>
-        <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
-          The vehicle you want "{vehicleName}"
-        </Text>
-      </View>
-      <View style={{ paddingTop: 20 }}></View>
-      <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Please select emergency level</Text>
-      </View>
-      <View style={{ paddingTop: 20 }}></View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <TouchableOpacity onPress={handleFirstButtonPress} style={{ opacity: selectedLevel === "Acil" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
-          <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
-            <View style={{ width: 90, height: 70, borderRadius: 55, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
-              <Image
-                borderRadius={400}
-                style={{ width: 70, height: 70, alignSelf: 'center' }}
-                backgroundColor='red'
-              />
-            </View>
-            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>High</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleSecondButtonPress} style={{ opacity: selectedLevel === "Orta" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
-          <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
-            <View style={{ width: 90, height: 70, borderRadius: 55, alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
-              <Image
-               borderRadius={400}
-                style={{ width: 70, height: 70, alignSelf: 'center' }}
-                backgroundColor='#FFC900' />
-            </View>
-            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Middle</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleThirdButtonPress} style={{ opacity: selectedLevel === "Normal" ? 1 : selectedLevel === "" ? 1 : 0.3 }}>
-          <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
-            <View style={{ width: 90, height: 70, borderRadius: 55, borderColor: '#FFA500', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
-              <Image
-              borderRadius={400}
-                style={{ width: 70, height: 70, alignSelf: 'center' }}
-                backgroundColor='green'  />
-            </View>
-            <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Low</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
 
-      <View style={{ marginTop: 10 }}>
-      <Voice />
-      <Photograph />
+      <View style={{ flex: 1 }}>
+        <View style={{ paddingTop: 30, backgroundColor: 'red' }}></View>
+        <View style={{ backgroundColor: 'red', padding: 20 }}>
+          <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
+            The vehicle you want "{vehicleName}"
+          </Text>
+        </View>
+        <View style={{ paddingTop: 20 }}></View>
+        <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Please select emergency level</Text>
+        </View>
+        <View style={{ paddingTop: 20 }}></View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+          <TouchableOpacity onPress={handleFirstButtonPress} style={{ opacity: selectedLevel === "Acil" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
+            <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
+              <View style={{ width: 90, height: 70, borderRadius: 55, borderColor: 'red', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+                <Image
+                  borderRadius={400}
+                  style={{ width: 70, height: 70, alignSelf: 'center' }}
+                  backgroundColor='red'
+                />
+              </View>
+              <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>High</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleSecondButtonPress} style={{ opacity: selectedLevel === "Orta" ? 1 : selectedLevel === "" ? 1 : 0.3 }} >
+            <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
+              <View style={{ width: 90, height: 70, borderRadius: 55, alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+                <Image
+                  borderRadius={400}
+                  style={{ width: 70, height: 70, alignSelf: 'center' }}
+                  backgroundColor='#FFC900' />
+              </View>
+              <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Middle</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleThirdButtonPress} style={{ opacity: selectedLevel === "Normal" ? 1 : selectedLevel === "" ? 1 : 0.3 }}>
+            <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
+              <View style={{ width: 90, height: 70, borderRadius: 55, borderColor: '#FFA500', alignSelf: 'flex-start', marginTop: 10, justifyContent: 'center' }}>
+                <Image
+                  borderRadius={400}
+                  style={{ width: 70, height: 70, alignSelf: 'center' }}
+                  backgroundColor='green' />
+              </View>
+              <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Low</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
 
-      
-    </View>
+        <View style={{ marginTop: 10 }}>
+          <Voice />
+          <Photograph />
 
-    </View>
+
+        </View>
+
+        <View style={styles.container}>
+        {selectedNumber ? (
+            <Text style={styles.selectedNumber}>
+               {unique_intersection[selectedNumber]}
+            </Text>
+          ) : null}
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image
+              style={styles.image}
+              source={require('../image/location.png')}
+            />
+          </TouchableOpacity>
+          
+        </View>
+
+
+
+      </View>
     </ScrollView>
   );
 }

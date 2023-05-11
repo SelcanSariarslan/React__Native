@@ -10,7 +10,7 @@ var counter1 = 0;
 // -------------------------------------------------------- intersections  ---------------------------------------
 
 var all_intersections = [];    // to keep all the intersections
-var unique_intersection = [];   // to keep unrepeated intersections
+export var unique_intersection = [];   // to keep unrepeated intersections
 var lenth_road = Traffic_Roads.features.length;
 var counter_intersection = 0;
 var counter = 0;
