@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import firebase from 'firebase/app';
+import Station from './Station';
 import 'firebase/firestore';
 import FirstInstruction from '../instructions/Instruction';
 import { NavigationContainer } from '@react-navigation/native';
-
 export default function LoginScreen({ navigation }) {
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
@@ -35,7 +35,7 @@ console.log('User logged in successfully');
 firebase.firestore().collection('users').doc(user.uid).get()
   .then((doc) => {
     if (doc.exists) {
-      //prop.navigation.navigate('Station');
+    navigation.navigate('Vehicle');
       console.log("yazz");
     } else {
       firebase.firestore().collection('ambulance').doc(user.uid).get()
