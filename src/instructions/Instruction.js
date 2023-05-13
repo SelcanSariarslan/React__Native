@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { ImageBackground } from 'react-native';
 
 
 const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
@@ -62,6 +63,7 @@ const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
             </TouchableOpacity>
 
             {currentPage === 1 && (
+                <ImageBackground source={require('./../image/background.jpeg')} style={{ flex: 1 }}>
                 <View
                     style={{
                         flex: 1,
@@ -92,6 +94,7 @@ const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
                         </Text>
                     </View>
                 </View>
+                 </ImageBackground>
             )}
 
             {currentPage === 2 && (

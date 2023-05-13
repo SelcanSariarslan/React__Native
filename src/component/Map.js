@@ -5,11 +5,20 @@ import { Result } from './ShortestPath';
 import { Fastest_Result } from './FastestPath';
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads';
 import Cancel_Button from '../smalComponent/CancelButton';
+import Araçlar from  './Araçlar';
+import { unique_intersection } from './ShortestPath';
+
+
 const LeafletMap = (props) => {
+    const { randomNum } = props.route.params;
     const { vehicleName } = props.route.params ? props.route.params : "";
     const [showCancelButton, setShowCancelButton] = useState(true);
     const [showMinimizeButton, setShowMinimizeButton] = useState(false);
-
+    const reversedCoords = reverseCoordinates(unique_intersection[randomNum]);
+    
+    useEffect(() => {
+        const marker =randomNum;
+      }, [randomNum]);
 
     const handleViewMapButtonPress = () => {
         setShowMinimizeButton(true);
@@ -39,7 +48,10 @@ const LeafletMap = (props) => {
         }
 
     };
-
+    function reverseCoordinates(coords) {
+        return [coords[1], coords[0]];
+      }
+      console.log(reversedCoords);
     const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +119,7 @@ map.fitBounds(polyline.getBounds());-->
 });
  osm.addTo(map);
  //heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
- var log = ${JSON.stringify(Traffic_Roads)};
+ var log = ${JSON.stringify(Result)}; //Traffic_Roads
 L.geoJSON(log).addTo(map);
 
 
@@ -120,6 +132,15 @@ var Fastest_Result = ${JSON.stringify(Fastest_Result)};
 L.geoJSON(Fastest_Result, {
     style: RoudStyleRed
 }).addTo(map);
+
+
+
+//console.log(unique_intersection[0]);
+var marker = L.marker(${JSON.stringify(reversedCoords)}).addTo(map);
+
+// Add a popup to the marker
+marker.bindPopup("start");
+
 
  //heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
  function RoudStyleGreen (feature) {
@@ -216,7 +237,7 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
 </script>
 
   `;
-
+  console.log(randomNum);
     return (
         <View style={{ flex: 1 }}>
         <View style={{paddingTop:30,backgroundColor:'white'}}></View>

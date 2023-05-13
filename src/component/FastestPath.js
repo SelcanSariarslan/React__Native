@@ -386,7 +386,7 @@ Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
 //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
 
 function fastest_Path(){
-    fasttest.dijkstra(unique_intersection[177]); // from  129
+    fasttest.dijkstra(unique_intersection[129]); // from  129
     fasttest.findOptimalPath(unique_intersection[14]);  // to  22
     
     }
