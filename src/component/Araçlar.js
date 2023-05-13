@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Modal } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Modal, Button } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import ConfirmationModal from '../smalComponent/ConfirmationModal';
 import HelpModel from '../smalComponent/HelpModel';
 import FirstInstruction from '../instructions/Instruction';
 import { useNavigation } from '@react-navigation/native';
 import LoginScreen from './Map';
-
+import { NavigationContainer } from '@react-navigation/native';
 
 
 const styles = StyleSheet.create({
@@ -88,6 +88,7 @@ export default function Vehicle(props) {
   const navigation = useNavigation();
 
   const handleLogout = () => {
+    props.navigation.navigate('Login');
     // props.navigation.navigate('LoginScreen');
   };
   const [stateHelp, setstateHelp] = useState(false);
