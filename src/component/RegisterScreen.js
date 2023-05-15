@@ -26,7 +26,10 @@ export default function RegisterScreen({ navigation }) {
               firebase.firestore().collection(userType).doc(user.uid).set({ // firestore koleksiyonu ve doküman eklendi
                 name,
                 surname,
-                email
+                email,
+                detail: null,
+                image: null,
+                voiceUrl: null
               }).then(() => {
                 console.log('User data saved successfully');
                 navigation.navigate('Login');

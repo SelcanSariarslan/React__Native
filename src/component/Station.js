@@ -155,14 +155,6 @@ export default function Vehicle(props) {
           </TouchableOpacity>
         </View>
 
-
-        <View style={{ marginTop: 10 }}>
-          <Voice />
-          <Photograph />
-
-      
-    </View>
-
         <View style={styles.container}>
           {selectedNumber ? (
             <Text style={styles.selectedNumber}>

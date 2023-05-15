@@ -101,7 +101,7 @@ const TextArea = () => {
       const downloadUrl = await voiceRef.getDownloadURL();
   
       // Firestore'a ses dosyası url'sini kaydetme
-      await firebase.firestore().collection('users').doc(uid).set({
+      await firebase.firestore().collection('users').doc(uid).update({
         voiceUrl: downloadUrl
       }, { merge: true });
     }
@@ -114,6 +114,7 @@ const TextArea = () => {
     if (currentUser) {
       const uid = currentUser.uid;
       const userDetails = {
+       
         detail: inputName,
         image: null,
         voiceUrl: null
