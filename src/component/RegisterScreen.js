@@ -13,7 +13,8 @@ export default function RegisterScreen({ navigation }) {
 
 
   const handleRegister = () => {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const { user } = userCredential;
         if (user != null) {
@@ -22,34 +23,19 @@ export default function RegisterScreen({ navigation }) {
             displayName: `${name} ${surname}`
           }).then(() => {
             console.log('User display name updated successfully');
-            if (userType === 'ambulance' || userType === 'fire' || userType === 'police') {
-              firebase.firestore().collection(userType).doc(user.uid).set({ // firestore koleksiyonu ve doküman eklendi
-                name,
-                surname,
-                email,
-                detail: null,
-                image: null,
-                voiceUrl: null
-              }).then(() => {
-                console.log('User data saved successfully');
-                navigation.navigate('Login');
-              }).catch((error) => console.log('An error occurred while saving user data:', error.message));
-            } else {
-              firebase.firestore().collection('users').doc(user.uid).set({ // firestore koleksiyonu ve doküman eklendi
-                name,
-                surname,
-                email
-              }).then(() => {
-                console.log('User data saved successfully');
-                navigation.navigate('Login');
-              }).catch((error) => console.log('An error occurred while saving user data:', error.message));
-            }
+            firebase.firestore().collection('users').doc(user.uid).set({
+              name,
+              surname,
+              email
+            }).then(() => {
+              console.log('User data saved successfully');
+              navigation.navigate('Login');
+            }).catch((error) => console.log('An error occurred while saving user data:', error.message));
           }).catch((error) => console.log('An error occurred while updating user display name:', error.message));
         }
       })
-      .catch(error => console.log('An error occurred while creating user account:', error.message));
-  }
-
+      .catch((error) => console.log('An error occurred while creating user account:', error.message));
+  };
   return (
     <View style={styles.container}>
        <View style={{ alignItems: 'center', paddingTop: 20,paddingBottom:20, backgroundColor:'red', marginBottom:30,borderRadius:3 }}>
@@ -86,19 +72,6 @@ export default function RegisterScreen({ navigation }) {
         value={password}
         secureTextEntry
       />
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ marginRight: 10 }}>User type:</Text>
-        <Picker
-          selectedValue={userType}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue) => setUserType(itemValue)}
-        >
-          <Picker.Item label="User" value="user" />
-          <Picker.Item label="Ambulance" value="ambulance" />
-          <Picker.Item label="Fire Department" value="fire" />
-          <Picker.Item label="Police" value="police" />
-        </Picker>
-      </View>
       <Button style={styles.button} color="red" title="Kaydol" onPress={handleRegister} />
       <View style={{ marginTop: 10 }} /> 
       <Button style={styles.button} color="red" title="Zaten hesabım var, giriş yap" onPress={() => navigation.navigate('login')} />

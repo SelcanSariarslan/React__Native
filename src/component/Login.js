@@ -27,46 +27,73 @@ firebase.auth().signOut();
 const navigationRef = useRef(null);
 
 const handleLogin = () => {
-firebase.auth().signInWithEmailAndPassword(email, password)
-.then((userCredential) => {
-const { user } = userCredential;
-console.log('User logged in successfully');
+  firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const { user } = userCredential;
+      console.log('User logged in successfully');
 
-firebase.firestore().collection('users').doc(user.uid).get()
-  .then((doc) => {
-    if (doc.exists) {
-    navigation.navigate('Vehicle');
-      console.log("yazz");
-    } else {
-      firebase.firestore().collection('ambulance').doc(user.uid).get()
-        .then((doc) => {
-          if (doc.exists) {
-            navigation.navigate('Ambulancemain');
-          } else {
-            firebase.firestore().collection('fire').doc(user.uid).get()
-              .then((doc) => {
-                if (doc.exists) {
-                  navigation.navigate('Firemain');
-                } else {
-                  console.log('User type not found');
-                }
-              })
-              .catch((error) => {
-                console.log('An error occurred:', error.message);
-              });
-          }
-        })
-        .catch((error) => {
-          console.log('An error occurred:', error.message);
-        });
-    }
-  })
-  .catch((error) => {
-    console.log('An error occurred:', error.message);
-  });
-})
-.catch(error => console.log('An error occurred:', error.message));
+      const emailLowerCase = email.toLowerCase();
+
+      if (emailLowerCase === 'ambulanceadmin@gmail.com') {
+        navigation.navigate('AmbulansAdmin');
+      } else if (emailLowerCase === 'fireadmin@gmail.com') {
+        navigation.navigate('FireAdmin');
+      } else if (emailLowerCase === 'policeadmin@gmail.com') {
+        navigation.navigate('PoliceAdmin');
+      } else {
+        firebase.firestore().collection('users').doc(user.uid).get()
+          .then((doc) => {
+            if (doc.exists) {
+              navigation.navigate('Vehicle');
+              console.log('User type: Vehicle');
+            } else {
+              firebase.firestore().collection('ambulance').doc(user.uid).get()
+                .then((doc) => {
+                  if (doc.exists) {
+                    navigation.navigate('manager');
+                    console.log('User type: Ambulance');
+                  } else {
+                    firebase.firestore().collection('fire').doc(user.uid).get()
+                      .then((doc) => {
+                        if (doc.exists) {
+                          navigation.navigate('manager');
+                          console.log('User type: Fire');
+                        } else {
+                          firebase.firestore().collection('police').doc(user.uid).get()
+                            .then((doc) => {
+                              if (doc.exists) {
+                                navigation.navigate('manager');
+                                console.log('User type: Police');
+                              } else {
+                                console.log('User type not found');
+                              }
+                            })
+                            .catch((error) => {
+                              console.log('An error occurred:', error.message);
+                            });
+                        }
+                      })
+                      .catch((error) => {
+                        console.log('An error occurred:', error.message);
+                      });
+                  }
+                })
+                .catch((error) => {
+                  console.log('An error occurred:', error.message);
+                });
+            }
+          })
+          .catch((error) => {
+            console.log('An error occurred:', error.message);
+          });
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred:', error.message);
+    });
 };
+
 
 useEffect(() => {
 if (navigation.isFocused()) {

@@ -8,6 +8,9 @@ import Vehicle from './src/component/Araçlar';
 import Station from './src/component/Station';
 import Map from './src/component/Map';
 import RegisterScreen from './src/component/RegisterScreen';
+import AmbulansAdmin from './src/component/AmbulansAdmin';
+import PoliceAdmin from './src/component/PoliceAdmin';
+import FireAdmin from './src/component/FireAdmin';
 //import CameraScreen from'./component/CameraScreen';
 import Adminmain from './src/component/Adminmain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,6 +38,24 @@ const MainNavigator = createStackNavigator({
   },
   RegisterScreen: {
     screen: RegisterScreen,
+    navigationOptions: {
+      headerTintColor: 'red',
+    },
+  },
+  AmbulansAdmin: {
+    screen: AmbulansAdmin,
+    navigationOptions: {
+      headerTintColor: 'red',
+    },
+  },
+  PoliceAdmin: {
+    screen: PoliceAdmin,
+    navigationOptions: {
+      headerTintColor: 'red',
+    },
+  },
+  FireAdmin: {
+    screen: FireAdmin,
     navigationOptions: {
       headerTintColor: 'red',
     },
