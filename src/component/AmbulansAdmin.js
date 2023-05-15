@@ -129,7 +129,7 @@ if (!plateRegex.test(plate)) {
     />
       <Button style={styles.button} color="red" title="Kaydol" onPress={handleRegister} />
       <View style={{ marginTop: 10 }} />
-      <Button style={styles.button} color="red" title="Zaten hesabım var, giriş yap" onPress={() => navigation.navigate('login')} />
+      <Button style={styles.button} color="red" title="Zaten hesabım var, giriş yap" onPress={() => navigation.navigate('Login')} />
     </View>
   );
 }

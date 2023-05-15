@@ -6,6 +6,7 @@ import Login from './src/component/Login';
 import Home from './src/component/Home';
 import Vehicle from './src/component/Araçlar';
 import Station from './src/component/Station';
+import Manager from './src/managerComponent/manager';
 import Map from './src/component/Map';
 import RegisterScreen from './src/component/RegisterScreen';
 import AmbulansAdmin from './src/component/AmbulansAdmin';
@@ -17,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import MainContianer from './navigation/mainContainer';
+import managerCotainer from './navigation/managerContainer'
 /*var config = {
     apiKey: "AIzaSyCP3foqdkk2hd_3qAyc6-_FyPchcVeT70M",
     authDomain: "graduation-app-41c23.firebaseapp.com",
@@ -77,6 +79,11 @@ const MainNavigator = createStackNavigator({
     screen: Adminmain,
     navigationOptions: {
       headerShown: false, // hide header
+    },
+  }, Manager: {
+    screen: managerCotainer,
+    navigationOptions: {
+      headerTintColor: 'red',
     },
   },
  
