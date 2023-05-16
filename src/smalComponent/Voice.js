@@ -99,7 +99,7 @@ const Voice = () => {
       const downloadUrl = await voiceRef.getDownloadURL();
   
       // Firestore'a ses dosyası url'sini kaydetme
-      await firebase.firestore().collection('users').doc(uid).set({
+      await firebase.firestore().collection('users').doc(uid).update({
         voiceUrl: downloadUrl
       }, { merge: true });
     }

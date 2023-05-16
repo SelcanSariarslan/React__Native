@@ -10,7 +10,7 @@ const TextArea = () => {
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
       const uid = currentUser.uid;
-      await firebase.firestore().collection('users').doc(uid).set({
+      await firebase.firestore().collection('users').doc(uid).update({
         detail: inputName,
       });
     }

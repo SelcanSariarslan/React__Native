@@ -9,6 +9,9 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [userId, setUserId] = useState('');
+  const [status, setStatus] = useState('false');
+
   const [userType, setUserType] = useState('user'); // default value is 'user'
 
 
@@ -23,10 +26,12 @@ export default function RegisterScreen({ navigation }) {
             displayName: `${name} ${surname}`
           }).then(() => {
             console.log('User display name updated successfully');
-            firebase.firestore().collection('users').doc(user.uid).set({
+            firebase.firestore().collection('users').doc(user.uid).update({
               name,
               surname,
-              email
+              email,
+              userId,
+              status
             }).then(() => {
               console.log('User data saved successfully');
               navigation.navigate('Login');

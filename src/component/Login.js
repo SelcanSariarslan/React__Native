@@ -5,6 +5,7 @@ import Station from './Station';
 import 'firebase/firestore';
 import FirstInstruction from '../instructions/Instruction';
 import { NavigationContainer } from '@react-navigation/native';
+import Manager from './../managerComponent/manager'
 export default function LoginScreen({ navigation }) {
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
@@ -51,7 +52,7 @@ const handleLogin = () => {
               firebase.firestore().collection('ambulance').doc(user.uid).get()
                 .then((doc) => {
                   if (doc.exists) {
-                    navigation.navigate('manager');
+                    navigation.navigate('Manager');
                     console.log('User type: Ambulance');
                   } else {
                     firebase.firestore().collection('fire').doc(user.uid).get()
@@ -124,7 +125,7 @@ setModalVisible(true);
         secureTextEntry
       />
       <Button color="red" title="Login" onPress={handleLogin} />
-      <Button color="red" title="Don't have an account? Sign up (RegisterScreen)" onPress={() => navigation.navigate('Manager')} /> 
+      <Button color="red" title="Don't have an account? Sign up (RegisterScreen)" onPress={() => navigation.navigate('RegisterScreen')} /> 
        <NavigationContainer>
       {modalVisible && (
         <View>

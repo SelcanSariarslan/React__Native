@@ -144,7 +144,7 @@ const TextArea = () => {
         userDetails.voiceUrl = downloadUrl;
       }
   
-      await firebase.firestore().collection('users').doc(uid).set(userDetails);
+      await firebase.firestore().collection('users').doc(uid).update(userDetails);
     }
   };
   
