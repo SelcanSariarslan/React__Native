@@ -9,7 +9,9 @@ export default function RegisterScreen({ navigation }) {
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
   const [plate, setPlate] = useState('06 ABC 000');
-
+  const [userId, setUserId] = useState('');
+  const [status, setStatus] = useState('false');
+  
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -22,7 +24,7 @@ export default function RegisterScreen({ navigation }) {
 
   const generateEmail = () => {
     const randomNumber = Math.floor(Math.random() * 10000);
-    return `ambulance${randomNumber}@gmail.com`;
+    return `fire${randomNumber}@gmail.com`;
   };
 
   const handleRegister = () => {
@@ -37,30 +39,32 @@ export default function RegisterScreen({ navigation }) {
     }
     const plateRegex = /^\d{2}\s[A-Z]{3}\s\d{3}$/; // Geçerli plaka formatı için bir regex
 
-if (!plateRegex.test(plate)) {
-  alert('Hata', 'Lütfen geçerli bir plaka girin. Örnek: 06 ABC 123');
-  return;
-}
-
-
+    if (!plateRegex.test(plate)) {
+      Alert.alert('Hata', 'Lütfen geçerli bir plaka girin. Örnek: 06 ABC 123');
+      return;
+    }
 
     firebase.auth()
       .createUserWithEmailAndPassword(generatedEmail, generatedPassword)
       .then((userCredential) => {
         const { user } = userCredential;
         if (user) {
+          setUserId(user.uid); // Kullanıcının ID'sini ayarla
           console.log('User account created successfully');
           user.updateProfile({
             displayName: `${name} ${surname}`
           }).then(() => {
             console.log('User display name updated successfully');
-            firebase.firestore().collection('ambulance').doc(user.uid).set({
+            firebase.firestore().collection('fire').doc(user.uid).set({
               plate,
               name,
               surname,
               email: generatedEmail,
-              password:generatedPassword,
-              phone
+              password: generatedPassword,
+              phone,
+              userId: user.uid,
+              status,
+              
             })
             .then(() => {
               console.log('User data saved successfully');
@@ -83,7 +87,7 @@ if (!plateRegex.test(plate)) {
       })
       .catch((error) => console.log('An error occurred while creating user account:', error.message));
   };
-
+  
   return (
     <View style={styles.container}>
       <View
@@ -102,20 +106,20 @@ if (!plateRegex.test(plate)) {
 
       <TextInput
       style={styles.input}
-      placeholder="06 ABC 1234"
+      placeholder="06 ABC 123"
       onChangeText={setPlate}
       autoCapitalize="characters"
     />
       <TextInput
         style={styles.input}
-        placeholder="Ambulance driver name"
+        placeholder="Fire driver name"
         onChangeText={setName}
         value={name}
         autoCapitalize="words"
       />
       <TextInput
         style={styles.input}
-        placeholder="Ambulance driver surname"
+        placeholder="Fire driver surname"
         onChangeText={setSurname}
         value={surname}
         autoCapitalize="words"

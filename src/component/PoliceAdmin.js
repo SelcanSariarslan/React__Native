@@ -9,7 +9,9 @@ export default function RegisterScreen({ navigation }) {
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
   const [plate, setPlate] = useState('06 ABC 000');
-
+  const [userId, setUserId] = useState(null);
+  const [status, setStatus] = useState('false');
+  
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -22,7 +24,7 @@ export default function RegisterScreen({ navigation }) {
 
   const generateEmail = () => {
     const randomNumber = Math.floor(Math.random() * 10000);
-    return `ambulance${randomNumber}@gmail.com`;
+    return `police${randomNumber}@gmail.com`;
   };
 
   const handleRegister = () => {
@@ -54,13 +56,16 @@ if (!plateRegex.test(plate)) {
             displayName: `${name} ${surname}`
           }).then(() => {
             console.log('User display name updated successfully');
-            firebase.firestore().collection('ambulance').doc(user.uid).set({
+            firebase.firestore().collection('police').doc(user.uid).set({
               plate,
               name,
               surname,
               email: generatedEmail,
               password:generatedPassword,
-              phone
+              phone,
+              userId: userId,
+              status,
+              
             })
             .then(() => {
               console.log('User data saved successfully');
@@ -108,14 +113,14 @@ if (!plateRegex.test(plate)) {
     />
       <TextInput
         style={styles.input}
-        placeholder="Ambulance driver name"
+        placeholder="Police driver name"
         onChangeText={setName}
         value={name}
         autoCapitalize="words"
       />
       <TextInput
         style={styles.input}
-        placeholder="Ambulance driver surname"
+        placeholder="Police driver surname"
         onChangeText={setSurname}
         value={surname}
         autoCapitalize="words"

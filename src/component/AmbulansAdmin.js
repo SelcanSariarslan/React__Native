@@ -9,7 +9,9 @@ export default function RegisterScreen({ navigation }) {
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
   const [plate, setPlate] = useState('06 ABC 000');
-
+  const [userId, setUserId] = useState('');
+  const [status, setStatus] = useState('false');
+  
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -37,18 +39,17 @@ export default function RegisterScreen({ navigation }) {
     }
     const plateRegex = /^\d{2}\s[A-Z]{3}\s\d{3}$/; // Geçerli plaka formatı için bir regex
 
-if (!plateRegex.test(plate)) {
-  alert('Hata', 'Lütfen geçerli bir plaka girin. Örnek: 06 ABC 123');
-  return;
-}
-
-
+    if (!plateRegex.test(plate)) {
+      Alert.alert('Hata', 'Lütfen geçerli bir plaka girin. Örnek: 06 ABC 123');
+      return;
+    }
 
     firebase.auth()
       .createUserWithEmailAndPassword(generatedEmail, generatedPassword)
       .then((userCredential) => {
         const { user } = userCredential;
         if (user) {
+          setUserId(user.uid); // Kullanıcının ID'sini ayarla
           console.log('User account created successfully');
           user.updateProfile({
             displayName: `${name} ${surname}`
@@ -59,8 +60,11 @@ if (!plateRegex.test(plate)) {
               name,
               surname,
               email: generatedEmail,
-              password:generatedPassword,
-              phone
+              password: generatedPassword,
+              phone,
+              userId: user.uid,
+              status,
+              
             })
             .then(() => {
               console.log('User data saved successfully');
