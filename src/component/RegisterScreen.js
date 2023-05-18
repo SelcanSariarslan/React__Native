@@ -10,7 +10,6 @@ export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [userId, setUserId] = useState('');
-  const [status, setStatus] = useState('false');
 
   const [userType, setUserType] = useState('user'); // default value is 'user'
 
@@ -30,8 +29,7 @@ export default function RegisterScreen({ navigation }) {
               name,
               surname,
               email,
-              userId,
-              status
+              userId
             }).then(() => {
               console.log('User data saved successfully');
               navigation.navigate('Login');
