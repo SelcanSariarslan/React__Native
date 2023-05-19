@@ -4,6 +4,7 @@ import { unique_intersection } from './../component/ShortestPath';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import StatusPage from './StatusPage';
 
 export const Manager = () => {
   const [isReady, setIsReady] = useState(true); // status  hep false
@@ -12,39 +13,6 @@ export const Manager = () => {
   const handleImagePress = async () => {
     const randomNum = Math.floor(Math.random() * unique_intersection.length);
     setSelectedNumber(randomNum);
-
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const userId = user.uid;
-      const userEmail = user.email;
-
-      let collectionName = '';
-
-      if (userEmail.toLowerCase().includes('police')) {
-        collectionName = 'police';
-      } else if (userEmail.toLowerCase().includes('ambulance')) {
-        collectionName = 'ambulance';
-      } else if (userEmail.toLowerCase().includes('fire')) {
-        collectionName = 'fire';
-      }
-
-      if (collectionName) {
-        const locationData = {
-          status: false,
-          location: selectedNumber,
-          userId: userId,
-        };
-
-        try {
-          await firebase.firestore().collection(collectionName).doc(userId).update(locationData);
-          console.log(`Location data added for the user in the ${collectionName} collection.`);
-        } catch (error) {
-          console.error(`Error adding location data in the ${collectionName} collection:`, error);
-        }
-      } else {
-        console.error('Invalid collection name.');
-      }
-    }
 
     console.log("The coordinates of location: [" + selectedNumber + "] is: " + unique_intersection[selectedNumber]);
   };
@@ -77,6 +45,7 @@ export const Manager = () => {
           />
         </TouchableOpacity>
       </View>
+      <StatusPage status={isReady} location={selectedNumber}/>
     </View>
   );
 };
