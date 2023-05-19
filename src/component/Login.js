@@ -58,13 +58,13 @@ const handleLogin = () => {
                     firebase.firestore().collection('fire').doc(user.uid).get()
                       .then((doc) => {
                         if (doc.exists) {
-                          navigation.navigate('manager');
+                          navigation.navigate('Manager');
                           console.log('User type: Fire');
                         } else {
                           firebase.firestore().collection('police').doc(user.uid).get()
                             .then((doc) => {
                               if (doc.exists) {
-                                navigation.navigate('manager');
+                                navigation.navigate('Manager');
                                 console.log('User type: Police');
                               } else {
                                 console.log('User type not found');
