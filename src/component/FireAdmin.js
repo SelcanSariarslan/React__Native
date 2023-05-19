@@ -62,7 +62,6 @@ export default function RegisterScreen({ navigation }) {
               email: generatedEmail,
               password: generatedPassword,
               phone,
-              FireId: user.uid,
               status,
               
             })

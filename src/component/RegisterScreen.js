@@ -29,7 +29,7 @@ export default function RegisterScreen({ navigation }) {
               name,
               surname,
               email,
-          
+              
             }).then(() => {
               console.log('User data saved successfully');
               navigation.navigate('Login');

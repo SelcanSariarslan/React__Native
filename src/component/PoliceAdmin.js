@@ -63,7 +63,6 @@ if (!plateRegex.test(plate)) {
               email: generatedEmail,
               password:generatedPassword,
               phone,
-              PoliceId: userId,
               status,
               
             })
