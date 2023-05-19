@@ -25,11 +25,11 @@ export default function RegisterScreen({ navigation }) {
             displayName: `${name} ${surname}`
           }).then(() => {
             console.log('User display name updated successfully');
-            firebase.firestore().collection('users').doc(user.uid).update({
+            firebase.firestore().collection('users').doc(user.uid).set({
               name,
               surname,
               email,
-              userId
+          
             }).then(() => {
               console.log('User data saved successfully');
               navigation.navigate('Login');

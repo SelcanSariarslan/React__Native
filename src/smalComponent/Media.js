@@ -6,6 +6,7 @@ import 'firebase/firestore';
 import 'firebase/storage';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
+
 const styles = StyleSheet.create({
   playButtonContainer: {
     flexDirection: 'row',
@@ -18,8 +19,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
 const Media = (props) => {
   const [recording, setRecording] = useState();
   const [isRecording, setIsRecording] = useState(false);
@@ -27,6 +26,16 @@ const Media = (props) => {
   const [recordingUri, setRecordingUri] = useState(null);
   const location = props.location;
   const emergency_level = props.level;
+
+  useEffect(() => {
+    // microphone erişimi izni alma
+    (async () => {
+      const { status } = await Audio.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Mikrofon erişim izni verilmedi');
+      }
+    })();
+  }, []);
 
   const playRecording = async () => {
     try {
@@ -42,16 +51,6 @@ const Media = (props) => {
       console.error('Ses çalınırken bir hata oluştu:', err);
     }
   };
-
-  useEffect(() => {
-    // microphone erişimi izni alma
-    (async () => {
-      const { status } = await Audio.requestPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Mikrofon erişim izni verilmedi');
-      }
-    })();
-  }, []);
 
   const startRecording = async () => {
     try {
@@ -87,7 +86,6 @@ const Media = (props) => {
     }
   };
 
-
   const addVoiceToFirestore = async () => {
     const currentUser = firebase.auth().currentUser;
     if (currentUser && recordingUri) {
@@ -108,6 +106,7 @@ const Media = (props) => {
       }, { merge: true });
     }
   };
+
   const [inputName, setInputName] = useState('');
   const [imageUri, setImageUri] = useState(null);
 
@@ -116,17 +115,15 @@ const Media = (props) => {
     if (currentUser) {
       const uid = currentUser.uid;
       const userDetails = {
-
         detail: inputName,
         image: null,
-        voiceUrl: null
+        voiceUrl: null,
+        location: location,
+        emergency_level: emergency_level,
+        Id: uid
       };
 
-      // Kullanıcının adını ve resmini kaydet
-      if (inputName) {
-        userDetails.detail = inputName;
-      }
-
+      // Kullanıcının resmini kaydet
       if (imageUri) {
         const imageRef = firebase.storage().ref().child(`images/${uid}/${Date.now()}.jpg`);
         const response = await fetch(imageUri);
@@ -146,14 +143,9 @@ const Media = (props) => {
         userDetails.voiceUrl = downloadUrl;
       }
 
-      await firebase.firestore().collection('users').doc(uid).update({
-        userDetails,
-        location: location,
-        emergency_level: emergency_level
-      });
+      await firebase.firestore().collection('users').doc(uid).set(userDetails, { merge: true });
     }
   };
-
 
   const pickImage = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -203,8 +195,8 @@ const Media = (props) => {
 
       <Button color="red" title="Save" onPress={addUserInfoToFirestore} />
     </View>
-
   );
 };
 
 export default Media;
+``

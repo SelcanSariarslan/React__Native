@@ -125,7 +125,7 @@ setModalVisible(true);
         secureTextEntry
       />
       <Button color="red" title="Login" onPress={handleLogin} />
-      <Button color="red" title="Don't have an account? Sign up (RegisterScreen)" onPress={() => navigation.navigate('Manager')} /> 
+      <Button color="red" title="Don't have an account? Sign up (RegisterScreen)" onPress={() => navigation.navigate('RegisterScreen')} /> 
        <NavigationContainer>
       {modalVisible && (
         <View>

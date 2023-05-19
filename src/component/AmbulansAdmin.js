@@ -62,7 +62,7 @@ export default function RegisterScreen({ navigation }) {
               email: generatedEmail,
               password: generatedPassword,
               phone,
-              userId: user.uid,
+              AmbulanceId: user.uid,
               status,
               
             })
