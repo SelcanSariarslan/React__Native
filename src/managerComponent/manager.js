@@ -5,7 +5,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import StatusPage from './StatusPage';
-
+import Array from './array';
+import Caller from './Caller';
 export const Manager = () => {
   const [isReady, setIsReady] = useState(true); // status  hep false
   const [selectedNumber, setSelectedNumber] = useState(null);  // location
@@ -32,6 +33,8 @@ export const Manager = () => {
         <Text style={styles.buttonText}>{isReady ? 'Cancel' : 'Ready'}</Text>
       </TouchableOpacity>
       <Text>{isReady}</Text>
+      <Array/>
+      <Caller/>
       <View style={styles.container}>
         {selectedNumber ? (
           <Text style={styles.selectedNumber}>
@@ -46,7 +49,9 @@ export const Manager = () => {
         </TouchableOpacity>
       </View>
       <StatusPage status={isReady} location={selectedNumber}/>
+    
     </View>
+    
   );
 };
 
