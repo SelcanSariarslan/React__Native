@@ -5,7 +5,7 @@ import ConfirmationModal from '../smalComponent/ConfirmationModal';
 import HelpModel from '../smalComponent/HelpModel';
 import FirstInstruction from '../instructions/Instruction';
 import { useNavigation } from '@react-navigation/native';
-import LoginScreen from './Map';
+import LoginScreen from './Login';
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -88,7 +88,7 @@ export default function Vehicle(props) {
   const navigation = useNavigation();
 
   const handleLogout = () => {
-    props.navigation.navigate('Login');
+    props.navigation.navigate(LoginScreen);
     // props.navigation.navigate('LoginScreen');
   };
   const [stateHelp, setstateHelp] = useState(false);
@@ -284,6 +284,8 @@ export default function Vehicle(props) {
           </View>
         </TouchableOpacity>
       </View>
+
+          
 
     </View >
   );

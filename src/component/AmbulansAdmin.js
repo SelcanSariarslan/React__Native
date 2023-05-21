@@ -11,6 +11,7 @@ export default function RegisterScreen({ navigation }) {
   const [plate, setPlate] = useState('06 ABC 000');
   const [userId, setUserId] = useState('');
   const [status, setStatus] = useState('false');
+  const collection = "ambulance";
   
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -62,8 +63,9 @@ export default function RegisterScreen({ navigation }) {
               email: generatedEmail,
               password: generatedPassword,
               phone,
-              AmbulanceId: user.uid,
+              Id: user.uid,
               status,
+              collection,
               
             })
             .then(() => {
@@ -101,7 +103,7 @@ export default function RegisterScreen({ navigation }) {
         }}
       >
         <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
-        <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10, color: 'white', paddingLeft: 100, paddingRight: 100 }}>REGISTER</Text>
+        <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 10, color: 'white', paddingLeft: 100, paddingRight: 100 }}>AMBULANCE</Text>
       </View>
 
       <TextInput

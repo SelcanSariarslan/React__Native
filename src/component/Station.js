@@ -6,6 +6,10 @@ import Voice from '../smalComponent/Voice';
 import { unique_intersection } from './ShortestPath';
 import { useNavigation } from '@react-navigation/native';
 import AllVehicle from './ClosestVehiclee';
+import firebase from 'firebase/app';
+import ClosestVehiclee from './ClosestVehiclee'
+
+import 'firebase/firestore';
 
 //import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
@@ -63,6 +67,7 @@ export default function Vehicle(props) {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState(null);
   const navigation = useNavigation();
+  const [userId, setUserId] = useState("");
 
 
   const handleImagePress = () => {
@@ -104,7 +109,17 @@ export default function Vehicle(props) {
       ]);
     }
   }, [vehicleName]);
-  console.log(selectedLevel);
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      }
+    });
+    return unsubscribe;
+  }, []);
+  console.log("DID IT");
+  console.log(userId);
   return (
     selectedNumber,
     <ScrollView>
@@ -184,7 +199,8 @@ export default function Vehicle(props) {
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.text}>CALL</Text>
       </TouchableOpacity>
-      <AllVehicle vehicle={vehicleName} caller_location={selectedNumber} />
+      <AllVehicle vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId}/>
+        <ClosestVehiclee />
     </ScrollView>
   );
 }
