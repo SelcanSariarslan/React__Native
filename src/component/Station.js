@@ -5,6 +5,8 @@ import Photograph from '../smalComponent/Media';
 import Voice from '../smalComponent/Voice';
 import { unique_intersection } from './ShortestPath';
 import { useNavigation } from '@react-navigation/native';
+import AllVehicle from './ClosestVehiclee';
+
 //import ImagePicker from 'react-native-image-picker';
 const styles = StyleSheet.create({
   imageStyle: {
@@ -182,6 +184,7 @@ export default function Vehicle(props) {
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.text}>CALL</Text>
       </TouchableOpacity>
+      <AllVehicle vehicle={vehicleName} caller_location={selectedNumber} />
     </ScrollView>
   );
 }

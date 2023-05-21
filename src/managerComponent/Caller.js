@@ -5,19 +5,20 @@ import 'firebase/firestore';
 
 const Caller = () => {
   const [callerId, setCallerId] = useState('');
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     const db = firebase.firestore();
 
     const fetchCallerData = async () => {
       try {
-        const userQuerySnapshot = await db.collection('users').where('location', '==', 954).get();
+        const userQuerySnapshot = await db.collection('users').where('location', '==', 1065).get();
         const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
 
         if (userIds.length > 0) {
           const userId = userIds[0];
 
-          await db.collection('ambulance').doc('28jyqz2zoYZ5GmSuVundC0MZTfG2').update({
+          await db.collection('ambulance').doc('pM4AzGh0FgMpmPq6k7oCWAozdor1').update({
             caller_id: userId
           });
 

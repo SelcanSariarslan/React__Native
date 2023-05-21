@@ -6,7 +6,7 @@ import 'firebase/firestore';
 const Array = () => {
   const [emergencyData, setEmergencyData] = useState([]);
   const [collectionName, setCollectionName] = useState('');
-
+  console.log(emergencyData);
   useEffect(() => {
     const db = firebase.firestore();
 
@@ -27,7 +27,7 @@ const Array = () => {
   const handleCollectionChange = (collection) => {
     setCollectionName(collection);
   };
-
+  
   return (
     <ScrollView>
       <View>
@@ -48,7 +48,7 @@ const Array = () => {
           <Text>Emergency Data:</Text>
           {emergencyData.map((data, index) => (
             <View key={index}>
-              <Text>{data.Id}</Text>
+              <Text>{data.location}</Text>
               {index !== emergencyData.length - 1 && <View style={{ borderBottomWidth: 1, marginTop: 5 }} />}
             </View>
           ))}

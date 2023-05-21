@@ -58,7 +58,11 @@ const fetchImage = async () => {
         location: location,
         Id: userId,
         caller_id:"",
-        calling_status:""
+        calling_status:"",
+        caller_image:"",
+        caller_voice:"",
+        caller_location:"",
+        caller_message:""
       };
 
       try {

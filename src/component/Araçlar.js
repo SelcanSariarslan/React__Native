@@ -266,7 +266,7 @@ export default function Vehicle(props) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePressForVehicle('Polis')} style={styles.container}>
+        <TouchableOpacity onPress={() => handlePressForVehicle('Police')} style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={styles.textstyle}>POLICE</Text>
           </View>
@@ -275,7 +275,7 @@ export default function Vehicle(props) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePressForVehicle('İtfaiye')} style={styles.container}>
+        <TouchableOpacity onPress={() => handlePressForVehicle('FIRE FIGHTING')} style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={styles.textstyle}>FIRE-FIGHTING</Text>
           </View>
