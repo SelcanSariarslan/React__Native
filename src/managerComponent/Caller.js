@@ -4,46 +4,30 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const Caller = () => {
-  const [callerId, setCallerId] = useState('');
-  const [receiverId, setReceiverId] = useState('');
-  const [image, setImage] = useState('');
-  const [collectionName, setCollectionName] =useState ('');
-  const [receiverobject,setReceiverobject] = useState([]);
-  
-
-
-
-
-
-  useEffect(() => {         // fetching the current receiver id
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setReceiverId(user.uid);
-      }
-    });
-    return unsubscribe;
-  }, []);
-
+  const [callerData, setCallerData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const db = firebase.firestore();
+    const user = firebase.auth().currentUser;
 
     const fetchCallerData = async () => {
       try {
-       
-        const userQuerySnapshot = await db.collection('users').where('Id', '==', receiverId).get();
-        const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+        if (user) {
+          const userId = user.uid;
 
-        if (userIds.length > 0) {
-          const userId = userIds[0];
+          const policeDoc = await db.collection('police').doc(userId).get();
+          const ambulanceDoc = await db.collection('ambulance').doc(userId).get();
+          const fireDoc = await db.collection('fire').doc(userId).get();
 
-          await db.collection('ambulance').doc('pM4AzGh0FgMpmPq6k7oCWAozdor1').update({
-            caller_id: userId
-          });
+          const policeData = policeDoc.data();
+          const ambulanceData = ambulanceDoc.data();
+          const fireData = fireDoc.data();
 
-          setCallerId(userId);
-        } else {
-          console.log('No user found with location: 954');
+          const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
+
+          setCallerData(combinedData);
+          setLoading(false);
         }
       } catch (error) {
         console.log('Error:', error);
@@ -53,41 +37,29 @@ const Caller = () => {
     fetchCallerData();
   }, []);
 
+  if (loading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
-/**
-
-  useEffect(() => {
-    const db = firebase.firestore();
-
-    const fetchCallerData = async () => {
-      try {
-        const userQuerySnapshot = await db.collection('users').where('location', '==', 1065).get();
-        const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-
-        if (userIds.length > 0) {
-          const userId = userIds[0];
-
-          await db.collection('ambulance').doc('pM4AzGh0FgMpmPq6k7oCWAozdor1').update({
-            caller_id: userId
-          });
-
-          setCallerId(userId);
-        } else {
-          console.log('No user found with location: 954');
-        }
-      } catch (error) {
-        console.log('Error:', error);
-      }
-    };
-
-    fetchCallerData();
-  }, []); */
-  console.log("Managerrrrr");
-console.log(receiverobject);
   return (
     <ScrollView>
       <View>
-        <Text>Caller ID: {callerId}</Text>
+        {callerData.map((data, index) => (
+          <View key={index}>
+            <Text>Caller ID: {data.caller_id}</Text>
+            <Text>Caller Location: {data.caller_location}</Text>
+            <Text>Calling Status: {data.calling_status}</Text>
+            <Text>Caller Image: {data.caller_image}</Text>
+            <Text>Caller Emergency Level: {data.coller_emergencylevel}</Text>
+            <Text>Caller Message: {data.coller_message}</Text>
+            <Text>Caller Voice: {data.caller_voice}</Text>
+            <Text>----------------------------------------</Text>
+          </View>
+        ))}
       </View>
     </ScrollView>
   );

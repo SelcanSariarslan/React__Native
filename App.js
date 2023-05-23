@@ -7,6 +7,7 @@ import Home from './src/component/Home';
 import Vehicle from './src/component/Araçlar';
 import Station from './src/component/Station';
 import Manager from './src/managerComponent/manager';
+import Caller from './src/managerComponent/Caller';
 import Map from './src/component/Map';
 import RegisterScreen from './src/component/RegisterScreen';
 import AmbulansAdmin from './src/component/AmbulansAdmin';
@@ -34,6 +35,12 @@ import managerCotainer from './navigation/managerContainer'
 const MainNavigator = createStackNavigator({
   Login: {
     screen: Login,
+    navigationOptions: {
+      headerTintColor: 'red',
+    },
+  },
+  Caller: {
+    screen: Caller,
     navigationOptions: {
       headerTintColor: 'red',
     },

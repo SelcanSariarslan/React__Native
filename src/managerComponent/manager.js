@@ -26,6 +26,7 @@ export const Manager = () => {
 
   return (
     <View style={styles.container}>
+      <Caller/>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: isReady ? 'green' : 'red' }]}
         onPress={handleButtonClick}
@@ -33,8 +34,9 @@ export const Manager = () => {
         <Text style={styles.buttonText}>{isReady ? 'Cancel' : 'Ready'}</Text>
       </TouchableOpacity>
       <Text>{isReady}</Text>
+      
       <Array/>
-      <Caller/>
+      
       <View style={styles.container}>
         {selectedNumber ? (
           <Text style={styles.selectedNumber}>
