@@ -7,11 +7,13 @@ import { unique_intersection } from './ShortestPath';
 const AllVehicle = (props) => {
     const [emergencyData, setEmergencyData] = useState([]); // all the data of the vehicles
     const [emergencyLocations, setEmergencyLocations] = useState([]); // just the location of the vehicles
+    const [callerLocation, setCallerLocation] = useState("");
     const [callerobject, setCallerobject] = useState([]);
     const [ClosestVehicle, setClosestVehicle] = useState("");
+    const [ClosestVehicleNum, setClosestVehicleNum] = useState("");
     const [targetVehicleId, setTargetVehicleId] = useState('');
     const [ClosestVehicleId, setClosestVehicleId] = useState("");
-    const [callerLocation, setCallerLocation] = useState("");
+
 
     const [coordinatelog1, setCoordinatelog1] = useState(null);
     const [coordinatelat1, setCoordinatelat1] = useState(null);
@@ -72,7 +74,7 @@ const AllVehicle = (props) => {
         const fetchData = async () => {
             try {
                 const collectionRef = db.collection(collection);
-                const querySnapshot = await collectionRef.where("location", "==", 461).get();
+                const querySnapshot = await collectionRef.where("location", "==", ClosestVehicleNum).get();  //461
                 const data = querySnapshot.docs.map((doc) => doc.data());
                 setTargetVehicleId(data.map(data => data.Id));
 
@@ -143,58 +145,76 @@ const AllVehicle = (props) => {
     }
 
 
-    const coordinate1 = { latitude: 40.7128, longitude: -74.0060 }; // New York City coordinates
-    const coordinate2 = { latitude: 34.0522, longitude: -118.2437 }; // Los Angeles coordinates
+    /** const coordinate1 = { latitude: 40.7128, longitude: -74.0060 }; // New York City coordinates
+     const coordinate2 = { latitude: 34.0522, longitude: -118.2437 }; // Los Angeles coordinates */
     useEffect(() => {
-
         const calculate = async () => {
-            
+            var Shortest = Infinity;
+            var coordinatelon22;
+            var coordinatelat22;
+            const myArray = [];
+
             for (var i = 0; i < unique_intersection.length; i++) {
-                
+
                 if (i == callerLocation) {
-                  setCoordinatelog1(unique_intersection[i][0]);
-                  console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-                  console.log(coordinatelog1);
-                  setCoordinatelat1(unique_intersection[i][1]);
-                } else if (emergencyLocations[0] == i) {
-                  setCoordinatelon2(unique_intersection[i][0]);
-                  setCoordinatelat2(unique_intersection[i][1]);
-                  setClosestVehicle(distance);
-                  
-                  
+                    setCoordinatelog1(unique_intersection[i][0]);
+                    setCoordinatelat1(unique_intersection[i][1]);
+                    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh caller location :  " + i + " its cordinates is: " + unique_intersection[i]);
                 }
-              }
+            }
+
+
+            for (var i = 0; i < unique_intersection.length; i++) {
+
+                for (var x = 0; x < emergencyLocations.length; x++) {
+
+                    if (emergencyLocations[x] === i) {
+                        // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx" + emergencyLocations[x]);
+                        coordinatelon22 = unique_intersection[emergencyLocations[x]][0];
+                        coordinatelat22 = unique_intersection[emergencyLocations[x]][1];
+
+                        const newDistance = calculateDistance(
+                            coordinatelog1,
+                            coordinatelat1,
+                            coordinatelon22,
+                            coordinatelat22
+                        );
+                        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq   " + newDistance);
+                        myArray.push(newDistance);
+                        if (newDistance < Shortest) {
+                            Shortest = newDistance;
+                        }
+                        setClosestVehicle(Shortest);
+                    }
+                }
+            }
+
+            for (var x = 0; x < myArray.length; x++) {
+
+                if (ClosestVehicle == myArray[x]) {
+
+                    setClosestVehicleNum(emergencyLocations[x]);
+                    console.log("the closest node is the num : " + emergencyLocations[x]);
+                }
+            }
+
+            // console.log(myArray);
+
         };
-       
         calculate();
-        setDistance( calculateDistance(
-          coordinatelog1,
-          coordinatelat1,
-          coordinatelon2,
-          coordinatelat2
-        ));
-      
-        // Perform any additional operations using the distance value
-      
-      }, [unique_intersection, callerLocation, emergencyLocations]);
-      
 
-  
+    }, [unique_intersection, callerLocation, emergencyLocations, distance]);
 
 
-
-    var i = 10;
-    console.log(distance); // Output: 3934.858099589917
-    //handleCollectionChange(collection);
-    console.log(unique_intersection[callerLocation]);
-
-    console.log("the full object");
+    console.log(emergencyLocations);
+    console.log("");
+    console.log("the ClosestVehicle is:");
     console.log(ClosestVehicle);
 
     return (
 
         <View>
-            <Text>Select Collection</Text>
+            <Text></Text>
         </View>
 
     );
