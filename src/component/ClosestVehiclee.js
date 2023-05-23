@@ -101,9 +101,9 @@ const AllVehicle = (props) => {
                         caller_id: userId,
                         caller_location: callerobject.map(data => data.location),
                         caller_image: callerobject.map(data => data.image),
-                        coller_message: callerobject.map(data => data.detail),
-                        coller_voice: callerobject.map(data => data.voiceUrl),
-                        coller_emergencylevel: callerobject.map(data => data.emergency_level)
+                        caller_message: callerobject.map(data => data.detail),
+                        caller_voice: callerobject.map(data => data.voiceUrl),
+                        caller_emergencylevel: callerobject.map(data => data.emergency_level)
                     });
 
 
