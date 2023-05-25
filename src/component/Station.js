@@ -5,7 +5,6 @@ import Photograph from '../smalComponent/Media';
 import Voice from '../smalComponent/Voice';
 import { unique_intersection } from './ShortestPath';
 import { useNavigation } from '@react-navigation/native';
-import AllVehicle from './ClosestVehiclee';
 import firebase from 'firebase/app';
 import ClosestVehiclee from './ClosestVehiclee'
 
@@ -196,11 +195,9 @@ export default function Vehicle(props) {
 
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.text}>CALL</Text>
-      </TouchableOpacity>
-      <AllVehicle vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId}/>
-        <ClosestVehiclee />
+      
+      <ClosestVehiclee vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress}/>
+       
     </ScrollView>
   );
 }

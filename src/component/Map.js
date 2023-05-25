@@ -7,6 +7,7 @@ import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads';
 import Cancel_Button from '../smalComponent/CancelButton';
 import Araçlar from  './Araçlar';
 import { unique_intersection } from './ShortestPath';
+import ClosestVehiclee from './ClosestVehiclee'
 
 
 const LeafletMap = (props) => {
@@ -283,6 +284,7 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
                     )}
                 </View>
             </View>
+            
         </View>
     );
 

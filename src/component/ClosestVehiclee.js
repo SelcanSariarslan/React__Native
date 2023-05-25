@@ -1,9 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { unique_intersection } from './ShortestPath';
+const styles = StyleSheet.create({
+    imageStyle: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: 'red',
+        alignSelf: 'center',
+        alignSelf: 'center',
+        marginTop: 20,
+    },
+    container: {
+        flex: 1,
+        alignItems: 'flex-end',
+        position: 'absolute',
+        justifyContent: 'flex-start',
+        marginTop: 540,
+        paddingLeft: 300,
+    },
+    image: {
+        width: 50,
+        height: 50,
+    },
 
+    selectedNumber: {
+        marginTop: 20,
+    }, button: {
+        backgroundColor: "red",
+        padding: 16,
+        borderRadius: 8,
+    },
+    text: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center",
+        fontSize: 16,
+    },
+});
 const AllVehicle = (props) => {
     const [emergencyData, setEmergencyData] = useState([]); // all the data of the vehicles
     const [emergencyLocations, setEmergencyLocations] = useState([]); // just the location of the vehicles
@@ -86,37 +123,6 @@ const AllVehicle = (props) => {
         fetchData();
     }, [collection]);
 
-    useEffect(() => {      // sending all the media to the target vechile
-        const db = firebase.firestore();
-
-        const fetchCallerData = async () => {
-            try {
-                const userQuerySnapshot = await db.collection('users').where('location', '==', callerLocation).get();
-                const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-
-                if (userIds.length > 0) {
-                    const userId = userIds[0];
-
-                    await db.collection(collection).doc(targetVehicleId[0]).update({
-                        caller_id: userId,
-                        caller_location: callerobject.map(data => data.location),
-                        caller_image: callerobject.map(data => data.image),
-                        caller_message: callerobject.map(data => data.detail),
-                        caller_voice: callerobject.map(data => data.voiceUrl),
-                        caller_emergencylevel: callerobject.map(data => data.emergency_level)
-                    });
-
-
-                } else {
-                    console.log('No user found with location: 954');
-                }
-            } catch (error) {
-                console.log('Error:', error);
-            }
-        };
-
-        fetchCallerData();
-    }, []);
 
     function calculateDistance(lat1, lon1, lat2, lon2) {
         const earthRadius = 6371; // Radius of the Earth in kilometers
@@ -209,12 +215,54 @@ const AllVehicle = (props) => {
     console.log(emergencyLocations);
     console.log("");
     console.log("the ClosestVehicle is:");
-    console.log(ClosestVehicle);
+    console.log(callerLocation[0]);
+
+    // sending all the media to the target vechile
+    const db = firebase.firestore();
+
+    const fetchCallerData = async () => {
+        try {
+            const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
+            const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+
+            if (userIds) {
+                const userId = userIds;
+
+                await db.collection(collection).doc("AdeHeNyWL5Ny8EPYkLIsWou2lHu2").update({  //targetVehicleId[0]
+                    caller_id: userId,
+                    caller_location: callerobject.map(data => data.location),
+                    caller_image: callerobject.map(data => data.image),
+                    caller_message: callerobject.map(data => data.detail),
+                    caller_voice: callerobject.map(data => data.voiceUrl),
+                    caller_emergencylevel: callerobject.map(data => data.emergency_level)
+                });
+                console.log('added to Vehicleeeeeeeeeeeeeeeee  '+ userIds);
+
+            } else {
+                console.log('No user found with location: 954');
+            }
+        } catch (error) {
+            console.log('Error:', error);
+        }
+    };
+
+    
+    const handlePress = () => {
+        props.handlePress();
+        fetchCallerData();
+    
+      };
 
     return (
 
         <View>
-            <Text></Text>
+            <Text>
+                <TouchableOpacity style={styles.button} onPress={handlePress}>
+                    <Text style={styles.text}>
+                        CALL
+                    </Text>
+                </TouchableOpacity>
+            </Text>
         </View>
 
     );
