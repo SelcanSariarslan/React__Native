@@ -67,6 +67,37 @@ export default function Vehicle(props) {
   const [selectedNumber, setSelectedNumber] = useState(null);
   const navigation = useNavigation();
   const [userId, setUserId] = useState("");
+  const [callerobject, setCallerobject] = useState([]);
+
+  
+  const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
+  const [caller_image, setCaller_image] = useState("");
+  const [message, setMessage] = useState("");
+  const [callerName, setCallerName] = useState("");
+  const [callerLocation, setCallerLocation] = useState("");
+
+
+  useEffect(() => {
+    const db = firebase.firestore();
+  
+    const fetchData = async () => {
+      try {
+        const collectionRef = db.collection("users");
+        const querySnapshot = await collectionRef.where("Id", "==", userId).get();
+        const data = querySnapshot.docs.map((doc) => doc.data());
+        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        console.log(data[0]);
+        setCallerobject(data[0]);
+        
+        
+      } catch (error) {
+        console.log(`Error getting ${"users"} documents: `, error);
+      }
+    };
+  
+    fetchData();
+  }, [callerobject]); //callerobject
+  
 
 
   const handleImagePress = () => {
@@ -78,7 +109,9 @@ export default function Vehicle(props) {
 
 
 
-  };
+  }; 
+
+
 
   const handlePress = () => {
     const randomNum = selectedNumber;
@@ -196,7 +229,7 @@ export default function Vehicle(props) {
       </View>
 
       
-      <ClosestVehiclee vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress}/>
+      <ClosestVehiclee vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject}/>
        
     </ScrollView>
   );

@@ -13,46 +13,47 @@ const Caller = () => {
   
     const db = firebase.firestore();
     const user = firebase.auth().currentUser;
-
-    const fetchCallerData = async () => {
-      try {
-        if (user) {
-          const userId = user.uid;
-          setCurrentId(userId);
-          const policeDoc = await db.collection('police').doc(userId).get();
-          const ambulanceDoc = await db.collection('ambulance').doc(userId).get();
-          const fireDoc = await db.collection('fire').doc(userId).get();
-
-          const policeData = policeDoc.data();
-          const ambulanceData = ambulanceDoc.data();
-          const fireData = fireDoc.data();
-
-          const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
-
-          setCallerData(combinedData);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.log('Error:', error);
-      }
-    };
     useEffect(() => {
-    const interval = setInterval(() => {
-      if (callerData[0]?.status === false) {
-        fetchCallerData();
-      } else {
-        console.log('Caller data status is trueeeeeeee');
+      const fetchCallerData = async () => {
+        try {
+          if (user) {
+            const userId = user.uid;
+            setCurrentId(userId);
+            const policeDoc = await db.collection('police').doc(userId).get();
+            const ambulanceDoc = await db.collection('ambulance').doc(userId).get();
+            const fireDoc = await db.collection('fire').doc(userId).get();
+    
+            const policeData = policeDoc.data();
+            const ambulanceData = ambulanceDoc.data();
+            const fireData = fireDoc.data();
+    
+            const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
+    
+            setCallerData(combinedData);
+            setLoading(false);
+          }
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      };
+    
+      const interval = setInterval(() => {
+        if (callerData[0]?.status === false) {
+          fetchCallerData();
+          console.log('Caller data status is false');
+        } else {
+          console.log('Caller data status is trueeeeeeee');
+          clearInterval(interval);
+        }
+      }, 4000); // Change the interval value to 2000 for every 2 seconds
+    
+      fetchCallerData();
+    
+      return () => {
         clearInterval(interval);
-      }
-    }, 4000);
-
-    fetchCallerData();
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
+      };
+    }, [callerData]);
+    
   if (loading) {
     return (
       <View>
@@ -60,7 +61,8 @@ const Caller = () => {
       </View>
     );
   }
-  console.log(callerData[0]?.status);
+ //  console.log(callerData[0]);
+ // console.log(callerData[0].caller_emergencylevel);
   
   return (
     <ScrollView>
@@ -72,17 +74,17 @@ const Caller = () => {
             <Text>Calling Status: {data.calling_status}</Text>
             <Text>Caller Image: {data.caller_image}</Text>
            
-            <Text>Caller status: {data.status}</Text>
+            <Text>Caller status: {data.caller_emergencylevel}</Text>
             <Text>----------------------------------------</Text>
           </View>
         ))}
       </View>
       <Image
         source={{
-          uri: callerData[0]?.caller_image[0],
+          uri: callerData[0]?.caller_image,
         }}
         style={{ width: 200, height: 200 }}
-      />
+      /> 
     </ScrollView>
   );
 };

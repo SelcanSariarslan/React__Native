@@ -115,7 +115,7 @@ const Media = (props) => {
     if (currentUser) {
       const uid = currentUser.uid;
       const userDetails = {
-        detail: inputName,
+        emergency_explenation: inputName,
         image: null,
         voiceUrl: null,
         location: location,

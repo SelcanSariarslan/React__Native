@@ -54,7 +54,7 @@ const fetchImage = async () => {
 
     if (collectionName) {
       const locationData = {
-        status: status,
+        isReady: status,
         location: location,
         Id: userId,
         

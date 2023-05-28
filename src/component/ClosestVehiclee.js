@@ -48,9 +48,10 @@ const AllVehicle = (props) => {
 
     const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
     const [caller_image, setCaller_image] = useState("");
-    
+    const [message, setMessage] = useState("");
+    const [callerName, setCallerName] = useState("");
 
-    caller_emergencylevel
+
     const [callerobject, setCallerobject] = useState([]);
     const [ClosestVehicle, setClosestVehicle] = useState("");
     const [ClosestVehicleNum, setClosestVehicleNum] = useState("");
@@ -67,11 +68,11 @@ const AllVehicle = (props) => {
 
 
 
-
+    const caller_object = props.callerData;
     const caller_id = props.user_Id;
     const collection = props.vehicle === 'Ambulans' ? 'ambulance' : props.vehicle === 'Police' ? 'police' : props.vehicle === 'FIRE FIGHTING' ? 'fire' : '';
-        console.log("dddddddddddddddddddddddddddddd");
-        console.log(callerobject);
+    console.log("dddddddddddddddddddddddddddddd");
+    //console.log(caller_object.Id);
     useEffect(() => {
         const db = firebase.firestore();
 
@@ -91,31 +92,35 @@ const AllVehicle = (props) => {
     }, [collection]);
 
 
+{/**
 
-    
-        const db = firebase.firestore();
+    const db = firebase.firestore();
 
-        const fetchData = async () => {
-            try {
-                const collectionRef = db.collection("users");
-                const querySnapshot = await collectionRef.where("Id", "==", caller_id).get(); // fetching the object that bellongs to the current user
-                const data = querySnapshot.docs.map((doc) => doc.data());
-                setCallerobject(data);
-                setCallerLocation(data.map(data => data.location));
-                setCaller_emergencylevel(data.map(data => data.emergency_level));
-                setCaller_image(data.map(data => data.image));
+    const fetchData = async () => {
+        try {
+            const collectionRef = db.collection("users");
+            const querySnapshot = await collectionRef.where("Id", "==", caller_id).get(); // fetching the object that bellongs to the current user
+            const data = querySnapshot.docs.map((doc) => doc.data());
+            setCallerobject(data);
+            setCallerLocation(data.map(data => data.location));
+            setCaller_emergencylevel(data.map(data => data.emergency_level));
+            setCaller_image(data.map(data => data.image));
+            setMessage(data.map(data => data.emergency_explenation));
+            setCallerName(data.map(data => data.name));
 
-               
 
-            } catch (error) {
-                console.log(`Error getting ${"users"} documents: `, error);
-            }
-        };
 
-        
-    
-    console.log("setttttttttttttttttttttttttttttttttttttttttt");
-    console.log(caller_image[0]);
+
+
+        } catch (error) {
+            console.log(`Error getting ${"users"} documents: `, error);
+        }
+    }; */}
+
+
+
+   //console.log("setttttttttttttttttttttttttttttttttttttttttt");
+   // console.log(callerobject);
     useEffect(() => {
         const db = firebase.firestore();  // fetching the Id of the target vechile to send the media of the caller later
 
@@ -223,32 +228,43 @@ const AllVehicle = (props) => {
     }, [unique_intersection, callerLocation, emergencyLocations, distance]);
 
 
-    console.log(emergencyLocations);
-    console.log("");
-    console.log("the ClosestVehicle is:");
-    console.log(callerLocation[0]);
+  //  console.log(emergencyLocations);
+
+   // console.log("the ClosestVehicle is:");
+    //console.log(callerLocation[0]);
 
     // sending all the media to the target vechile
-   
+
 
     const fetchCallerData = async () => {
-        fetchData();
-        try {
-            const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
-           // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-            console.log("********************************************");
-console.log(caller_id);
-            if (caller_id) {
-                
+        const db = firebase.firestore();
 
-                await db.collection(collection).doc("AdeHeNyWL5Ny8EPYkLIsWou2lHu2").update({  //targetVehicleId[0]
-                    caller_id: caller_id,
-                    caller_location: callerobject[0].location,
-                    caller_image:callerobject[0].image,
-                    caller_emergencylevel:callerobject[0].emergency_level,
-                    
+        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        console.log(caller_object.emergency_level);
+        
+        {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+        console.log("caller_emergencylevel:  " +caller_emergencylevel[0]);
+        console.log("callerLocation[0]:  " +callerLocation[0]);
+        console.log("caller_image[0]:  " +caller_image[0]); */}
+        
+        try {
+            // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
+            // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+        // console.log("********************************************");
+          //  console.log(caller_id);
+            if (caller_id) {
+
+
+                await db.collection(collection).doc("LK7RWOR0lMVvT2NDmOyLxT1O2lu2").update({  //targetVehicleId[0]
+                    caller_id: caller_object?.Id,
+                    caller_location: caller_object.location,
+                    caller_image: caller_object.image,
+                    caller_emergencylevel: caller_object.emergency_level,
+                    caller_message: caller_object.emergency_explenation,
+                    caller_name:caller_object.name,
+
                 });
-                console.log('added to Vehicleeeeeeeeeeeeeeeee  '+ caller_id);
+                console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
 
             } else {
                 console.log('No user found with location: 954');
@@ -258,15 +274,13 @@ console.log(caller_id);
         }
     };
 
-    
+
     const handlePress = () => {
-        props.handlePress();
-        fetchData();
-        fetchCallerData();
-        
-      
-    
-      };
+        // props.handlePress();
+       
+          fetchCallerData();
+       
+    };
 
     return (
 
