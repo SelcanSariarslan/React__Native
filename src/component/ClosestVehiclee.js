@@ -45,6 +45,12 @@ const AllVehicle = (props) => {
     const [emergencyData, setEmergencyData] = useState([]); // all the data of the vehicles
     const [emergencyLocations, setEmergencyLocations] = useState([]); // just the location of the vehicles
     const [callerLocation, setCallerLocation] = useState("");
+
+    const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
+    const [caller_image, setCaller_image] = useState("");
+    
+
+    caller_emergencylevel
     const [callerobject, setCallerobject] = useState([]);
     const [ClosestVehicle, setClosestVehicle] = useState("");
     const [ClosestVehicleNum, setClosestVehicleNum] = useState("");
@@ -64,8 +70,8 @@ const AllVehicle = (props) => {
 
     const caller_id = props.user_Id;
     const collection = props.vehicle === 'Ambulans' ? 'ambulance' : props.vehicle === 'Police' ? 'police' : props.vehicle === 'FIRE FIGHTING' ? 'fire' : '';
-
-
+        console.log("dddddddddddddddddddddddddddddd");
+        console.log(callerobject);
     useEffect(() => {
         const db = firebase.firestore();
 
@@ -86,7 +92,7 @@ const AllVehicle = (props) => {
 
 
 
-    useEffect(() => {
+    
         const db = firebase.firestore();
 
         const fetchData = async () => {
@@ -96,15 +102,20 @@ const AllVehicle = (props) => {
                 const data = querySnapshot.docs.map((doc) => doc.data());
                 setCallerobject(data);
                 setCallerLocation(data.map(data => data.location));
+                setCaller_emergencylevel(data.map(data => data.emergency_level));
+                setCaller_image(data.map(data => data.image));
+
+               
 
             } catch (error) {
                 console.log(`Error getting ${"users"} documents: `, error);
             }
         };
 
-        fetchData();
-    }, ["users"]);
-
+        
+    
+    console.log("setttttttttttttttttttttttttttttttttttttttttt");
+    console.log(caller_image[0]);
     useEffect(() => {
         const db = firebase.firestore();  // fetching the Id of the target vechile to send the media of the caller later
 
@@ -218,25 +229,26 @@ const AllVehicle = (props) => {
     console.log(callerLocation[0]);
 
     // sending all the media to the target vechile
-    const db = firebase.firestore();
+   
 
     const fetchCallerData = async () => {
+        fetchData();
         try {
             const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
-            const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-
-            if (userIds) {
-                const userId = userIds;
+           // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+            console.log("********************************************");
+console.log(caller_id);
+            if (caller_id) {
+                
 
                 await db.collection(collection).doc("AdeHeNyWL5Ny8EPYkLIsWou2lHu2").update({  //targetVehicleId[0]
-                    caller_id: userId,
-                    caller_location: callerobject.map(data => data.location),
-                    caller_image: callerobject.map(data => data.image),
-                    caller_message: callerobject.map(data => data.detail),
-                    caller_voice: callerobject.map(data => data.voiceUrl),
-                    caller_emergencylevel: callerobject.map(data => data.emergency_level)
+                    caller_id: caller_id,
+                    caller_location: callerobject[0].location,
+                    caller_image:callerobject[0].image,
+                    caller_emergencylevel:callerobject[0].emergency_level,
+                    
                 });
-                console.log('added to Vehicleeeeeeeeeeeeeeeee  '+ userIds);
+                console.log('added to Vehicleeeeeeeeeeeeeeeee  '+ caller_id);
 
             } else {
                 console.log('No user found with location: 954');
@@ -249,7 +261,10 @@ const AllVehicle = (props) => {
     
     const handlePress = () => {
         props.handlePress();
+        fetchData();
         fetchCallerData();
+        
+      
     
       };
 

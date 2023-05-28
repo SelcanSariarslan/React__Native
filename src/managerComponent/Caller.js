@@ -10,7 +10,7 @@ const Caller = () => {
   const [imageUri, setImageUri] = useState(null);
   const [currentId, setCurrentId] = useState(null);
 
-  useEffect(() => {
+  
     const db = firebase.firestore();
     const user = firebase.auth().currentUser;
 
@@ -36,7 +36,7 @@ const Caller = () => {
         console.log('Error:', error);
       }
     };
-
+    useEffect(() => {
     const interval = setInterval(() => {
       if (callerData[0]?.status === false) {
         fetchCallerData();

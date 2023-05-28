@@ -122,6 +122,7 @@ const Media = (props) => {
         emergency_level: emergency_level,
         Id: uid
       };
+     
 
       // Kullanıcının resmini kaydet
       if (imageUri) {
@@ -193,7 +194,7 @@ const Media = (props) => {
 
       {transcription && <Text>{transcription}</Text>}
 
-      <Button color="red" title="Save" onPress={addUserInfoToFirestore} />
+      <Button color="blue" title="Save" onPress={addUserInfoToFirestore} />
     </View>
   );
 };

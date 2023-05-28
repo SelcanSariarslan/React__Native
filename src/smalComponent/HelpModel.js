@@ -31,14 +31,17 @@ const HelpModel = ({ visible, onCancel, onDetails, oncancelShow }) => {
                             <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Fast Explenation</Text>
                         </View>
 
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20, paddingTop: 50 }}>First:</Text>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>Second:</Text>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>Third:</Text>
+                         <Text style={{ color:'red', fontSize: 18, fontWeight: 'bold', marginBottom: 0, paddingTop: 20 }}>First(Vehicle Page):</Text>
+                        <Text style={{ fontSize: 18, marginBottom: 20 }}>You have to select a service from the vehicles page to call a service.</Text>
+                        <Text style={{ color:'red', fontSize: 18, fontWeight: 'bold', marginBottom: 0 }}>Second(Station Page):</Text>
+                        <Text style={{ fontSize: 18, marginBottom: 20 }}>After selecting the service, you can specify the level of urgency on the station page, describe your situation in text, voice, and photo and call the service by clicking the call button.</Text>
+                        <Text style={{ color:'red', fontSize: 18, fontWeight: 'bold', marginBottom: 0 }}>Third(Map Page):</Text>
+                        <Text style={{ fontSize: 18, marginBottom: 20 }}>You can cancel the service you have called in the map section by clicking the cancel button or you can look at your location on the map belove</Text>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>For More Details please Click </Text>
                             <TouchableOpacity onPress={handleConfirm} style={{ flex: 1 }}>
-                                <Text style={{ fontSize: 20, color: 'red', fontWeight: 'bold' }}>Here</Text>
+                                <Text style={{ fontSize: 30, color: 'red', fontWeight: 'bold' }}>Here</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -50,8 +53,8 @@ const HelpModel = ({ visible, onCancel, onDetails, oncancelShow }) => {
                             </View>
                         )}
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: 20, paddingTop: '50%' }}>
-                            <TouchableOpacity onPress={onCancel} style={{ width: 110, height: 40, backgroundColor: 'red', borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '15%'}}>
+                            <TouchableOpacity onPress={onCancel} style={{ width: 110, height: 40, backgroundColor: 'red', borderRadius: 5, justifyContent: 'center', alignItems: 'center'}}>
                                 <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold' }}>Cancel</Text>
                             </TouchableOpacity>
                             </View>

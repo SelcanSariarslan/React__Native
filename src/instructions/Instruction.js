@@ -157,8 +157,14 @@ const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
                                     marginTop: 20,
                                     color: 'red',
                                 }}>
-                                Therd Page
                             </Text>
+                            <Image style={{
+                                    width: '111%',
+                                    height: '85%',
+                                    marginBottom: 110,
+                                    marginRight:8,
+                                    }}
+                                    source={require('./../image/intromap.png')}/>
                         </View>
                     </View>
                 )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, ScrollView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import Photograph from '../smalComponent/Media';
+import Media from '../smalComponent/Media';
 import Voice from '../smalComponent/Voice';
 import { unique_intersection } from './ShortestPath';
 import { useNavigation } from '@react-navigation/native';
@@ -188,7 +188,7 @@ export default function Vehicle(props) {
 
         <View style={{ marginTop: 10 }}>
 
-          <Photograph location={selectedNumber} level={selectedLevel} />
+          <Media location={selectedNumber} level={selectedLevel} />
 
 
         </View>
