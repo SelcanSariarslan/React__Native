@@ -71,8 +71,8 @@ const AllVehicle = (props) => {
     const caller_object = props.callerData;
     const caller_id = props.user_Id;
     const collection = props.vehicle === 'Ambulans' ? 'ambulance' : props.vehicle === 'Police' ? 'police' : props.vehicle === 'FIRE FIGHTING' ? 'fire' : '';
-    console.log("dddddddddddddddddddddddddddddd");
-    //console.log(caller_object.Id);
+   // console.log("dddddddddddddddddddddddddddddd");
+    
     useEffect(() => {
         const db = firebase.firestore();
 
@@ -178,7 +178,7 @@ const AllVehicle = (props) => {
 
             for (var i = 0; i < unique_intersection.length; i++) {
 
-                if (i == callerLocation) {
+                if (i == caller_object.location) {
                     setCoordinatelog1(unique_intersection[i][0]);
                     setCoordinatelat1(unique_intersection[i][1]);
                     console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh caller location :  " + i + " its cordinates is: " + unique_intersection[i]);
@@ -191,9 +191,10 @@ const AllVehicle = (props) => {
                 for (var x = 0; x < emergencyLocations.length; x++) {
 
                     if (emergencyLocations[x] === i) {
-                        // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx" + emergencyLocations[x]);
+                       //  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
                         coordinatelon22 = unique_intersection[emergencyLocations[x]][0];
                         coordinatelat22 = unique_intersection[emergencyLocations[x]][1];
+                        
 
                         const newDistance = calculateDistance(
                             coordinatelog1,
@@ -216,11 +217,12 @@ const AllVehicle = (props) => {
                 if (ClosestVehicle == myArray[x]) {
 
                     setClosestVehicleNum(emergencyLocations[x]);
-                    console.log("the closest node is the num : " + emergencyLocations[x]);
+                    console.log("the closest node is the num : " + emergencyLocations[x] + " that is: "+Shortest);
+                    console.log(emergencyLocations);
                 }
             }
 
-            // console.log(myArray);
+             //console.log(myArray);
 
         };
         calculate();
@@ -228,10 +230,10 @@ const AllVehicle = (props) => {
     }, [unique_intersection, callerLocation, emergencyLocations, distance]);
 
 
-  //  console.log(emergencyLocations);
+ 
 
-   // console.log("the ClosestVehicle is:");
-    //console.log(callerLocation[0]);
+   //console.log("the ClosestVehicle is:");
+    //console.log(callerLocation);
 
     // sending all the media to the target vechile
 
@@ -239,8 +241,8 @@ const AllVehicle = (props) => {
     const fetchCallerData = async () => {
         const db = firebase.firestore();
 
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        console.log(caller_object.emergency_level);
+        //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+      //  console.log(caller_object.emergency_level);
         
         {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
         console.log("caller_emergencylevel:  " +caller_emergencylevel[0]);
@@ -276,7 +278,7 @@ const AllVehicle = (props) => {
 
 
     const handlePress = () => {
-        // props.handlePress();
+        props.handlePress();
        
           fetchCallerData();
        
