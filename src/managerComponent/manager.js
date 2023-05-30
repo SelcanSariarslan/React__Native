@@ -8,7 +8,7 @@ import StatusPage from './StatusPage';
 import Array from './array';
 import Caller from './Caller';
 export const Manager = () => {
-  const [isReady, setIsReady] = useState(true); // status  hep false
+  const [isReady, setIsReady] = useState(false); // status  hep false
   const [selectedNumber, setSelectedNumber] = useState(null);  // location
 
   const handleImagePress = async () => {

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     },
 });
 const AllVehicle = (props) => {
+    const [targetemergencyData, setTargetEmergencyData] = useState([]); // get the target object data of the vehicles
     const [emergencyData, setEmergencyData] = useState([]); // all the data of the vehicles
     const [emergencyLocations, setEmergencyLocations] = useState([]); // just the location of the vehicles
     const [callerLocation, setCallerLocation] = useState("");
@@ -71,18 +72,30 @@ const AllVehicle = (props) => {
     const caller_object = props.callerData;
     const caller_id = props.user_Id;
     const collection = props.vehicle === 'Ambulans' ? 'ambulance' : props.vehicle === 'Police' ? 'police' : props.vehicle === 'FIRE FIGHTING' ? 'fire' : '';
-   // console.log("dddddddddddddddddddddddddddddd");
-    
+
+    //console.log(emergencyData);
+
+
     useEffect(() => {
         const db = firebase.firestore();
+        const locations = [];
 
         const fetchData = async () => {
             try {
                 const collectionRef = db.collection(collection);
                 const querySnapshot = await collectionRef.get();
                 const data = querySnapshot.docs.map((doc) => doc.data());
-                setEmergencyData(data);                                 // fetching all the data of the vehicle
-                setEmergencyLocations(data.map(data => data.location)); // fetching all the locations of the vehicle
+                setEmergencyData(data);  // fetching all the data of the vehicle
+
+
+                // Iterate over the objects inside data
+                for (const key in data) {
+                    if (data.hasOwnProperty(key) && data[key].isReady) {
+                        // If isReady is true, add the location to the array
+                        locations.push(data[key].location);
+                    }
+                }
+                setEmergencyLocations(locations);
             } catch (error) {
                 console.log(`Error getting ${collection} documents: `, error);
             }
@@ -91,8 +104,24 @@ const AllVehicle = (props) => {
         fetchData();
     }, [collection]);
 
+    useEffect(() => {
+        // Find the matching object in emergencyData
+        const targetObject = emergencyData.find(obj => obj.Id === targetVehicleId[0]);
 
-{/**
+        if (targetObject) {
+            // If a matching object is found, set it as the targetemergencyData
+            setTargetEmergencyData(targetObject);
+            // console.log("dddddddddddddddddddddddddddddd");
+            //console.log(targetemergencyData.isReady);
+
+        } else {
+            // If no matching object is found, clear the targetemergencyData
+            setTargetEmergencyData([]);
+        }
+    }, [emergencyData, targetVehicleId[0]]);
+
+
+    {/**
 
     const db = firebase.firestore();
 
@@ -119,8 +148,8 @@ const AllVehicle = (props) => {
 
 
 
-   //console.log("setttttttttttttttttttttttttttttttttttttttttt");
-   // console.log(callerobject);
+    //console.log("setttttttttttttttttttttttttttttttttttttttttt");
+    // console.log(callerobject);
     useEffect(() => {
         const db = firebase.firestore();  // fetching the Id of the target vechile to send the media of the caller later
 
@@ -191,10 +220,10 @@ const AllVehicle = (props) => {
                 for (var x = 0; x < emergencyLocations.length; x++) {
 
                     if (emergencyLocations[x] === i) {
-                       //  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
+                        //  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
                         coordinatelon22 = unique_intersection[emergencyLocations[x]][0];
                         coordinatelat22 = unique_intersection[emergencyLocations[x]][1];
-                        
+
 
                         const newDistance = calculateDistance(
                             coordinatelog1,
@@ -217,12 +246,12 @@ const AllVehicle = (props) => {
                 if (ClosestVehicle == myArray[x]) {
 
                     setClosestVehicleNum(emergencyLocations[x]);
-                    console.log("the closest node is the num : " + emergencyLocations[x] + " that is: "+Shortest);
+                    console.log("the closest node is the num : " + emergencyLocations[x] + " that is: " + Shortest);
                     console.log(emergencyLocations);
                 }
             }
 
-             //console.log(myArray);
+            //console.log(myArray);
 
         };
         calculate();
@@ -230,9 +259,9 @@ const AllVehicle = (props) => {
     }, [unique_intersection, callerLocation, emergencyLocations, distance]);
 
 
- 
 
-   //console.log("the ClosestVehicle is:");
+
+    //console.log("the ClosestVehicle is:");
     //console.log(callerLocation);
 
     // sending all the media to the target vechile
@@ -242,18 +271,18 @@ const AllVehicle = (props) => {
         const db = firebase.firestore();
 
         //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-      //  console.log(caller_object.emergency_level);
-        
+        //  console.log(caller_object.emergency_level);
+
         {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
         console.log("caller_emergencylevel:  " +caller_emergencylevel[0]);
         console.log("callerLocation[0]:  " +callerLocation[0]);
         console.log("caller_image[0]:  " +caller_image[0]); */}
-        
+
         try {
             // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
             // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-        // console.log("********************************************");
-          //  console.log(caller_id);
+            // console.log("********************************************");
+            //  console.log(caller_id);
             if (caller_id) {
 
 
@@ -263,7 +292,7 @@ const AllVehicle = (props) => {
                     caller_image: caller_object.image,
                     caller_emergencylevel: caller_object.emergency_level,
                     caller_message: caller_object.emergency_explenation,
-                    caller_name:caller_object.name,
+                    caller_name: caller_object.name,
 
                 });
                 console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
@@ -279,9 +308,9 @@ const AllVehicle = (props) => {
 
     const handlePress = () => {
         props.handlePress();
-       
-          fetchCallerData();
-       
+
+        fetchCallerData();
+
     };
 
     return (

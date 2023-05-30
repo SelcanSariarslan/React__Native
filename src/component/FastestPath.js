@@ -2,6 +2,8 @@
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
 import { lights } from '../assets/private_map/TrafficSignals';
 
+
+
 // -------------------------------------------------------- Traffic lights  ---------------------------------------
 
 
