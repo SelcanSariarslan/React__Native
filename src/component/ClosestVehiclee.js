@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-nati
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { unique_intersection } from './ShortestPath';
+import Media from '../smalComponent/Media';
 const styles = StyleSheet.create({
     imageStyle: {
         width: 100,
@@ -68,14 +69,16 @@ const AllVehicle = (props) => {
 
 
 
-
+    const location = props.location;
+    const emergency_level = props.level;
     const caller_object = props.callerData;
     const caller_id = props.user_Id;
     const collection = props.vehicle === 'Ambulans' ? 'ambulance' : props.vehicle === 'Police' ? 'police' : props.vehicle === 'FIRE FIGHTING' ? 'fire' : '';
 
     //console.log(emergencyData);
 
-
+    console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+    console.log(caller_object);
     useEffect(() => {
         const db = firebase.firestore();
         const locations = [];
@@ -267,62 +270,24 @@ const AllVehicle = (props) => {
     // sending all the media to the target vechile
 
 
-    const fetchCallerData = async () => {
-        const db = firebase.firestore();
+    const handlePress = async () => {
+      //  
 
-        //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        //  console.log(caller_object.emergency_level);
-
-        {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-        console.log("caller_emergencylevel:  " +caller_emergencylevel[0]);
-        console.log("callerLocation[0]:  " +callerLocation[0]);
-        console.log("caller_image[0]:  " +caller_image[0]); */}
-
-        try {
-            // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
-            // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-            // console.log("********************************************");
-            //  console.log(caller_id);
-            if (caller_id) {
-
-
-                await db.collection(collection).doc("LK7RWOR0lMVvT2NDmOyLxT1O2lu2").update({  //targetVehicleId[0]
-                    caller_id: caller_object?.Id,
-                    caller_location: caller_object.location,
-                    caller_image: caller_object.image,
-                    caller_emergencylevel: caller_object.emergency_level,
-                    caller_message: caller_object.emergency_explenation,
-                    caller_name: caller_object.name,
-
-                });
-                console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
-
-            } else {
-                console.log('No user found with location: 954');
-            }
-        } catch (error) {
-            console.log('Error:', error);
-        }
-    };
-
-
-    const handlePress = () => {
-        props.handlePress();
-
-        fetchCallerData();
+     await   fetchCallerData();
+       // props.handlePress();
 
     };
+    //console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    //console.log(location);
+    console.log(emergency_level);
+    
+    
 
     return (
 
         <View>
-            <Text>
-                <TouchableOpacity style={styles.button} onPress={handlePress}>
-                    <Text style={styles.text}>
-                        CALL
-                    </Text>
-                </TouchableOpacity>
-            </Text>
+          <Media Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection}/>
+            
         </View>
 
     );

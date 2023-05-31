@@ -6,6 +6,9 @@ import 'firebase/firestore';
 import 'firebase/storage';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
+import Splash from './../smalComponent/splash';
+
+import { Alert, ActivityIndicator } from 'react-native';
 
 const styles = StyleSheet.create({
   playButtonContainer: {
@@ -17,6 +20,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 8,
   },
+  
+  
 });
 
 const Media = (props) => {
@@ -24,8 +29,12 @@ const Media = (props) => {
   const [isRecording, setIsRecording] = useState(false);
   const [transcription, setTranscription] = useState('');
   const [recordingUri, setRecordingUri] = useState(null);
-  const location = props.location;
-  const emergency_level = props.level;
+  const [loading, setLoading] = useState(false);
+  const userLocation = props.Location;
+  const userEmergency_level = props.EmergencyLevel;
+  const caller_object = props.Caller_object;
+  const caller_id = props.CallerId;
+  const collection = props.Collection;
 
   useEffect(() => {
     // microphone erişimi izni alma
@@ -110,6 +119,38 @@ const Media = (props) => {
   const [inputName, setInputName] = useState('');
   const [imageUri, setImageUri] = useState(null);
 
+  const combine = async () => {
+    try {
+      // waiting();
+      showLoadingIndicator();
+
+      await addUserInfoToFirestore();
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+      hideLoadingIndicator();
+      showMessage();
+      
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
+
+
+
+  const showMessage = () => {
+    Alert.alert('Added, we are waiting the service to accept you');
+  };
+  
+  const showLoadingIndicator = () => {
+    setLoading(true);
+  };
+
+  const hideLoadingIndicator = () => {
+    setLoading(false);
+  };
+
   const addUserInfoToFirestore = async () => {
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
@@ -118,11 +159,11 @@ const Media = (props) => {
         emergency_explenation: inputName,
         image: null,
         voiceUrl: null,
-        location: location,
-        emergency_level: emergency_level,
+        location: userLocation,
+        emergency_level: userEmergency_level,
         Id: uid
       };
-     
+
 
       // Kullanıcının resmini kaydet
       if (imageUri) {
@@ -147,6 +188,52 @@ const Media = (props) => {
       await firebase.firestore().collection('users').doc(uid).set(userDetails, { merge: true });
     }
   };
+
+
+
+
+
+  console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+  console.log(caller_object);
+  console.log("999999999999999");
+  const fetchCallerData = async () => {
+    const db = firebase.firestore();
+
+    //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+    //  console.log(caller_object.emergency_level);
+
+    {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+    console.log("caller_emergencylevel:  " +caller_emergencylevel[0]);
+    console.log("callerLocation[0]:  " +callerLocation[0]);
+    console.log("caller_image[0]:  " +caller_image[0]); */}
+
+    try {
+      // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
+      // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+      // console.log("********************************************");
+      //  console.log(caller_id);
+      if (caller_id) {
+
+
+        await db.collection(collection).doc("LK7RWOR0lMVvT2NDmOyLxT1O2lu2").update({  //targetVehicleId[0]
+          caller_id: caller_object?.Id,
+          caller_location: caller_object?.location,
+          caller_image: caller_object?.image,
+          caller_emergencylevel: caller_object?.emergency_level,
+          caller_message: caller_object?.emergency_explenation,
+          caller_name: caller_object?.name,
+
+        });
+        console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
+
+      } else {
+        console.log('No user found with location: 954');
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+  fetchCallerData();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -194,7 +281,19 @@ const Media = (props) => {
 
       {transcription && <Text>{transcription}</Text>}
 
-      <Button color="blue" title="Save" onPress={addUserInfoToFirestore} />
+      <Button color="blue" title="Save" onPress={combine} />
+      
+      <View>
+      {loading ? (
+        <Splash
+          title="My App"
+          backgroundColor="#000000a2"
+          textColor="white"
+        />
+      ) : (
+        <Text>Content goes here</Text>
+      )}
+    </View>
     </View>
   );
 };

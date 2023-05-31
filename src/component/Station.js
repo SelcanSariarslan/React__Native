@@ -85,8 +85,8 @@ export default function Vehicle(props) {
         const collectionRef = db.collection("users");
         const querySnapshot = await collectionRef.where("Id", "==", userId).get();
         const data = querySnapshot.docs.map((doc) => doc.data());
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        console.log(data[0]);
+        //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        //console.log(data[0]);
         setCallerobject(data[0]);
         
         
@@ -221,7 +221,7 @@ export default function Vehicle(props) {
 
         <View style={{ marginTop: 10 }}>
 
-          <Media location={selectedNumber} level={selectedLevel} />
+         
 
 
         </View>
@@ -229,7 +229,7 @@ export default function Vehicle(props) {
       </View>
 
       
-      <ClosestVehiclee vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject}/>
+      <ClosestVehiclee location={selectedNumber} level={selectedLevel} vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject}/>
        
     </ScrollView>
   );

@@ -63,6 +63,17 @@ const Caller = () => {
   }
  //  console.log(callerData[0]);
  // console.log(callerData[0].caller_emergencylevel);
+
+ const addUserToFirestore = async () => {
+  //const currentUser = firebase.auth().currentUser;
+  if (callerData.caller_id) {
+    await firebase.firestore().collection('users').doc(callerData.caller_id).update({
+      isAccepted: true,
+    });
+  }
+};
+
+
   
   return (
     <ScrollView>
