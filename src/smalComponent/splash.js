@@ -6,7 +6,7 @@ const Splash = ({ visible, title, backgroundColor, textColor }) => {
     <Modal visible={visible} animationType="fade" transparent>
       <View style={[styles.modalContainer, { backgroundColor }]}>
         <View style={styles.contentContainer}>
-          <ActivityIndicator size="large" color="red" />
+          <ActivityIndicator size={60} color="red" />
           <Text style={[styles.title, { color: textColor }]}>{title}</Text>
         </View>
       </View>

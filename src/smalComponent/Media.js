@@ -7,6 +7,7 @@ import 'firebase/storage';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import Splash from './../smalComponent/splash';
+import Splashbox from './../smalComponent/splashbox';
 
 import { Alert, ActivityIndicator } from 'react-native';
 
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 8,
   },
-  
-  
+
+
 });
 
 const Media = (props) => {
@@ -30,6 +31,11 @@ const Media = (props) => {
   const [transcription, setTranscription] = useState('');
   const [recordingUri, setRecordingUri] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [splashbox, setSplashbox] = useState(false);
+  const [accepted, setAccepted] = useState(false);
+  const [splashHidden, setSplashHidden] = useState(false);
+  const [data, setData] = useState(null);
+
   const userLocation = props.Location;
   const userEmergency_level = props.EmergencyLevel;
   const caller_object = props.Caller_object;
@@ -45,6 +51,8 @@ const Media = (props) => {
       }
     })();
   }, []);
+
+
 
   const playRecording = async () => {
     try {
@@ -123,12 +131,12 @@ const Media = (props) => {
     try {
       // waiting();
       showLoadingIndicator();
-
       await addUserInfoToFirestore();
       // await new Promise(resolve => setTimeout(resolve, 1000));
       hideLoadingIndicator();
-      showMessage();
-      
+      showSplashbox();
+      //  await new Promise(resolve => setTimeout(resolve, 7000));
+
 
     } catch (error) {
       console.error('Error:', error);
@@ -142,13 +150,20 @@ const Media = (props) => {
   const showMessage = () => {
     Alert.alert('Added, we are waiting the service to accept you');
   };
-  
+
   const showLoadingIndicator = () => {
     setLoading(true);
   };
 
   const hideLoadingIndicator = () => {
     setLoading(false);
+  };
+  const showSplashbox = () => {
+    setSplashbox(true);
+  };
+
+  const hideSplashboxx = () => {
+    setSplashbox(false);
   };
 
   const addUserInfoToFirestore = async () => {
@@ -194,47 +209,82 @@ const Media = (props) => {
 
 
   console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+
   console.log(caller_object);
-  console.log("999999999999999");
-  const fetchCallerData = async () => {
-    const db = firebase.firestore();
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  console.log(data);
 
-    //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-    //  console.log(caller_object.emergency_level);
+  useEffect(() => {
+    const unsubscribe = firebase.firestore().collection('users')
+      .doc(caller_object.Id)
+      .onSnapshot((snapshot) => {
+        const changedData = snapshot.data();
+        setData(changedData);
+      });
 
-    {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+    return () => {
+      // Cleanup the listener when the component unmounts
+      unsubscribe();
+    };
+  }, []);
+
+  
+    const fetchCallerData = async () => {
+      //   await new Promise(resolve => setTimeout(resolve, 1000));
+      const hideSplashbox = () => {
+        if (!splashHidden) {
+          // console.log("*********************************");
+          setSplashHidden(true);
+          setAccepted(true);
+
+        }
+      };
+
+      if (data.isAccepted === true) {
+
+        hideSplashbox();
+
+
+      }
+
+      const db = firebase.firestore();
+
+      //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+      //  console.log(caller_object.emergency_level);
+
+      {/** console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
     console.log("caller_emergencylevel:  " +caller_emergencylevel[0]);
     console.log("callerLocation[0]:  " +callerLocation[0]);
     console.log("caller_image[0]:  " +caller_image[0]); */}
 
-    try {
-      // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
-      // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
-      // console.log("********************************************");
-      //  console.log(caller_id);
-      if (caller_id) {
+      try {
+        // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
+        // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+        // console.log("********************************************");
+        //  console.log(caller_id);
+        if (caller_id) {
 
 
-        await db.collection(collection).doc("LK7RWOR0lMVvT2NDmOyLxT1O2lu2").update({  //targetVehicleId[0]
-          caller_id: caller_object?.Id,
-          caller_location: caller_object?.location,
-          caller_image: caller_object?.image,
-          caller_emergencylevel: caller_object?.emergency_level,
-          caller_message: caller_object?.emergency_explenation,
-          caller_name: caller_object?.name,
+          await db.collection(collection).doc("BS4FKnewJyeUoXyA6TzebsgWZNg1").update({  //targetVehicleId[0]
+            caller_id: caller_object?.Id,
+            caller_location: caller_object?.location,
+            caller_image: caller_object?.image,
+            caller_emergencylevel: caller_object?.emergency_level,
+            caller_message: caller_object?.emergency_explenation,
+            caller_name: caller_object?.name,
 
-        });
-        console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
+          });
+          //  console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
 
-      } else {
-        console.log('No user found with location: 954');
+        } else {
+          console.log('No user found with location: 954');
+        }
+      } catch (error) {
+        console.log('Error:', error);
       }
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  };
-  fetchCallerData();
-
+    };
+    fetchCallerData();
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
@@ -282,18 +332,20 @@ const Media = (props) => {
       {transcription && <Text>{transcription}</Text>}
 
       <Button color="blue" title="Save" onPress={combine} />
-      
+
       <View>
-      {loading ? (
-        <Splash
-          title="My App"
-          backgroundColor="#000000a2"
-          textColor="white"
-        />
-      ) : (
-        <Text>Content goes here</Text>
-      )}
-    </View>
+        {loading ? (
+          <Splash
+            title="My App"
+            backgroundColor="#000000a2"
+            textColor="white"
+          />
+        ) : (
+          <Text>Content goes here</Text>
+        )}
+        {splashbox && accepted === false ? <Splashbox /> : true}
+
+      </View>
     </View>
   );
 };

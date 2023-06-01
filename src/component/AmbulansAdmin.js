@@ -108,7 +108,7 @@ export default function RegisterScreen({ navigation }) {
 
       <TextInput
       style={styles.input}
-      placeholder="06 ABC 1234"
+      placeholder="06 ABC 123"
       onChangeText={setPlate}
       autoCapitalize="characters"
     />

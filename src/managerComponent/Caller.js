@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Button,TouchableOpacity,ScrollView } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Image } from 'react-native';
@@ -9,6 +9,8 @@ const Caller = () => {
   const [loading, setLoading] = useState(true);
   const [imageUri, setImageUri] = useState(null);
   const [currentId, setCurrentId] = useState(null);
+  const [collection, setCollection] = useState(null);
+
 
   
     const db = firebase.firestore();
@@ -61,13 +63,14 @@ const Caller = () => {
       </View>
     );
   }
- //  console.log(callerData[0]);
+ console.log("callerData in the caller.js");
  // console.log(callerData[0].caller_emergencylevel);
 
  const addUserToFirestore = async () => {
-  //const currentUser = firebase.auth().currentUser;
-  if (callerData.caller_id) {
-    await firebase.firestore().collection('users').doc(callerData.caller_id).update({
+  console.log(callerData[0].caller_id);
+  const currentUser = firebase.auth().currentUser;
+  if (callerData[0].caller_id && currentUser) {
+    await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
       isAccepted: true,
     });
   }
@@ -96,6 +99,7 @@ const Caller = () => {
         }}
         style={{ width: 200, height: 200 }}
       /> 
+      <Button  color="red" title="send ok" onPress={addUserToFirestore} />
     </ScrollView>
   );
 };
