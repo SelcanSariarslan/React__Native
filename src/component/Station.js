@@ -68,6 +68,7 @@ export default function Vehicle(props) {
   const navigation = useNavigation();
   const [userId, setUserId] = useState("");
   const [callerobject, setCallerobject] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   
   const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
@@ -76,7 +77,7 @@ export default function Vehicle(props) {
   const [callerName, setCallerName] = useState("");
   const [callerLocation, setCallerLocation] = useState("");
 
-
+{/**
   useEffect(() => {
     const db = firebase.firestore();
   
@@ -85,8 +86,8 @@ export default function Vehicle(props) {
         const collectionRef = db.collection("users");
         const querySnapshot = await collectionRef.where("Id", "==", userId).get();
         const data = querySnapshot.docs.map((doc) => doc.data());
-        //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        //console.log(data[0]);
+        console.log("************************************************************************************************************");
+        console.log(userId);
         setCallerobject(data[0]);
         
         
@@ -96,7 +97,32 @@ export default function Vehicle(props) {
     };
   
     fetchData();
+  }, []); //callerobject */}
+  useEffect(() => {
+  
+    const db = firebase.firestore();
+
+    const fetchData = async () => {
+        try {
+            const collectionRef = db.collection("users");
+            const querySnapshot = await collectionRef.where("Id", "==", userId).get();
+            const data = querySnapshot.docs.map((doc) => doc.data());
+            console.log("************************************************************************************************************");
+            console.log(data[0]);
+            setCallerobject(data[0]);
+            
+
+
+        } catch (error) {
+            console.log(`Error getting ${"users"} documents: `, error);
+        }
+    };
+
+    fetchData();
+
   }, [callerobject]); //callerobject
+
+
   
 
 

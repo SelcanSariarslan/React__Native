@@ -208,15 +208,111 @@ const Media = (props) => {
 
 
 
-  console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+  console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
   console.log(caller_object);
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-  console.log(data);
+
+  {/**
+
 
   useEffect(() => {
     const unsubscribe = firebase.firestore().collection('users')
-      .doc(caller_object.Id)
+      .doc(caller_object?.Id)
+      .onSnapshot((snapshot) => {
+        const changedData = snapshot.data();
+        setData(changedData);
+        
+      });
+      const fetchCallerData = async () => {
+        //   await new Promise(resolve => setTimeout(resolve, 1000));
+        const hideSplashbox = () => {
+          if (!splashHidden) {
+            // console.log("*********************************");
+            setSplashHidden(true);
+            setAccepted(true);
+
+          }
+        };
+
+        if (data?.isAccepted === true) {
+
+          hideSplashbox();
+
+
+        }
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        console.log(data?.isAccepted);
+        const db = firebase.firestore();
+
+        //console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        //  console.log(caller_object.emergency_level);
+
+        try {
+          // const userQuerySnapshot = await db.collection("users").where('location', '==', callerLocation[0]).get();  // callerLocation[0]
+          // const userIds = userQuerySnapshot.docs.map((doc) => doc.id);
+          // console.log("********************************************");
+          //  console.log(caller_id);
+          if (caller_id) {
+
+
+            await db.collection(collection).doc("BS4FKnewJyeUoXyA6TzebsgWZNg1").update({  //targetVehicleId[0]
+              caller_id: changedData?.Id,
+              caller_location: changedData?.location,
+              caller_image: changedData?.image,
+              caller_emergencylevel: changedData?.emergency_level,
+              caller_message: changedData?.emergency_explenation,
+              caller_name: changedData?.name,
+
+            });
+            //  console.log('added to Vehicleeeeeeeeeeeeeeeee  ' + caller_id);
+
+          } else {
+            console.log('No user found with location: 954');
+          }
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      };
+      fetchCallerData();
+      if (data?.isAccepted === true) {
+        setAccepted(true);
+
+      } else {
+        setAccepted(false);
+        hideSplashboxx(false);
+      }
+    return () => {
+      // Cleanup the listener when the component unmounts
+      unsubscribe();
+    };
+    
+
+
+
+
+
+
+
+
+  }, []);
+
+
+
+
+
+
+
+
+*/}
+
+
+
+
+
+
+  useEffect(() => {
+    const unsubscribe = firebase.firestore().collection('users')
+      .doc(caller_object?.Id)
       .onSnapshot((snapshot) => {
         const changedData = snapshot.data();
         setData(changedData);
@@ -227,8 +323,7 @@ const Media = (props) => {
       unsubscribe();
     };
   }, []);
-
-  
+  useEffect(() => {
     const fetchCallerData = async () => {
       //   await new Promise(resolve => setTimeout(resolve, 1000));
       const hideSplashbox = () => {
@@ -240,11 +335,14 @@ const Media = (props) => {
         }
       };
 
-      if (data.isAccepted === true) {
-
-        hideSplashbox();
-
-
+      
+      if(caller_object?.isAccepted === false && accepted === true) {
+        setAccepted(false);
+        showSplashbox();
+      }
+        if(caller_object?.isAccepted === true && accepted === false ) {
+        setAccepted(false);
+        hideSplashboxx();
       }
 
       const db = firebase.firestore();
@@ -284,7 +382,11 @@ const Media = (props) => {
       }
     };
     fetchCallerData();
-  
+  }, [caller_object]);
+
+
+
+
   const pickImage = async () => {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
@@ -343,7 +445,7 @@ const Media = (props) => {
         ) : (
           <Text>Content goes here</Text>
         )}
-        {splashbox && accepted === false ? <Splashbox /> : true}
+        {splashbox === true && accepted === false ? <Splashbox /> : true}
 
       </View>
     </View>
