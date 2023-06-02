@@ -339,10 +339,13 @@ const Media = (props) => {
       if(caller_object?.isAccepted === false && accepted === true) {
         setAccepted(false);
         showSplashbox();
+
       }
         if(caller_object?.isAccepted === true && accepted === false ) {
         setAccepted(false);
         hideSplashboxx();
+        props.moveTomap();
+
       }
 
       const db = firebase.firestore();

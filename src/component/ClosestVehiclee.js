@@ -286,7 +286,7 @@ const AllVehicle = (props) => {
     return (
 
         <View>
-          <Media Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection}/>
+          <Media Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
             
         </View>
 
