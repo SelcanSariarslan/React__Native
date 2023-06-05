@@ -9,9 +9,9 @@ export default function RegisterScreen({ navigation }) {
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
   const [plate, setPlate] = useState('06 ABC 000');
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState('');
   const [status, setStatus] = useState('false');
-  
+  const collection = "police";
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';

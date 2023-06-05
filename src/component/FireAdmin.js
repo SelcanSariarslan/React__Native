@@ -11,7 +11,7 @@ export default function RegisterScreen({ navigation }) {
   const [plate, setPlate] = useState('06 ABC 000');
   const [userId, setUserId] = useState('');
   const [status, setStatus] = useState('false');
-  
+  const collection = "fire";
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';

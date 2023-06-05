@@ -3,11 +3,11 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-export default function AmbulanceListScreen() {
+export default function ListScreen() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = firebase.firestore().collection('ambulance')
+    const unsubscribe = firebase.firestore().collection('')
       .onSnapshot((querySnapshot) => {
         const users = [];
         querySnapshot.forEach((doc) => {
