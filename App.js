@@ -55,6 +55,7 @@ const MainNavigator = createStackNavigator({
     screen: AmbulansAdmin,
     navigationOptions: {
       headerTintColor: 'red',
+      headerShown: false, // hide header
     },
   },
   PoliceAdmin: {

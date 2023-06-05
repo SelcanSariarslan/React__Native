@@ -138,7 +138,7 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.signupBtnText}>Sign Up</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("AmbulansAdmin")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={styles.accountText}>
           I already have an account,{" "}
           <Text style={styles.signupText}>Sign In</Text>{" "}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, Alert,TouchableOpacity,  } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -8,10 +8,12 @@ export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
   const [plate, setPlate] = useState('06 ABC 000');
   const [userId, setUserId] = useState('');
   const [status, setStatus] = useState('false');
   const collection = "fire";
+  
   const generatePassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -63,7 +65,7 @@ export default function RegisterScreen({ navigation }) {
               password: generatedPassword,
               phone,
               status,
-              
+              collection,
             })
             .then(() => {
               console.log('User data saved successfully');
@@ -96,43 +98,68 @@ export default function RegisterScreen({ navigation }) {
           paddingBottom: 20,
           backgroundColor: 'red',
           marginBottom: 30,
-          borderRadius: 3
+          borderRadius: 30,
+          width:'100%'
         }}
       >
         <Image source={require('./../image/user.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
-        <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10, color: 'white', paddingLeft: 100, paddingRight: 100 }}>REGISTER</Text>
+        <Text style={{ fontSize: 25, fontWeight: 'bold', marginTop: 10, color: 'white'}}>FIRE-FIGHTING OFFICER</Text>
       </View>
 
+      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>License Plate</Text>
       <TextInput
       style={styles.input}
       placeholder="06 ABC 123"
       onChangeText={setPlate}
       autoCapitalize="characters"
-    />
+      placeholderTextColor="#fff"
+      />
+      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Name</Text>
       <TextInput
         style={styles.input}
-        placeholder="Fire driver name"
+        placeholder="Ahmet"
         onChangeText={setName}
         value={name}
         autoCapitalize="words"
+        placeholderTextColor="#fff"
       />
+      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Surname</Text>
       <TextInput
         style={styles.input}
-        placeholder="Fire driver surname"
+        placeholder="Yılmaz"
         onChangeText={setSurname}
         value={surname}
         autoCapitalize="words"
+        placeholderTextColor="#fff"
       />
-       <TextInput
+      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Address</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Ankara/Yenimahalle"
+        onChangeText={setAddress}
+        value={address}
+        autoCapitalize="words"
+        placeholderTextColor="#fff"
+      />
+      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Phone Number</Text>
+      <TextInput
       style={styles.input}
       placeholder="(XXX) XXX XXXX"
       onChangeText={setPhone}
       value={phone}
       keyboardType="phone-pad"
-    />
-      <Button style={styles.button} color="red" title="Kaydol" onPress={handleRegister} />
-      <View style={{ marginTop: 10 }} />
-      <Button style={styles.button} color="red" title="Zaten hesabım var, giriş yap" onPress={() => navigation.navigate('Login')} />
+      placeholderTextColor="#fff"
+      />
+     <TouchableOpacity onPress={handleRegister} style={styles.registerBtn}>
+        <Text style={styles.registerBtnText}>Register Officer</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.registerText}>
+          GO BACK TO{" "}
+          <Text style={styles.register2Text}>LOGIN PAGE</Text>{" "}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -143,16 +170,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+    height:'100%',
     padding: 20,
+    paddingBottom:50
   },
   
   input: {
     width: '80%',
-    height: 50,
+    height: 45,
     borderWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 20,
+    backgroundColor: "#4B4453",
+    borderColor: 'black',
+    marginBottom: 10,
     padding: 10,
+    borderRadius: 17,
+    color:'#fff'
+  },
+  registerBtn: {
+    width: "65%",
+    backgroundColor: "red",
+    borderRadius: 10,
+    height: 45,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+    marginTop:10
+  },
+
+  registerBtnText: {
+    color: "white",
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  registerText: {
+    fontSize: 15,
+  },
+
+  register2Text: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "red",
   },
  
 });

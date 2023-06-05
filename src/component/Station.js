@@ -108,7 +108,7 @@ export default function Vehicle(props) {
             const querySnapshot = await collectionRef.where("Id", "==", userId).get();
             const data = querySnapshot.docs.map((doc) => doc.data());
             console.log("************************************************************************************************************");
-            console.log(data[0]);
+            //console.log(data[0]);
             setCallerobject(data[0]);
             
 
@@ -120,8 +120,7 @@ export default function Vehicle(props) {
 
     fetchData();
 
-  }, [callerobject]); //callerobject
-
+  }, []); //callerobject
 
   
 

@@ -42,16 +42,25 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 });
+
+
+
+
+export var teeeest = "this is";
+
+
 const AllVehicle = (props) => {
+    const { onClick } = props;
     const [targetemergencyData, setTargetEmergencyData] = useState([]); // get the target object data of the vehicles
     const [emergencyData, setEmergencyData] = useState([]); // all the data of the vehicles
     const [emergencyLocations, setEmergencyLocations] = useState([]); // just the location of the vehicles
     const [callerLocation, setCallerLocation] = useState("");
-
+   
     const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
     const [caller_image, setCaller_image] = useState("");
     const [message, setMessage] = useState("");
     const [callerName, setCallerName] = useState("");
+    
 
 
     const [callerobject, setCallerobject] = useState([]);
@@ -76,9 +85,9 @@ const AllVehicle = (props) => {
     const collection = props.vehicle === 'Ambulans' ? 'ambulance' : props.vehicle === 'Police' ? 'police' : props.vehicle === 'FIRE FIGHTING' ? 'fire' : '';
 
     //console.log(emergencyData);
-
-    console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
-    console.log(caller_object);
+    
+   // console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwww");
+    //console.log(caller_object);
     useEffect(() => {
         const db = firebase.firestore();
         const locations = [];
@@ -93,7 +102,7 @@ const AllVehicle = (props) => {
 
                 // Iterate over the objects inside data
                 for (const key in data) {
-                    if (data.hasOwnProperty(key) && data[key].isReady) {
+                    if (data.hasOwnProperty(key) && data[key]?.isReady === true && data[key]?.location != null  ) {
                         // If isReady is true, add the location to the array
                         locations.push(data[key].location);
                     }
@@ -105,7 +114,7 @@ const AllVehicle = (props) => {
         };
 
         fetchData();
-    }, [collection]);
+    }, []);
 
     useEffect(() => {
         // Find the matching object in emergencyData
@@ -162,7 +171,8 @@ const AllVehicle = (props) => {
                 const querySnapshot = await collectionRef.where("location", "==", ClosestVehicleNum).get();  //461
                 const data = querySnapshot.docs.map((doc) => doc.data());
                 setTargetVehicleId(data.map(data => data.Id));
-
+                //console.log("setttttttttttttttttttttttttttttttttttttttttt");
+              //  console.log(data);
             } catch (error) {
                 console.log(`Error getting ${collection} documents: `, error);
             }
@@ -223,7 +233,7 @@ const AllVehicle = (props) => {
                 for (var x = 0; x < emergencyLocations.length; x++) {
 
                     if (emergencyLocations[x] === i) {
-                        //  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
+                          console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
                         coordinatelon22 = unique_intersection[emergencyLocations[x]][0];
                         coordinatelat22 = unique_intersection[emergencyLocations[x]][1];
 
@@ -259,7 +269,7 @@ const AllVehicle = (props) => {
         };
         calculate();
 
-    }, [unique_intersection, callerLocation, emergencyLocations, distance]);
+    }, [unique_intersection, callerLocation, emergencyLocations, distance,ClosestVehicleNum,caller_object,targetVehicleId]);
 
 
 
@@ -277,20 +287,24 @@ const AllVehicle = (props) => {
        // props.handlePress();
 
     };
-    //console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-    //console.log(location);
-    console.log(emergency_level);
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
+    console.log(ClosestVehicleNum);
+   // console.log(emergencyData);
+    console.log("locations");
+    console.log(targetVehicleId);
     
     
+    AllVehicle.location = location;
 
     return (
 
         <View>
-          <Media Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
+          <Media TargetVehicleId={targetVehicleId[0]} Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
             
         </View>
 
     );
+    
 };
 
 export default AllVehicle;

@@ -35,12 +35,15 @@ const Media = (props) => {
   const [accepted, setAccepted] = useState(false);
   const [splashHidden, setSplashHidden] = useState(false);
   const [data, setData] = useState(null);
+  const [toMap, setToMap] = useState(false);
+
 
   const userLocation = props.Location;
   const userEmergency_level = props.EmergencyLevel;
   const caller_object = props.Caller_object;
   const caller_id = props.CallerId;
   const collection = props.Collection;
+  const targetVehicleId = props.TargetVehicleId;
 
   useEffect(() => {
     // microphone erişimi izni alma
@@ -210,7 +213,7 @@ const Media = (props) => {
 
   console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
-  console.log(caller_object);
+  console.log(targetVehicleId);
 
   {/**
 
@@ -344,9 +347,15 @@ const Media = (props) => {
         if(caller_object?.isAccepted === true && accepted === false ) {
         setAccepted(false);
         hideSplashboxx();
-        props.moveTomap();
+        
+        
 
       }
+      {/**if(toMap === true ){
+        props.moveTomap();
+        setToMap(false);
+        
+      } */}
 
       const db = firebase.firestore();
 
@@ -366,7 +375,7 @@ const Media = (props) => {
         if (caller_id) {
 
 
-          await db.collection(collection).doc("BS4FKnewJyeUoXyA6TzebsgWZNg1").update({  //targetVehicleId[0]
+          await db.collection(collection).doc("BS4FKnewJyeUoXyA6TzebsgWZNg1").update({  //targetVehicleId  BS4FKnewJyeUoXyA6TzebsgWZNg1
             caller_id: caller_object?.Id,
             caller_location: caller_object?.location,
             caller_image: caller_object?.image,

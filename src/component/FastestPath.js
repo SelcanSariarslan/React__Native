@@ -1,7 +1,10 @@
 
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
 import { lights } from '../assets/private_map/TrafficSignals';
+import  {teeeest}  from './ClosestVehiclee';
+import AllVehicle from './ClosestVehiclee';
 
+const location = AllVehicle.location;
 
 
 // -------------------------------------------------------- Traffic lights  ---------------------------------------
@@ -388,8 +391,10 @@ Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
 //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
 
 function fastest_Path(){
-    fasttest.dijkstra(unique_intersection[129]); // from  129
+    fasttest.dijkstra(unique_intersection[location]); // from  129
     fasttest.findOptimalPath(unique_intersection[14]);  // to  22
     
     }
     //console.log("Fastest_Result is: "+Fastest_Result.features[0].geometry.coordinates);
+    console.log("heeeeeeeeeee");
+console.log(location);

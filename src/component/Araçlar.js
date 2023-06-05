@@ -18,21 +18,25 @@ const styles = StyleSheet.create({
   },
   border: {
     width: '100%',
-    height: '30%',
-    backgroundColor: 'red',
+    height: '20%',
+    marginTop:50,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
+    width: '100%',
+    height: '85%',
     padding: 10,
-    borderWidth: 3,
-    borderRadius: 20,
-    borderColor: 'white',
     backgroundColor: 'red',
+    borderTopLeftRadius:40,
+    borderTopRightRadius:40,
+    borderBottomLeftRadius:0,
+    borderBottomRightRadius:0,
     fontSize: 40,
     color: 'white',
     fontWeight: '800',
-    paddingLeft: 25,
+    paddingLeft: 75,
   },
   imageStyle: {
     borderColor: 'red',
@@ -40,11 +44,11 @@ const styles = StyleSheet.create({
     height: 90,
   },
   textstyle: {
-    color: 'red',
-    alignSelf: 'center',
+    color: 'white',
+    paddingLeft: 30,
     fontSize: 30,
     fontWeight: 'bold',
-    backgroundColor: ''
+    backgroundColor: '',
   }
   , rowContainer: {
     flexDirection: 'row',
@@ -61,13 +65,38 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10,
   },
-  container: {
+  containerRed: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
     borderWidth: 2,
     borderRadius: 7,
     borderColor: 'red',
+    backgroundColor: 'red',
+    borderBottomLeftRadius: 45,
+    borderTopLeftRadius: 45,
+  },
+  containerBlue: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderWidth: 2,
+    borderRadius: 7,
+    borderColor: 'blue',
+    backgroundColor: 'blue',
+    borderBottomLeftRadius: 45,
+    borderTopLeftRadius: 45,
+  },
+  containerOr: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderWidth: 2,
+    borderRadius: 7,
+    borderColor: '#FF6000',
+    backgroundColor: '#FF6000',
+    borderBottomLeftRadius: 45,
+    borderTopLeftRadius: 45,
   },
   textContainer: {
     flex: 1,
@@ -76,9 +105,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginLeft: 10,
   },
-
-
-
 });
 
 
@@ -88,7 +114,7 @@ export default function Vehicle(props) {
   const navigation = useNavigation();
 
   const handleLogout = () => {
-    props.navigation.navigate(LoginScreen);
+    navigation.navigate(LoginScreen);
     // props.navigation.navigate('LoginScreen');
   };
   const [stateHelp, setstateHelp] = useState(false);
@@ -141,7 +167,7 @@ export default function Vehicle(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ paddingTop: 30, backgroundColor: 'red' }}></View>
+      <View style={{ paddingTop: 30}}></View>
       <View>
         <ConfirmationModal
           visible={modalVisible}
@@ -187,7 +213,7 @@ export default function Vehicle(props) {
             borderRadius: 5,
           }}
         >
-          <Text style={{ color: 'white', fontSize: 19 }}>Help</Text>
+          <Text style={{ color: 'red', fontSize: 21, fontWeight:'bold', marginLeft:5 }}>Help</Text>
         </View>
       </TouchableOpacity>
 
@@ -212,30 +238,18 @@ export default function Vehicle(props) {
 
         style={{
           backgroundColor: '',
-          width: 50,
-          height: 50,
+          width: 120,
+          height: 100,
           position: 'absolute',
           top: 5,
           right: 5,
           zIndex: 1,
         }}
       >
-        <Image
-          source={require('./../image/out.png')}
-          style={{
-            width: 35,
-            height: 35,
-            position: 'absolute',
-            top: 30,
-            left: 7.5,
-            borderWidth: 2,
-            borderRadius: 100,
-            borderColor: 'white',
-            backgroundColor: 'white',
-          }}
-        />
+       
+        
       </TouchableOpacity>
-
+      
       {stateHelp && (
         <View>
           <HelpModel
@@ -250,37 +264,38 @@ export default function Vehicle(props) {
 
 
       <View style={styles.border}>
-        <Text style={styles.text}>EMERGENCY{'\n'}   VEHICLES</Text>
+        <Text style={styles.text}>EMERGENCY{'\n'}   SERVICES</Text>
       </View>
       <View style={{ paddingTop: 20 }}></View>
-      <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Please select a vehicle</Text>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ color: 'red', fontSize: 35, fontWeight: 'bold'}}>Please select a service</Text>
+        <View style={{ marginTop: 5, width: '95%', borderWidth:2, borderColor:"red"}} />
       </View>
       <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: 'white', flex: 1, justifyContent: 'center' }}>
-        <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.container}>
+        <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.containerRed}>
           <View style={styles.textContainer}>
             <Text style={styles.textstyle}>AMBULANCE</Text>
           </View>
           <View style={styles.imageContainer}>
-            <Image source={require('./../image/ampu.png')} style={styles.imageStyle} />
+            <Image source={require('./../image/hospital.png')} style={styles.imageStyle} />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePressForVehicle('Police')} style={styles.container}>
+        <TouchableOpacity onPress={() => handlePressForVehicle('Police')} style={styles.containerBlue}>
           <View style={styles.textContainer}>
             <Text style={styles.textstyle}>POLICE</Text>
           </View>
           <View style={styles.imageContainer}>
-            <Image source={require('./../image/polic.png')} style={styles.imageStyle} />
+            <Image source={require('./../image/police-station.png')} style={styles.imageStyle} />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePressForVehicle('FIRE FIGHTING')} style={styles.container}>
+        <TouchableOpacity onPress={() => handlePressForVehicle('FIRE FIGHTING')} style={styles.containerOr}>
           <View style={styles.textContainer}>
             <Text style={styles.textstyle}>FIRE-FIGHTING</Text>
           </View>
           <View style={styles.imageContainer}>
-            <Image source={require('./../image/itfa.png')} style={styles.imageStyle} />
+            <Image source={require('./../image/fire-station.png')} style={styles.imageStyle} />
           </View>
         </TouchableOpacity>
       </View>
