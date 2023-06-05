@@ -7,26 +7,24 @@ import 'firebase/firestore';
 import StatusPage from './StatusPage';
 import Array from './array';
 import Caller from './Caller';
+import Instructurs from './instructurs'
+import CallerMedia from './CallerMedia'
+
 export const Manager = () => {
-  const [isReady, setIsReady] = useState(false); // status  hep false
-  const [selectedNumber, setSelectedNumber] = useState(null);  // location
+  const [isReady, setIsReady] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState(null);
 
   const handleImagePress = async () => {
     const randomNum = Math.floor(Math.random() * unique_intersection.length);
     setSelectedNumber(randomNum);
-
-    console.log("The coordinates of location: [" + selectedNumber + "] is: " + unique_intersection[selectedNumber]);
   };
 
   const handleButtonClick = () => {
     setIsReady(!isReady);
   };
 
-  console.log(isReady);
-
   return (
     <View style={styles.container}>
-      <Caller />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: isReady ? 'green' : 'red' }]}
         onPress={handleButtonClick}
@@ -34,26 +32,34 @@ export const Manager = () => {
         <Text style={styles.buttonText}>{isReady ? 'Cancel' : 'Ready'}</Text>
       </TouchableOpacity>
       <Text>{isReady}</Text>
-      
-      <Array/>
-      
-      <View style={styles.container}>
-        {selectedNumber ? (
-          <Text style={styles.selectedNumber}>
-            {unique_intersection[selectedNumber]}
-          </Text>
-        ) : null}
+      <View style={{ height: '60%', backgroundColor: 'red' }}>
+
+    
+
+       {isReady ? <CallerMedia />: <Instructurs /> }
+       
+        
+
+      </View>
+      <View style={styles.imageContainer}>
+        
         <TouchableOpacity onPress={handleImagePress}>
+        {selectedNumber ? (
           <Image
-            style={styles.image}
+            style={styles.imageGreen}
             source={require('../image/location.png')}
           />
+        ) : <Image
+            style={styles.imageRed}
+            source={require('../image/location.png')}
+          />}
+          
         </TouchableOpacity>
       </View>
-      <StatusPage status={isReady} location={selectedNumber}/>
-    
+
+      <StatusPage status={isReady} location={selectedNumber} />
+      <Caller />
     </View>
-    
   );
 };
 
@@ -66,15 +72,43 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
+    height: 100,
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 36,
     fontWeight: 'bold',
+    alignItems: 'center',
   },
-  image: {
+  imageContainer: {
+    alignItems: 'flex-end',
+    marginTop: 10,
+    paddingBottom:20
+
+  },
+  imageRed: {
     width: 50,
     height: 50,
+    borderWidth: 6,
+    borderColor: 'red',
+    borderRadius: 500,
+    
+
+    
+  },
+  imageGreen: {
+    width: 50,
+    height: 50,
+    borderWidth: 6,
+    borderColor: 'green',
+    borderRadius: 500,
+    
+    
+
+    
+  },
+  selectedNumber: {
+    marginBottom: 10,
   },
 });
 

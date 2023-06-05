@@ -179,7 +179,7 @@ const AllVehicle = (props) => {
         };
 
         fetchData();
-    }, [collection]);
+    }, [collection]); //ClosestVehicleNum
 
 
     function calculateDistance(lat1, lon1, lat2, lon2) {

@@ -3,6 +3,7 @@ import { View, Text, Button,TouchableOpacity,ScrollView } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Image } from 'react-native';
+import AcceptCaller from './acceptCaller';
 
 const Caller = () => {
   const [callerData, setCallerData] = useState([]);
@@ -10,9 +11,12 @@ const Caller = () => {
   const [imageUri, setImageUri] = useState(null);
   const [currentId, setCurrentId] = useState(null);
   const [collection, setCollection] = useState(null);
+  const [showMessageToAccept, setShowMessageToAccept] = useState(null);
+  const [caller_id, setCaller_id] = useState(null);
+  const [callerIdExecuted, setCallerIdExecuted] = useState(false);
 
 
-  
+  //console.log("5555555555555555555555555555555555555555");
     const db = firebase.firestore();
     const user = firebase.auth().currentUser;
     useEffect(() => {
@@ -32,6 +36,16 @@ const Caller = () => {
             const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
     
             setCallerData(combinedData);
+            if (!callerIdExecuted && combinedData[0].caller_image != "") {
+              setCallerIdExecuted(true);
+              setShowMessageToAccept(true);
+            }
+           
+            /**if(showMessageToAccept != "")
+            {
+              console.log("ididididiidididididiiddi");
+              console.log(showMessageToAccept);
+            } */
             setLoading(false);
           }
         } catch (error) {
@@ -54,7 +68,11 @@ const Caller = () => {
       return () => {
         clearInterval(interval);
       };
-    }, [callerData]);
+    }, []);//callerData
+
+   
+    
+
     
   if (loading) {
     return (
@@ -67,40 +85,30 @@ const Caller = () => {
  // console.log(callerData[0].caller_emergencylevel);
 
  const addUserToFirestore = async () => {
-  console.log(callerData[0].caller_id);
+ // console.log(callerData[0].caller_id);
   const currentUser = firebase.auth().currentUser;
   if (callerData[0].caller_id && currentUser) {
     await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
       isAccepted: true,
     });
   }
+  setShowMessageToAccept(false);
+
 };
 
+const handleCancel = () => {
+  setShowMessageToAccept(false);
+  
+};
 
   
   return (
-    <ScrollView>
-      <View>
-        {callerData.map((data, index) => (
-          <View key={index}>
-            <Text>Caller ID: {data.caller_id}</Text>
-            <Text>Caller Location: {data.caller_location}</Text>
-            <Text>Calling Status: {data.calling_status}</Text>
-            <Text>Caller Image: {data.caller_image}</Text>
-           
-            <Text>Caller status: {data.caller_emergencylevel}</Text>
-            <Text>----------------------------------------</Text>
-          </View>
-        ))}
-      </View>
-      <Image
-        source={{
-          uri: callerData[0]?.caller_image,
-        }}
-        style={{ width: 200, height: 200 }}
-      /> 
-      <Button  color="red" title="send ok" onPress={addUserToFirestore} />
-    </ScrollView>
+    <View>
+      
+      
+      {/** */}{showMessageToAccept ? <AcceptCaller CallerData={callerData} onPress={addUserToFirestore} oncancel={handleCancel}/>:null}
+    </View>
+   
   );
 };
 

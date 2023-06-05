@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 export const Manager = () => {
   return (
     <View>
-      <Text>Hello, World!</Text>
+      <Text>please make a good design for the instructions, Your work will be in the instructurs.js</Text>
     </View>
   );
 };
