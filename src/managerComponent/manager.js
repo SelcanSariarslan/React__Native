@@ -32,7 +32,7 @@ export const Manager = () => {
         <Text style={styles.buttonText}>{isReady ? 'Cancel' : 'Ready'}</Text>
       </TouchableOpacity>
       <Text>{isReady}</Text>
-      <View style={{ height: '60%', backgroundColor: 'red' }}>
+      <View style={{ height: '65%',borderWidth:2, borderRadius:10}}>
 
     
 
@@ -42,7 +42,7 @@ export const Manager = () => {
 
       </View>
       <View style={styles.imageContainer}>
-        
+        <Text style={{fontSize:20,marginTop:8,marginRight:5,fontWeight:'bold'}}>Get location:</Text>
         <TouchableOpacity onPress={handleImagePress}>
         {selectedNumber ? (
           <Image
@@ -53,8 +53,8 @@ export const Manager = () => {
             style={styles.imageRed}
             source={require('../image/location.png')}
           />}
-          
         </TouchableOpacity>
+        <Text style={{fontSize:13,marginTop:15,fontWeight:'bold',marginLeft:5}}>{selectedNumber}</Text>
       </View>
 
       <StatusPage status={isReady} location={selectedNumber} />
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    height: 100,
+    height: 75,
   },
   buttonText: {
     color: 'white',
@@ -81,10 +81,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
     marginTop: 10,
-    paddingBottom:20
-
+    paddingBottom:20,
+    
   },
   imageRed: {
     width: 50,

@@ -18,25 +18,30 @@ const styles = StyleSheet.create({
   },
   border: {
     width: '100%',
-    height: '20%',
-    marginTop:50,
-    backgroundColor: 'white',
+    height: '30%',
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
   },
   text: {
-    width: '100%',
-    height: '85%',
     padding: 10,
+
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: 'white',
     backgroundColor: 'red',
-    borderTopLeftRadius:40,
-    borderTopRightRadius:40,
-    borderBottomLeftRadius:0,
-    borderBottomRightRadius:0,
     fontSize: 40,
     color: 'white',
     fontWeight: '800',
-    paddingLeft: 75,
+    paddingLeft: 25,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   imageStyle: {
     borderColor: 'red',
@@ -167,7 +172,7 @@ export default function Vehicle(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ paddingTop: 30}}></View>
+      <View style={{ paddingTop: 30 }}></View>
       <View>
         <ConfirmationModal
           visible={modalVisible}
@@ -213,7 +218,7 @@ export default function Vehicle(props) {
             borderRadius: 5,
           }}
         >
-          <Text style={{ color: 'red', fontSize: 21, fontWeight:'bold', marginLeft:5 }}>Help</Text>
+          <Text style={{ color: 'white', fontSize: 21, fontWeight: 'bold', marginLeft: 5 }}>Help</Text>
         </View>
       </TouchableOpacity>
 
@@ -246,10 +251,10 @@ export default function Vehicle(props) {
           zIndex: 1,
         }}
       >
-       
-        
+
+
       </TouchableOpacity>
-      
+
       {stateHelp && (
         <View>
           <HelpModel
@@ -268,8 +273,8 @@ export default function Vehicle(props) {
       </View>
       <View style={{ paddingTop: 20 }}></View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'red', fontSize: 35, fontWeight: 'bold'}}>Please select a service</Text>
-        <View style={{ marginTop: 5, width: '95%', borderWidth:2, borderColor:"red"}} />
+        <Text style={{ color: 'red', fontSize: 35, fontWeight: 'bold' }}>Please select a service</Text>
+        <View style={{ marginTop: 5, width: '95%', borderWidth: 2, borderColor: "red" }} />
       </View>
       <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: 'white', flex: 1, justifyContent: 'center' }}>
         <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.containerRed}>
@@ -300,7 +305,7 @@ export default function Vehicle(props) {
         </TouchableOpacity>
       </View>
 
-          
+
 
     </View >
   );

@@ -118,9 +118,13 @@ export default function Vehicle(props) {
         }
     };
 
-    fetchData();
+    const interval = setInterval(fetchData, 2000); // Fetch data every 2 seconds
 
-  }, []); //callerobject
+  return () => {
+    clearInterval(interval); // Cleanup interval on component unmount
+  };
+
+  }, [callerobject]); //callerobject
 
   
 
@@ -182,7 +186,7 @@ export default function Vehicle(props) {
     <ScrollView>
       <View style={{ flex: 1 }}>
         <View style={{ paddingTop: 30, backgroundColor: 'red' }}></View>
-        <View style={{ backgroundColor: 'red', padding: 20 }}>
+        <View style={{ backgroundColor: 'red', padding: 20,borderBottomLeftRadius: 30,borderBottomRightRadius: 30 }}>
           <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
             The vehicle you want "{vehicleName}"
           </Text>

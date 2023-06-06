@@ -12,7 +12,7 @@ import HomeScrean from './screans/HomeScreen';
 import SettingScrean from './screans/SettingSecreen';
 import Station from '../src/component/Station'
 import Map from '../src/component/Map'
-import Araçlar from '../src/component/Araçlar'
+import Vehicle from '../src/component/Araçlar'
 
 //Screan names
 const homeName = 'Vehicle';
@@ -51,7 +51,7 @@ export default function MainContianer() {
                 }}
                 
                 >
-                <Tab.Screen name={homeName} component={Araçlar} options={{ headerShown: false }} />
+                <Tab.Screen name={homeName} component={Vehicle} options={{ headerShown: false }} />
                 <Tab.Screen name={StationName} component={Station} options={{ headerShown: false }} />
                 <Tab.Screen name={MapName} component={Map} options={{ headerShown: false }}/>
 

@@ -35,7 +35,8 @@ const Media = (props) => {
   const [accepted, setAccepted] = useState(false);
   const [splashHidden, setSplashHidden] = useState(false);
   const [data, setData] = useState(null);
-  const [toMap, setToMap] = useState(false);
+  const [MovetoMap, setMoveToMap] = useState(false);
+  
 
 
   const userLocation = props.Location;
@@ -347,6 +348,14 @@ const Media = (props) => {
         if(caller_object?.isAccepted === true && accepted === false ) {
         setAccepted(false);
         hideSplashboxx();
+          if(!MovetoMap && true){
+            setTimeout(() => {
+              props.moveTomap();
+              setMoveToMap(true);
+            }, 5000);
+
+          }
+
         
         
 

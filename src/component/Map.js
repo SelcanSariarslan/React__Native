@@ -32,12 +32,12 @@ const LeafletMap = (props) => {
     };
 
     useEffect(() => {
-        if (!vehicleName) {
+        if (vehicleName) {
             Alert.alert('Please choose a vehicle!', '', [
                 { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
         }
-    }, [vehicleName]);
+    }, [vehicleName]); 
 
 
     const handleCancelButtonPress = () => {

@@ -53,22 +53,13 @@ const Caller = () => {
         }
       };
     
-      const interval = setInterval(() => {
-        if (callerData[0]?.status === false) {
-          fetchCallerData();
-          console.log('Caller data status is false');
-        } else {
-          console.log('Caller data status is trueeeeeeee');
-          clearInterval(interval);
-        }
-      }, 4000); // Change the interval value to 2000 for every 2 seconds
-    
-      fetchCallerData();
-    
-      return () => {
-        clearInterval(interval);
-      };
-    }, []);//callerData
+     
+      const interval = setInterval(fetchCallerData, 2000); // Fetch data every 2 seconds
+
+  return () => {
+    clearInterval(interval); // Cleanup interval on component unmount
+  };
+    }, [callerData]);//callerData
 
    
     

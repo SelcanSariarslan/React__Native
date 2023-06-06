@@ -1,13 +1,48 @@
 
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
 import { lights } from '../assets/private_map/TrafficSignals';
-import  {teeeest}  from './ClosestVehiclee';
+import { teeeest } from './ClosestVehiclee';
 import AllVehicle from './ClosestVehiclee';
 
-const location = AllVehicle.location;
+
 
 
 // -------------------------------------------------------- Traffic lights  ---------------------------------------
+let myVariable = 'initial value';
+
+function myFunction() {
+    // Use myVariable in the function
+    console.log(myVariable);
+
+
+}
+
+// Function to update the JavaScript file
+function updateJavaScriptFile() {
+    // Update the value of myVariable
+    myVariable = 'updated value';
+
+    // Call the function to see the updated value
+    /**Find_traffic_signals();
+    Find_intersections();
+    Find_unique_intersection();
+    add_vertices();
+
+creating_graph(); */
+
+update();
+    fastest_Path();
+   
+    
+}
+
+// Function to start the self-updating process
+function startSelfUpdating() {
+    setInterval(updateJavaScriptFile, 5000);
+}
+
+// Start the self-updating process when the JavaScript file is loaded
+startSelfUpdating();
 
 
 
@@ -35,7 +70,7 @@ function Find_traffic_signals() {
             for (let x = 0; x < Traffic_lenth; x++) {  // for the roads in this graph in this page (represents the rows in this page)
                 var Road_lenth = Traffic_Roads.features[x].geometry.coordinates.length;
 
-               
+
                 for (let y = 0; y < Road_lenth; y++) { //for the node numbers (cordinates) in each row in this page 
 
 
@@ -45,7 +80,7 @@ function Find_traffic_signals() {
                         Traffic_Roads.features[x].properties.traffic_signal_coordinates = [signal_lat, signal_lon];
                         all_signals[counter1] = [signal_lat, signal_lon];
 
-                       // console.log("var in " + x);
+                        // console.log("var in " + x);
                         counter1++;
                     } else {
                         if (Traffic_Roads.features[x].properties.traffic_signal != "yes") {
@@ -245,7 +280,7 @@ var length_of_current_row_counter = 0;
 function creating_graph() {
     for (let i = 0; i < Traffic_Roads.features.length; i++) { // rows
         var LenthOfRoad = Traffic_Roads.features[i].geometry.coordinates.length;
-        
+
 
         for (let j = 0; j < LenthOfRoad; j++) { // coordinates
             var x = Traffic_Roads.features[i].geometry.coordinates[j][0];
@@ -260,13 +295,13 @@ function creating_graph() {
                     var llength = Calculate_lent_of_edge(edge_long);
 
                     // add_nodes(edge_long);
-                    if(Traffic_Roads.features[i].properties.traffic_signal == "yes"){  //we are testing if we have a traffic light in a part of a road, if yes we make this part longer by adding value '5' as distance to be avoided by our algorithm
-                         // console.log(Traffic_Roads.features[i].properties.traffic_signal);
-                        add_edgs_fasttest(edge_long, llength + edge_counter + llength*(2));  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
-                    }else{
+                    if (Traffic_Roads.features[i].properties.traffic_signal == "yes") {  //we are testing if we have a traffic light in a part of a road, if yes we make this part longer by adding value '5' as distance to be avoided by our algorithm
+                        // console.log(Traffic_Roads.features[i].properties.traffic_signal);
+                        add_edgs_fasttest(edge_long, llength + edge_counter + llength * (2));  //  edge_counter for avoiding the street roundabouts and long roads by counting the number of nods(dotes), and the '5' is for adding a good distance for a part of a roads if these roads contain some traffic lights/signals 
+                    } else {
                         add_edgs_fasttest(edge_long, llength + edge_counter);
                     }
-                     // adding edgs with its real length + number of dotes of the roads to the graph of the fastest
+                    // adding edgs with its real length + number of dotes of the roads to the graph of the fastest
                     edge_long.length = 0;
                     edge_counter = 0;
                     edge_long[edge_counter++] = Traffic_Roads.features[i].geometry.coordinates[j];
@@ -386,15 +421,25 @@ export var Fastest_Result = {
         { "type": "Feature", "properties": { "full_id": "w191236744", "osm_id": "191236744", "osm_type": "way", "osm_version": "6", "osm_timestamp": "2022-06-09T21:32:07.000", "osm_uid": "14474713", "osm_user": "pinkyPrii", "osm_changeset": "122184284", "highway": "tertiary" }, "geometry": { "type": "LineString" } },
     ]
 }
-Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
+
+function update(){
+    Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
+
+    console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee222");
+}
+update();
 
 //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
 
-function fastest_Path(){
-    fasttest.dijkstra(unique_intersection[location]); // from  129
-    fasttest.findOptimalPath(unique_intersection[14]);  // to  22
-    
-    }
-    //console.log("Fastest_Result is: "+Fastest_Result.features[0].geometry.coordinates);
-    console.log("heeeeeeeeeee");
-console.log(location);
+function fastest_Path() {
+    const location = AllVehicle.location;
+    const ClosestVehicleNum = AllVehicle.ClosestVehicleNum;
+    console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location);
+    fasttest.dijkstra(unique_intersection[location]); // from  129 location
+    fasttest.findOptimalPath(unique_intersection[ClosestVehicleNum]);  // to  22
+    console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+}
+//console.log("Fastest_Result is: "+Fastest_Result.features[0].geometry.coordinates);
+
+//console.log(location);

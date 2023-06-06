@@ -74,6 +74,7 @@ const MainNavigator = createStackNavigator({
     screen: MainContianer,
     navigationOptions: {
       headerShown: false, // hide header
+      headerTintColor: 'red',
     },
   },
   Station: {
