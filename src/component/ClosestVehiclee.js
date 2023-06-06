@@ -293,8 +293,12 @@ const AllVehicle = (props) => {
     console.log("locations");
     console.log(targetVehicleId);
     
-    
     AllVehicle.location = location;
+    AllVehicle.ClosestVehicleNum = ClosestVehicleNum;
+
+    //console.log("000000000000000000000000000000000000000000000000000");
+    //console.log(AllVehicle.location);
+
 
     return (
 
