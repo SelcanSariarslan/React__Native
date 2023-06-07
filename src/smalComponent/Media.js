@@ -39,6 +39,8 @@ const Media = (props) => {
   const [splashHidden, setSplashHidden] = useState(false);
   const [data, setData] = useState(null);
   const [MovetoMap, setMoveToMap] = useState(false);
+  const [clearData, setClearData] = useState(true);
+
   
 
 
@@ -48,6 +50,20 @@ const Media = (props) => {
   const caller_id = props.CallerId;
   const collection = props.Collection;
   const targetVehicleId = props.TargetVehicleId;
+
+
+
+
+  useEffect(() => {
+    
+    if(clearData){
+      setClearData(false);
+      clearUserData();
+
+    }
+  }, []);
+
+
 
   useEffect(() => {
     // microphone erişimi izni alma
@@ -352,10 +368,10 @@ const Media = (props) => {
         setAccepted(false);
         hideSplashboxx();
           if(!MovetoMap && true){
-            setTimeout(() => {
+           // setTimeout(() => {
               props.moveTomap();
               setMoveToMap(true);
-            }, 5000);
+          //  }, 5000);
 
           }
 
@@ -409,18 +425,9 @@ const Media = (props) => {
   }, [caller_object]);
 
   const clearUserData = async () => {
-    setInputName('');
-    setImageUri(null);
-    setRecordingUri(null);
-    setSplashbox(false);
-    setAccepted(false);
-    setSplashHidden(false);
-    setData(null);
-    setMoveToMap(false);
-    console.log("çıkış yapıldı");
+   
     
-    navigation.navigate('Login');
-    // Firebase verilerini boşaltma
+   
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
       const uid = currentUser.uid;
@@ -430,7 +437,7 @@ const Media = (props) => {
         voiceUrl: null,
         location: null,
         emergency_level: null,
-        Id: null
+        isAccepted: false,
       };
   
       await firebase.firestore().collection('users').doc(uid).set(userDetails, { merge: true });
@@ -495,7 +502,7 @@ const Media = (props) => {
       {transcription && <Text>{transcription}</Text>}
 
       <Button color="blue" title="Save" onPress={combine} />
-      <Button color="red" title="Çıkış Yap" onPress={clearUserData} />
+      
 
       <View>
         {loading ? (

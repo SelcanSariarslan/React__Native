@@ -296,8 +296,25 @@ const AllVehicle = (props) => {
     AllVehicle.location = location;
     AllVehicle.ClosestVehicleNum = ClosestVehicleNum;
 
-    //console.log("000000000000000000000000000000000000000000000000000");
-    //console.log(AllVehicle.location);
+    
+/**
+    useEffect(() => {
+        const fetchAndRefreshFile = async () => {
+          try {
+          //  const response = await fetch('C:\Users\Acer\Desktop\git Desk\React__Native\src\component\FastestPath.js');
+          //  const fileContent = await response.text();
+            console.log("000000000000000000000000000000000000000000000000000");
+          // const fileContent =  require('./FastestPath');
+           const dynamicCode = 'console.log("Hello, world!");';
+            console.log(dynamicCode);
+            eval(dynamicCode);
+          } catch (error) {
+            console.error('Error fetching or evaluating file:', error);
+          }
+        };
+    
+        fetchAndRefreshFile();
+      }, []); */
 
 
     return (
