@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from "@react-navigation/native";
 import { View, Button, TextInput, Image, Text, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
 });
 
 const Media = (props) => {
+  const { navigation } = props;
   const [recording, setRecording] = useState();
   const [isRecording, setIsRecording] = useState(false);
   const [transcription, setTranscription] = useState('');
@@ -405,8 +408,45 @@ const Media = (props) => {
     fetchCallerData();
   }, [caller_object]);
 
-
-
+  const clearUserData = async () => {
+    setInputName('');
+    setImageUri(null);
+    setRecordingUri(null);
+    setSplashbox(false);
+    setAccepted(false);
+    setSplashHidden(false);
+    setData(null);
+    setMoveToMap(false);
+    console.log("çıkış yapıldı");
+    
+    navigation.navigate('Login');
+    // Firebase verilerini boşaltma
+    const currentUser = firebase.auth().currentUser;
+    if (currentUser) {
+      const uid = currentUser.uid;
+      const userDetails = {
+        emergency_explenation: null,
+        image: null,
+        voiceUrl: null,
+        location: null,
+        emergency_level: null,
+        Id: null
+      };
+  
+      await firebase.firestore().collection('users').doc(uid).set(userDetails, { merge: true });
+  
+      // Polis koleksiyonundaki kullanıcının verilerini boşaltma
+      await firebase.firestore().collection('police').doc(uid).set(userDetails, { merge: true });
+  
+      // İtfaiye koleksiyonundaki kullanıcının verilerini boşaltma
+      await firebase.firestore().collection('fire').doc(uid).set(userDetails, { merge: true });
+  
+      // Ambulans koleksiyonundaki kullanıcının verilerini boşaltma
+      await firebase.firestore().collection('ambulance').doc(uid).set(userDetails, { merge: true });
+    }
+    
+  };
+  
 
   const pickImage = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -455,6 +495,7 @@ const Media = (props) => {
       {transcription && <Text>{transcription}</Text>}
 
       <Button color="blue" title="Save" onPress={combine} />
+      <Button color="red" title="Çıkış Yap" onPress={clearUserData} />
 
       <View>
         {loading ? (
@@ -470,7 +511,7 @@ const Media = (props) => {
 
       </View>
     </View>
-  );
+  );   
 };
 
 export default Media;
