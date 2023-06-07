@@ -36,7 +36,7 @@ const Caller = () => {
             const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
     
             setCallerData(combinedData);
-            if (!callerIdExecuted && combinedData[0].caller_image != "") {
+            if (!callerIdExecuted && combinedData[0].caller_image != null) {
               setCallerIdExecuted(true);
               setShowMessageToAccept(true);
             }

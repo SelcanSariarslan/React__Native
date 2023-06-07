@@ -2,13 +2,13 @@
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
 import { lights } from '../assets/private_map/TrafficSignals';
 import { teeeest } from './ClosestVehiclee';
-import AllVehicle from './ClosestVehiclee';
+//import AllVehicle from './ClosestVehiclee';
 
 
 
 
 // -------------------------------------------------------- Traffic lights  ---------------------------------------
-let myVariable = 'initial value';
+/**let myVariable = 'initial value';
 
 function myFunction() {
     // Use myVariable in the function
@@ -29,22 +29,21 @@ function updateJavaScriptFile() {
     add_vertices();
 
 creating_graph(); */
-
+/*
 update();
-    fastest_Path();
-   
-    
+fastest_Path();
+
+
+
 }
 
-// Function to start the self-updating process
 function startSelfUpdating() {
-    setInterval(updateJavaScriptFile, 5000);
+setInterval(updateJavaScriptFile, 5000);
 }
 
-// Start the self-updating process when the JavaScript file is loaded
 startSelfUpdating();
 
-
+*/
 
 
 var all_signals = [];  //---------------------  we found the commen signal traffics and assghin a new property to hold "yes" and its cordinates ------------------
@@ -425,18 +424,18 @@ export var Fastest_Result = {
 function update(){
     Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
 
-    console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee222");
+   // console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee222");
 }
 update();
 
 //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
 
 function fastest_Path() {
-    const location = AllVehicle.location;
+   /** const location = AllVehicle.location;
     const ClosestVehicleNum = AllVehicle.ClosestVehicleNum;
-    console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location);
-    fasttest.dijkstra(unique_intersection[location]); // from  129 location
-    fasttest.findOptimalPath(unique_intersection[ClosestVehicleNum]);  // to  22
+    console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location); */
+    fasttest.dijkstra(unique_intersection[129]); // from  129 location
+    fasttest.findOptimalPath(unique_intersection[22]);  // to  22
     console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
 }

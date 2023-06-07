@@ -48,14 +48,28 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
   },
-  textstyle: {
-    color: 'white',
-    paddingLeft: 30,
-    fontSize: 30,
+  textstyleRed: {
+    color: 'red',
+    paddingLeft: 20,
+    fontSize: 32,
     fontWeight: 'bold',
     backgroundColor: '',
-  }
-  , rowContainer: {
+  },
+  textstyleBlue: {
+    color: 'blue',
+    paddingLeft: 20,
+    fontSize: 32,
+    fontWeight: 'bold',
+    backgroundColor: '',
+  },
+  textstyleOr: {
+    color: '#FF6000',
+    paddingLeft: 20,
+    fontSize: 32,
+    fontWeight: 'bold',
+    backgroundColor: '',
+  },
+  rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
@@ -74,10 +88,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    borderWidth: 2,
+    borderWidth: 10,
     borderRadius: 7,
     borderColor: 'red',
-    backgroundColor: 'red',
+  
     borderBottomLeftRadius: 45,
     borderTopLeftRadius: 45,
   },
@@ -85,10 +99,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    borderWidth: 2,
+    borderWidth: 10,
     borderRadius: 7,
     borderColor: 'blue',
-    backgroundColor: 'blue',
+   
     borderBottomLeftRadius: 45,
     borderTopLeftRadius: 45,
   },
@@ -96,10 +110,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    borderWidth: 2,
+    borderWidth: 10,
     borderRadius: 7,
     borderColor: '#FF6000',
-    backgroundColor: '#FF6000',
+    
     borderBottomLeftRadius: 45,
     borderTopLeftRadius: 45,
   },
@@ -271,7 +285,7 @@ export default function Vehicle(props) {
       <View style={styles.border}>
         <Text style={styles.text}>EMERGENCY{'\n'}   SERVICES</Text>
       </View>
-      <View style={{ paddingTop: 20 }}></View>
+      <View style={{ paddingTop: 7 }}></View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ color: 'red', fontSize: 35, fontWeight: 'bold' }}>Please select a service</Text>
         <View style={{ marginTop: 5, width: '95%', borderWidth: 2, borderColor: "red" }} />
@@ -279,7 +293,7 @@ export default function Vehicle(props) {
       <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: 'white', flex: 1, justifyContent: 'center' }}>
         <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.containerRed}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyle}>AMBULANCE</Text>
+            <Text style={styles.textstyleRed}>AMBULANCE</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image source={require('./../image/hospital.png')} style={styles.imageStyle} />
@@ -288,7 +302,7 @@ export default function Vehicle(props) {
 
         <TouchableOpacity onPress={() => handlePressForVehicle('Police')} style={styles.containerBlue}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyle}>POLICE</Text>
+            <Text style={styles.textstyleBlue}>POLICE</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image source={require('./../image/police-station.png')} style={styles.imageStyle} />
@@ -297,7 +311,7 @@ export default function Vehicle(props) {
 
         <TouchableOpacity onPress={() => handlePressForVehicle('FIRE FIGHTING')} style={styles.containerOr}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyle}>FIRE-FIGHTING</Text>
+            <Text style={styles.textstyleOr}>FIRE-FIGHTING</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image source={require('./../image/fire-station.png')} style={styles.imageStyle} />
