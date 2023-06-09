@@ -19,7 +19,7 @@ const TextArea = () => {
   return (
     <View>
       <TextInput
-        style={{ height: 200, borderColor: 'gray', borderWidth: 3, marginBottom: 10 }}
+        style={{ height: 100, borderColor: 'gray', borderWidth: 3, marginBottom: 10 }}
         multiline={true}
         numberOfLines={4}
         onChangeText={setInputName}
