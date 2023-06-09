@@ -74,7 +74,7 @@ const StatusPage = (props) => {
         console.error('Invalid collection name.');
       }
     }
-
+    Alert.alert('We added you!!!!!!');
   }else{
   Alert.alert('Please click the location and be Ready');
 }

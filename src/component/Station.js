@@ -69,13 +69,16 @@ export default function Vehicle(props) {
   const [userId, setUserId] = useState("");
   const [callerobject, setCallerobject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  
+ 
   const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
   const [caller_image, setCaller_image] = useState("");
   const [message, setMessage] = useState("");
   const [callerName, setCallerName] = useState("");
-  const [callerLocation, setCallerLocation] = useState("");
+  const [callerLocation, setcallerLocation] = useState("");
+  const [reciverLocation, setReciverLocation] = useState(true);
+
+
+  
 
 {/**
   useEffect(() => {
@@ -108,8 +111,13 @@ export default function Vehicle(props) {
             const querySnapshot = await collectionRef.where("Id", "==", userId).get();
             const data = querySnapshot.docs.map((doc) => doc.data());
             console.log("************************************************************************************************************");
-            //console.log(data[0]);
+            console.log("locatıon is -----> " +data[0]?.location +" reciver Location is: ------> " + data[0]?.ReciverLocation );
             setCallerobject(data[0]);
+            setcallerLocation(data[0]?.location);
+            setReciverLocation(data[0]?.ReciverLocation);
+             console.log(data[0]);
+
+
             
 
 
@@ -144,7 +152,7 @@ export default function Vehicle(props) {
 
   const handlePress = () => {
     const randomNum = selectedNumber;
-    navigation.navigate('Map', { randomNum });
+    navigation.navigate('Map', { callerLocation, reciverLocation});
   };
   const handleOptionPress = (number) => {
     setSelectedNumber(number);
@@ -231,6 +239,12 @@ export default function Vehicle(props) {
               <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Low</Text>
             </View>
           </TouchableOpacity>
+          
+        </View>
+        <View style={{paddingTop:20 }}>
+         </View>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}></Text>
         </View>
 
         <View style={styles.container}>

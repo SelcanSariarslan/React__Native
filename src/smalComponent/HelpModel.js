@@ -17,10 +17,10 @@ const HelpModel = ({ visible, onCancel, onDetails, oncancelShow }) => {
 
     return (
         <Modal visible={visible} animationType="slide" transparent={true}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 1 }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 0 }}>
 
 
-                <View style={{ backgroundColor: '#fff', padding: 2, width: '95%', height: '85%', borderWidth: 2, borderRadius: 10, borderColor: 'red' }}>
+                <View style={{ backgroundColor: '#fff', padding: 2, width: '95%', height: '87%', borderWidth: 2, borderRadius: 10, borderColor: 'red' }}>
                     <ImageBackground source={require('./../image/background.jpeg')} style={{ flex: 1, width: '100%', height: '100%' }}>
                     <View style={{  padding: 20, width: '95%', height: '85%', borderWidth: 0, borderRadius: 10, borderColor: 'red' }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>

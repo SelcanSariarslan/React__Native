@@ -5,8 +5,8 @@ const ConfirmationModal = (props) => {
     const callerData = props.CallerData;
 
 
-    console.log("11111111111111111111111");
-    console.log(callerData);
+   // console.log("11111111111111111111111");
+   // console.log(callerData);
 
 
     const styles = StyleSheet.create({

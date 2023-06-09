@@ -15,10 +15,10 @@ const ConfirmationModal = ({ visible, name, onCancel, onConfirm }) => {
           </Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
             <TouchableOpacity onPress={onCancel}>
-              <Text style={{ fontSize: 18, color: 'red', paddingRight: 230, fontSize: 20,fontWeight:'bold' }}>No</Text>
+              <Text style={{ fontSize: 18, color: 'red', paddingRight: 230, fontSize: 30,fontWeight:'bold' }}>No</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onConfirm}>
-              <Text style={{ fontSize: 18, color: 'green', fontSize: 20,fontWeight:'bold' }}>Yes</Text>
+              <Text style={{ fontSize: 18, color: 'green', fontSize: 30,fontWeight:'bold' }}>Yes</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -71,12 +71,11 @@ export const Manager = () => {
         <Text style={styles.text}>{callerData.caller_name} {callerData.caller_surname}</Text>
       </View>
       <View style={{flexDirection:'row',marginBottom:10}}>
-        <Text style={styles.label}>Caller Emergency Status: </Text>
+        <Text style={styles.label}>Caller Emergency Level: </Text>
         <Text style={styles.text}>{callerData.caller_emergencylevel}</Text>
       </View>
-      <View style={{flexDirection:'row',marginBottom:10}}>
-        <Text style={styles.label}>Caller Location: </Text>
-        <Text style={styles.text}>{callerData.caller_location}</Text>
+      <View style={{flexDirection:'row',marginBottom:30}}>
+       
       </View>
       <TouchableOpacity onPress={openModal1} >
         <Text style={{width:'96%', color: 'white',backgroundColor:'green', fontSize: 25, fontWeight: 'bold', borderWidth:1.5, padding:10,borderRadius:10,alignSelf:'flex-start',textAlign:'center',marginBottom:15}}>CALLER MESSAGE</Text>

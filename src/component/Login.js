@@ -142,7 +142,7 @@ export default function LoginScreen({ navigation }) {
           paddingBottom: 20,
           backgroundColor: "red",
           marginBottom: 40,
-          marginTop: 50,
+          marginTop: 0,
           borderBottomLeftRadius: 60,
           borderBottomRightRadius: 60,
         }}

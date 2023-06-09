@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Image } from 'react-native';
 import AcceptCaller from './acceptCaller';
+import { useNavigation } from '@react-navigation/native';
 
 const Caller = () => {
   const [callerData, setCallerData] = useState([]);
@@ -14,6 +15,7 @@ const Caller = () => {
   const [showMessageToAccept, setShowMessageToAccept] = useState(null);
   const [caller_id, setCaller_id] = useState(null);
   const [callerIdExecuted, setCallerIdExecuted] = useState(false);
+  const navigation = useNavigation();
 
 
   //console.log("5555555555555555555555555555555555555555");
@@ -81,9 +83,12 @@ const Caller = () => {
   if (callerData[0].caller_id && currentUser) {
     await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
       isAccepted: true,
+      ReciverLocation: 555,
     });
+    
   }
   setShowMessageToAccept(false);
+  navigation.navigate('Map',(22,665));
 
 };
 

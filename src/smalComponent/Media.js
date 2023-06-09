@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
-import { View, Button, TextInput, Image, Text, StyleSheet } from 'react-native';
+import { View, Button, TextInput, Image, Text, StyleSheet,TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -41,7 +41,7 @@ const Media = (props) => {
   const [MovetoMap, setMoveToMap] = useState(false);
   const [clearData, setClearData] = useState(true);
 
-  
+
 
 
   const userLocation = props.Location;
@@ -55,8 +55,8 @@ const Media = (props) => {
 
 
   useEffect(() => {
-    
-    if(clearData){
+
+    if (clearData) {
       setClearData(false);
       clearUserData();
 
@@ -358,25 +358,25 @@ const Media = (props) => {
         }
       };
 
-      
-      if(caller_object?.isAccepted === false && accepted === true) {
+
+      if (caller_object?.isAccepted === false && accepted === true) {
         setAccepted(false);
         showSplashbox();
 
       }
-        if(caller_object?.isAccepted === true && accepted === false ) {
+      if (caller_object?.isAccepted === true && accepted === false) {
         setAccepted(false);
         hideSplashboxx();
-          if(!MovetoMap && true){
-           // setTimeout(() => {
-              props.moveTomap();
-              setMoveToMap(true);
+        if (!MovetoMap && true) {
+          // setTimeout(() => {
+          props.moveTomap();
+          setMoveToMap(true);
           //  }, 5000);
 
-          }
+        }
 
-        
-        
+
+
 
       }
       {/**if(toMap === true ){
@@ -403,7 +403,7 @@ const Media = (props) => {
         if (caller_id) {
 
 
-          await db.collection(collection).doc("oHbvlqHixgUdFrZLH4t7Es6FKKt2").update({  //targetVehicleId  BS4FKnewJyeUoXyA6TzebsgWZNg1
+          await db.collection(collection).doc("cQjMfetencet3xZVJ9dNreGjtW93").update({  //targetVehicleId  BS4FKnewJyeUoXyA6TzebsgWZNg1
             caller_id: caller_object?.Id,
             caller_location: caller_object?.location,
             caller_image: caller_object?.image,
@@ -425,9 +425,9 @@ const Media = (props) => {
   }, [caller_object]);
 
   const clearUserData = async () => {
-   
-    
-   
+
+
+
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
       const uid = currentUser.uid;
@@ -439,21 +439,21 @@ const Media = (props) => {
         emergency_level: null,
         isAccepted: false,
       };
-  
+
       await firebase.firestore().collection('users').doc(uid).set(userDetails, { merge: true });
-  
+
       // Polis koleksiyonundaki kullanıcının verilerini boşaltma
       await firebase.firestore().collection('police').doc(uid).set(userDetails, { merge: true });
-  
+
       // İtfaiye koleksiyonundaki kullanıcının verilerini boşaltma
       await firebase.firestore().collection('fire').doc(uid).set(userDetails, { merge: true });
-  
+
       // Ambulans koleksiyonundaki kullanıcının verilerini boşaltma
       await firebase.firestore().collection('ambulance').doc(uid).set(userDetails, { merge: true });
     }
-    
+
   };
-  
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchCameraAsync({
@@ -468,14 +468,17 @@ const Media = (props) => {
   };
 
   return (
-    <View>
+    <View >
+       <View style={{  }}>
+          <Text style={{ color: 'red', fontSize: 25, fontWeight: 'bold' }}>Message:</Text>
+        </View>
       <TextInput
-        style={{ height: 200, borderColor: 'gray', borderWidth: 3, marginBottom: 10 }}
+        style={{ height: '20%', width:'96%', borderColor: 'red', borderWidth: 3, marginBottom: 10 }}
         multiline={true}
         numberOfLines={4}
         onChangeText={setInputName}
         value={inputName}
-        placeholder="Can you explain the event?"
+        placeholder="Please explain the event in short"
       />
 
       {imageUri && (
@@ -483,26 +486,29 @@ const Media = (props) => {
       )}
 
       <View style={styles.playButtonContainer}>
-        <Ionicons name="ios-camera" size={40} color="red" onPress={pickImage} />
-        <Text style={styles.playButtonText}> Take Photo</Text>
+        <Ionicons name="ios-camera" size={70} color="red" onPress={pickImage} />
+        <Text style={styles.playButtonText}></Text>
       </View>
 
       {isRecording ? (
         <View style={styles.playButtonContainer}>
-          <Ionicons name="ios-pause" size={40} color="red" onPress={stopRecording} />
-          <Text style={styles.playButtonText}>Click and Stop</Text>
+          <Ionicons name="ios-pause" size={30} color="red" onPress={stopRecording} />
+          <Text style={styles.playButtonText}></Text>
         </View>
       ) : (
         <View style={styles.playButtonContainer}>
-          <Ionicons name="ios-play" size={40} color="red" onPress={startRecording} />
-          <Text style={styles.playButtonText}>Click and Talk</Text>
+          <Ionicons name="ios-play" size={70} color="red" onPress={startRecording} />
+          <Text style={styles.playButtonText}></Text>
         </View>
       )}
 
       {transcription && <Text>{transcription}</Text>}
 
-      <Button color="blue" title="Save" onPress={combine} />
-      
+     
+
+      <TouchableOpacity onPress={combine} >
+        <Text style={{width:'100%',color: 'white',backgroundColor:'RED', fontSize: 25, fontWeight: 'bold', borderWidth:1.5, padding:10,borderRadius:5,alignSelf:'flex-start',textAlign:'center'}}>CALL THE SERVIE</Text>
+      </TouchableOpacity>
 
       <View>
         {loading ? (
@@ -512,13 +518,13 @@ const Media = (props) => {
             textColor="white"
           />
         ) : (
-          <Text>Content goes here</Text>
+          <Text></Text>
         )}
         {splashbox === true && accepted === false ? <Splashbox /> : true}
 
       </View>
     </View>
-  );   
+  );
 };
 
 export default Media;

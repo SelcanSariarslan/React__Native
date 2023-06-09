@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Modal, Button } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Image, Alert, Modal, Button, ImageBackground } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import ConfirmationModal from '../smalComponent/ConfirmationModal';
 import HelpModel from '../smalComponent/HelpModel';
@@ -18,58 +18,38 @@ const styles = StyleSheet.create({
   },
   border: {
     width: '100%',
-    height: '30%',
-    backgroundColor: 'red',
+    height: '31%',
+    marginTop:50,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
   },
   text: {
+    width: '100%',
+    height: '85%',
     padding: 10,
-
-    borderWidth: 3,
-    borderRadius: 20,
-    borderColor: 'white',
-    backgroundColor: 'red',
+    borderTopLeftRadius:40,
+    borderTopRightRadius:40,
+    borderBottomLeftRadius:0,
+    borderBottomRightRadius:0,
     fontSize: 40,
     color: 'white',
     fontWeight: '800',
-    paddingLeft: 25,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    paddingLeft: 75,
   },
   imageStyle: {
     borderColor: 'red',
     width: 90,
     height: 90,
   },
-  textstyleRed: {
-    color: 'red',
-    paddingLeft: 20,
-    fontSize: 32,
+  textstyle: {
+    color: 'white',
+    fontSize: 35,
     fontWeight: 'bold',
     backgroundColor: '',
-  },
-  textstyleBlue: {
-    color: 'blue',
-    paddingLeft: 20,
-    fontSize: 32,
-    fontWeight: 'bold',
-    backgroundColor: '',
-  },
-  textstyleOr: {
-    color: '#FF6000',
-    paddingLeft: 20,
-    fontSize: 32,
-    fontWeight: 'bold',
-    backgroundColor: '',
-  },
-  rowContainer: {
+    alignSelf:'center'
+  }
+  , rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
@@ -84,38 +64,29 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10,
   },
-  containerRed: {
+  containerAmbulance: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
-    borderWidth: 10,
-    borderRadius: 7,
-    borderColor: 'red',
-  
-    borderBottomLeftRadius: 45,
-    borderTopLeftRadius: 45,
+    justifyContent:'center',
+    height:'88%',
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    borderRadius: 15,
   },
-  containerBlue: {
+  containerPolice: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
-    borderWidth: 10,
-    borderRadius: 7,
-    borderColor: 'blue',
-   
-    borderBottomLeftRadius: 45,
-    borderTopLeftRadius: 45,
+    justifyContent:'center',
+    height:'88%',
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    borderRadius: 15,
   },
-  containerOr: {
+  containerFire: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
-    borderWidth: 10,
-    borderRadius: 7,
-    borderColor: '#FF6000',
-    
-    borderBottomLeftRadius: 45,
-    borderTopLeftRadius: 45,
+    justifyContent:'center',
+    height:'88%',
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    borderRadius: 15,
   },
   textContainer: {
     flex: 1,
@@ -186,7 +157,7 @@ export default function Vehicle(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ paddingTop: 30 }}></View>
+      <View style={{ paddingTop: 10}}></View>
       <View>
         <ConfirmationModal
           visible={modalVisible}
@@ -232,7 +203,7 @@ export default function Vehicle(props) {
             borderRadius: 5,
           }}
         >
-          <Text style={{ color: 'white', fontSize: 21, fontWeight: 'bold', marginLeft: 5 }}>Help</Text>
+          <Text style={{ color: 'red', fontSize: 21, fontWeight:'bold', marginLeft:5 }}>Help</Text>
         </View>
       </TouchableOpacity>
 
@@ -264,11 +235,9 @@ export default function Vehicle(props) {
           right: 5,
           zIndex: 1,
         }}
-      >
-
-
+      >       
       </TouchableOpacity>
-
+      
       {stateHelp && (
         <View>
           <HelpModel
@@ -278,48 +247,62 @@ export default function Vehicle(props) {
 
         </View>
       )}
-
-
-
-
+       
       <View style={styles.border}>
-        <Text style={styles.text}>EMERGENCY{'\n'}   SERVICES</Text>
+      <ImageBackground
+        source={require('./../image/emergencytitle.jpg')}
+        style={{flex:1,height:'100%',marginTop:10,borderRadius: 40,width:'100%'}}
+        imageStyle={{ borderRadius: 15}}
+        >
+        <View style={{width:320}}></View>
+        </ImageBackground>
       </View>
-      <View style={{ paddingTop: 7 }}></View>
+      
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'red', fontSize: 35, fontWeight: 'bold' }}>Please select a service</Text>
-        <View style={{ marginTop: 5, width: '95%', borderWidth: 2, borderColor: "red" }} />
+        <Text style={{ color: '#3b3945', fontSize: 35, fontWeight: 'bold'}}>Please Select a Service</Text>
+        <View style={{ marginTop: 5, width: '95%', borderWidth:2, borderColor:"#3b3945"}} />
       </View>
+
       <View style={{ paddingLeft: 20, paddingRight: 20, backgroundColor: 'white', flex: 1, justifyContent: 'center' }}>
-        <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.containerRed}>
+        
+        <ImageBackground
+        source={require('./../image/ambulancebg.jpg')}
+        style={{flex:1,height:'88%',marginTop:10,borderRadius: 40,}}
+        imageStyle={{ borderRadius: 15}}
+        >
+        <TouchableOpacity onPress={() => handlePressForVehicle('Ambulans')} style={styles.containerAmbulance}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyleRed}>AMBULANCE</Text>
-          </View>
-          <View style={styles.imageContainer}>
-            <Image source={require('./../image/hospital.png')} style={styles.imageStyle} />
+            <Text style={styles.textstyle}>AMBULANCE</Text>
           </View>
         </TouchableOpacity>
+        </ImageBackground>
+        
+        <ImageBackground
+        source={require('./../image/policebg.jpg')}
+        style={{flex:1,height:'88%',marginTop:5,borderRadius: 40,}}
+        imageStyle={{ borderRadius: 15}}
+        >
+        <TouchableOpacity onPress={() => handlePressForVehicle('Police')} style={styles.containerPolice}>
+          <View style={styles.textContainer}>
+            <Text style={styles.textstyle}>POLICE</Text>
+          </View>
+        </TouchableOpacity>
+        </ImageBackground>
 
-        <TouchableOpacity onPress={() => handlePressForVehicle('Police')} style={styles.containerBlue}>
+        <ImageBackground
+        source={require('./../image/firebg.jpg')}
+        style={{flex:1,height:'88%',marginTop:5,borderRadius: 40,}}
+        imageStyle={{ borderRadius: 15}}
+        >
+        <TouchableOpacity onPress={() => handlePressForVehicle('FIRE FIGHTING')} style={styles.containerFire}>
           <View style={styles.textContainer}>
-            <Text style={styles.textstyleBlue}>POLICE</Text>
-          </View>
-          <View style={styles.imageContainer}>
-            <Image source={require('./../image/police-station.png')} style={styles.imageStyle} />
+            <Text style={styles.textstyle}>FIRE-FIGHTING</Text>
           </View>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handlePressForVehicle('FIRE FIGHTING')} style={styles.containerOr}>
-          <View style={styles.textContainer}>
-            <Text style={styles.textstyleOr}>FIRE-FIGHTING</Text>
-          </View>
-          <View style={styles.imageContainer}>
-            <Image source={require('./../image/fire-station.png')} style={styles.imageStyle} />
-          </View>
-        </TouchableOpacity>
+        </ImageBackground>
       </View>
 
-
+          
 
     </View >
   );

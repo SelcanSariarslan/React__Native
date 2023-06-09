@@ -2,7 +2,7 @@
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
 import { lights } from '../assets/private_map/TrafficSignals';
 import { teeeest } from './ClosestVehiclee';
-//import AllVehicle from './ClosestVehiclee';
+import AllVehicle from './ClosestVehiclee';
 
 
 
@@ -28,9 +28,10 @@ function updateJavaScriptFile() {
     Find_unique_intersection();
     add_vertices();
 
-creating_graph(); */
+creating_graph();
+ */
+
 /*
-update();
 fastest_Path();
 
 
@@ -43,8 +44,8 @@ setInterval(updateJavaScriptFile, 5000);
 
 startSelfUpdating();
 
-*/
 
+ */
 
 var all_signals = [];  //---------------------  we found the commen signal traffics and assghin a new property to hold "yes" and its cordinates ------------------
 
@@ -55,10 +56,10 @@ var Traffic_lenth = Traffic_Roads.features.length;
 var counter = 0;
 var counter1 = 0;
 //var min = Traffic_Roads.features[0].geometry.coordinates[0][0];
-Find_traffic_signals();
+// Find_traffic_signals();
 
 
-function Find_traffic_signals() {
+export function Find_traffic_signals() {
 
     for (let i = 0; i < lights_lenth; i++)  // for the traffic signals
     {
@@ -117,7 +118,7 @@ var lenth_road = Traffic_Roads.features.length;
 var counter_intersection = 0;
 var counter = 0;
 
-function Find_intersections() {
+export function Find_intersections() {
     for (let i = 0; i < lenth_road; i++) {
         var lenth_cordinates = Traffic_Roads.features[i].geometry.coordinates.length;
         for (let j = 0; j < lenth_cordinates; j++) {
@@ -147,7 +148,7 @@ function Find_intersections() {
 //-----------------------------------found unrepeated intersections cordinates----------------------------------
 var repeated_cordinates = 0;
 var long = 0;
-function Find_unique_intersection() {
+export function Find_unique_intersection() {
 
     for (let i = 0; i < all_intersections.length; i++) {
 
@@ -276,7 +277,7 @@ add_vertices();
 creating_graph();
 
 var length_of_current_row_counter = 0;
-function creating_graph() {
+export function creating_graph() {
     for (let i = 0; i < Traffic_Roads.features.length; i++) { // rows
         var LenthOfRoad = Traffic_Roads.features[i].geometry.coordinates.length;
 
@@ -421,21 +422,20 @@ export var Fastest_Result = {
     ]
 }
 
-function update(){
+
     Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
 
    // console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee222");
-}
-update();
+
 
 //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
 
-function fastest_Path() {
-   /** const location = AllVehicle.location;
-    const ClosestVehicleNum = AllVehicle.ClosestVehicleNum;
-    console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location); */
+export function fastest_Path() {
+  // const location = AllVehicle.location;
+    //const ClosestVehicleNum = AllVehicle.ClosestVehicleNum;
+    //console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location + "randomNum is " + Fastest_Result); 
     fasttest.dijkstra(unique_intersection[129]); // from  129 location
-    fasttest.findOptimalPath(unique_intersection[22]);  // to  22
+    fasttest.findOptimalPath(unique_intersection[14]);  // to  22
     console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
 }
