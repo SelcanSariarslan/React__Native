@@ -392,7 +392,7 @@ var roads3 = { // the right red roads
   
         
 
-    console.log("this is a new printing"+"  "+ newthing.features[0].type);
+    //console.log("this is a new printing"+"  "+ newthing.features[0].type);
     //newthing.splice(newthing.features[0].properties);
 
     var tekRoad1= intersec.features[0];
