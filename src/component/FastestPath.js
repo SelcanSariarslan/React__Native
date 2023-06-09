@@ -1,7 +1,6 @@
 
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
 import { lights } from '../assets/private_map/TrafficSignals';
-import { teeeest } from './ClosestVehiclee';
 import AllVehicle from './ClosestVehiclee';
 
 
@@ -217,8 +216,8 @@ class Graph {
 
         }
 
-        console.log(parents);
-        console.log(distances);
+       // console.log(parents);
+       // console.log(distances);
 
 
     }
@@ -434,8 +433,8 @@ export function fastest_Path() {
   // const location = AllVehicle.location;
     //const ClosestVehicleNum = AllVehicle.ClosestVehicleNum;
     //console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location + "randomNum is " + Fastest_Result); 
-    fasttest.dijkstra(unique_intersection[129]); // from  129 location
-    fasttest.findOptimalPath(unique_intersection[14]);  // to  22
+    fasttest.dijkstra(unique_intersection[129]); // from  129 location 555
+    fasttest.findOptimalPath(unique_intersection[14]);  // to  22      350
     console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
 }

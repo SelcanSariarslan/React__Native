@@ -3,31 +3,36 @@ import { WebView } from 'react-native-webview';
 import { Text, View, Alert, TouchableOpacity } from 'react-native';
 import { Result } from './ShortestPath';
 import { Fastest_Result } from './FastestPath';
-import {fastest_Path} from './FastestPath'
+import { fastest_Path } from './FastestPath'
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads';
 import Cancel_Button from '../smalComponent/CancelButton';
-import Araçlar from  './Araçlar';
+import Araçlar from './Araçlar';
 import { unique_intersection } from './ShortestPath';
 import ClosestVehiclee from './ClosestVehiclee'
+import FastestResult from './mapResult';
 
 
 const LeafletMap = (props) => {
-    const { randomNum } = props?.route?.params ? props?.route?.params : "" ;
+    const { randomNum } = props?.route?.params ? props?.route?.params : "";
     const { vehicleName } = props?.route?.params ? props?.route?.params : "";
-    const { callerLocation  } =props?.route?.params ? props?.route?.params : "" ;
-    const { reciverLocation } = props?.route?.params ? props?.route?.params : "" ;
-    
-   // fastest_Path(callerLocation,reciverLocation);
-    
+    const { callerLocation } = props?.route?.params ? props?.route?.params : "";
+    const { reciverLocation } = props?.route?.params ? props?.route?.params : "";
+    const reciverMarker= reverseCoordinates(unique_intersection[reciverLocation]);
+    const callerMarker= reverseCoordinates(unique_intersection[callerLocation]);
+
+    const fastestresult = FastestResult.FasttestResult;
+
+    // fastest_Path(callerLocation,reciverLocation);
+
 
 
     const [showCancelButton, setShowCancelButton] = useState(true);
     const [showMinimizeButton, setShowMinimizeButton] = useState(false);
-    
-    
+
+
     useEffect(() => {
-        const marker =randomNum;
-      }, [randomNum]);
+        const marker = callerLocation;
+    }, [callerLocation]);
 
     const handleViewMapButtonPress = () => {
         setShowMinimizeButton(true);
@@ -45,28 +50,29 @@ const LeafletMap = (props) => {
                 { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
             ]);
         }
-    }, [vehicleName]); 
+    }, [vehicleName]);
 
 
     const handleCancelButtonPress = () => {
-       
-            Alert.alert('Are you sure  you want to cancel the emergency vehicle!!!', '', [
-                { text: 'Tamam', onPress: () =>{
-                    if(props.navigation.navigate('Station')){
+
+        Alert.alert('Are you sure  you want to cancel the emergency vehicle!!!', '', [
+            {
+                text: 'Tamam', onPress: () => {
+                    if (props.navigation.navigate('Station')) {
                         props.navigation.navigate('Station')
-                    }else
-                    {
+                    } else {
                         props.navigation.goBack();
                     }
-                     }}
-            ]);
-           
-        
+                }
+            }
+        ]);
+
+
 
     };
     function reverseCoordinates(coords) {
         return [coords[1], coords[0]];
-      }
+    }
     //  console.log(reversedCoords);
     const htmlContent = `
 <!DOCTYPE html>
@@ -144,13 +150,19 @@ L.geoJSON(Result, {
     style: RoudStyleBlack
 }).addTo(map);
 
-var Fastest_Result = ${JSON.stringify(Fastest_Result)};
+var Fastest_Result = ${JSON.stringify(fastestresult)};
 L.geoJSON(Fastest_Result, {
     style: RoudStyleRed
 }).addTo(map);
 
+var marker = L.marker(${JSON.stringify(reciverMarker)}).addTo(map);
 
+// Add a popup to the marker
+marker.bindPopup("Service");
+var marker = L.marker(${JSON.stringify(callerMarker)}).addTo(map);
 
+// Add a popup to the marker
+marker.bindPopup("Caller");
 
 
 
@@ -249,16 +261,18 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
 </script>
 
   `;
-  console.log("--------------------------------------------------------------------------------------");
-  //console.log(reciverLocation);
-  //console.log(Fastest_Result.features[0].geometry.coordinates);
-  console.log("yes--> randomNum ");
- // console.log(fastest_Path(callerLocation,reciverLocation));
+    console.log("--------------------------------------------------------------------------------------");
+   // console.log(fastestresult?.features[0]?.geometry?.coordinates);
+    //console.log(Fastest_Result.features[0].geometry.coordinates);
+    console.log("yes--> randomNum ");
+    // console.log(fastest_Path(callerLocation,reciverLocation));
 
-  
+
     return (
         <View style={{ flex: 1 }}>
-        <View style={{paddingTop:0,backgroundColor:'white'}}></View>
+            <View style={{ paddingTop: 0, backgroundColor: 'white' }}>
+
+            </View>
             <View style={{ flex: 2, width: '100%', position: 'relative' }}>
                 {showCancelButton ? (
                     <Cancel_Button onPress={handleCancelButtonPress} />)
@@ -301,7 +315,8 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
                     )}
                 </View>
             </View>
-            
+           
+
         </View>
     );
 

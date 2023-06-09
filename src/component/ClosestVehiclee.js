@@ -287,11 +287,11 @@ const AllVehicle = (props) => {
        // props.handlePress();
 
     };
-    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
-    console.log(ClosestVehicleNum);
+   // console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
+   // console.log(ClosestVehicleNum);
    // console.log(emergencyData);
-    console.log("locations");
-    console.log(targetVehicleId);
+   // console.log("locations");
+   // console.log(targetVehicleId);
     
     AllVehicle.location = location;
     AllVehicle.ClosestVehicleNum = ClosestVehicleNum;

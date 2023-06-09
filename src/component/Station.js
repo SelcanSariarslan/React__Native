@@ -7,6 +7,9 @@ import { unique_intersection } from './ShortestPath';
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
 import ClosestVehiclee from './ClosestVehiclee'
+import MapResult from './mapResult';
+import Splash from '../smalComponent/splash';
+import FastestResult from './mapResult';
 
 import 'firebase/firestore';
 
@@ -69,18 +72,20 @@ export default function Vehicle(props) {
   const [userId, setUserId] = useState("");
   const [callerobject, setCallerobject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
- 
+  const [showSplash, setShowSplash] = useState(true);
+
   const [caller_emergencylevel, setCaller_emergencylevel] = useState("");
   const [caller_image, setCaller_image] = useState("");
   const [message, setMessage] = useState("");
   const [callerName, setCallerName] = useState("");
   const [callerLocation, setcallerLocation] = useState("");
   const [reciverLocation, setReciverLocation] = useState(true);
+  const fastestresult = FastestResult.FasttestResult;
 
 
-  
 
-{/**
+
+  {/**
   useEffect(() => {
     const db = firebase.firestore();
   
@@ -102,39 +107,39 @@ export default function Vehicle(props) {
     fetchData();
   }, []); //callerobject */}
   useEffect(() => {
-  
+
     const db = firebase.firestore();
 
     const fetchData = async () => {
-        try {
-            const collectionRef = db.collection("users");
-            const querySnapshot = await collectionRef.where("Id", "==", userId).get();
-            const data = querySnapshot.docs.map((doc) => doc.data());
-            console.log("************************************************************************************************************");
-            console.log("locatıon is -----> " +data[0]?.location +" reciver Location is: ------> " + data[0]?.ReciverLocation );
-            setCallerobject(data[0]);
-            setcallerLocation(data[0]?.location);
-            setReciverLocation(data[0]?.ReciverLocation);
-             console.log(data[0]);
+      try {
+        const collectionRef = db.collection("users");
+        const querySnapshot = await collectionRef.where("Id", "==", userId).get();
+        const data = querySnapshot.docs.map((doc) => doc.data());
+        console.log("************************************************************************************************************");
+        console.log("locatıon is -----> " + data[0]?.location + " reciver Location is: ------> " + data[0]?.ReciverLocation);
+        setCallerobject(data[0]);
+        setcallerLocation(data[0]?.location);
+        setReciverLocation(data[0]?.ReciverLocation);
+        console.log(data[0]);
 
 
-            
 
 
-        } catch (error) {
-            console.log(`Error getting ${"users"} documents: `, error);
-        }
+
+      } catch (error) {
+        console.log(`Error getting ${"users"} documents: `, error);
+      }
     };
 
     const interval = setInterval(fetchData, 2000); // Fetch data every 2 seconds
 
-  return () => {
-    clearInterval(interval); // Cleanup interval on component unmount
-  };
+    return () => {
+      clearInterval(interval); // Cleanup interval on component unmount
+    };
 
   }, [callerobject]); //callerobject
 
-  
+
 
 
   const handleImagePress = () => {
@@ -146,13 +151,13 @@ export default function Vehicle(props) {
 
 
 
-  }; 
+  };
 
 
 
   const handlePress = () => {
     const randomNum = selectedNumber;
-    navigation.navigate('Map', { callerLocation, reciverLocation});
+    navigation.navigate('Map', { callerLocation, reciverLocation });
   };
   const handleOptionPress = (number) => {
     setSelectedNumber(number);
@@ -189,12 +194,21 @@ export default function Vehicle(props) {
   }, []);
   console.log("DID IT");
   console.log(userId);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5000); // Delay for 5 seconds
+
+    return () => clearTimeout(timer); // Clear the timer when the component unmounts
+  }, []);
+
   return (
     selectedNumber,
     <ScrollView>
       <View style={{ flex: 1 }}>
         <View style={{ paddingTop: 30, backgroundColor: 'red' }}></View>
-        <View style={{ backgroundColor: 'red', padding: 20,borderBottomLeftRadius: 30,borderBottomRightRadius: 30 }}>
+        <View style={{ backgroundColor: 'red', padding: 20, borderBottomLeftRadius: 30, borderBottomRightRadius: 30 }}>
           <Text style={{ fontSize: 44, fontWeight: 'bold', color: 'white', textAlign: 'center' }}>
             The vehicle you want "{vehicleName}"
           </Text>
@@ -239,10 +253,10 @@ export default function Vehicle(props) {
               <Text style={{ alignSelf: 'center', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Low</Text>
             </View>
           </TouchableOpacity>
-          
+
         </View>
-        <View style={{paddingTop:20 }}>
-         </View>
+        <View style={{ paddingTop: 20 }}>
+        </View>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}></Text>
         </View>
@@ -264,16 +278,23 @@ export default function Vehicle(props) {
 
         <View style={{ marginTop: 10 }}>
 
-         
+
 
 
         </View>
 
       </View>
 
-      
-      <ClosestVehiclee location={selectedNumber} level={selectedLevel} vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject}/>
-       
+
+      <ClosestVehiclee location={selectedNumber} level={selectedLevel} vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject} />
+      <MapResult callerLocation={callerLocation}  reciverLocation={reciverLocation} />
+      {!callerobject || !fastestresult ? 
+        <Splash
+        title="My App"
+            backgroundColor="#000000a2"
+            textColor="white" />:null
+      }
+
     </ScrollView>
   );
 }

@@ -119,8 +119,8 @@ class Graph {
 
         }
 
-        console.log(parents);
-        console.log(distances);
+       // console.log(parents);
+       // console.log(distances);
 
 
     }
@@ -305,12 +305,12 @@ var Result = {
         { "type": "Feature", "properties": { "full_id": "w191236744", "osm_id": "191236744", "osm_type": "way", "osm_version": "6", "osm_timestamp": "2022-06-09T21:32:07.000", "osm_uid": "14474713", "osm_user": "pinkyPrii", "osm_changeset": "122184284", "highway": "tertiary" }, "geometry": { "type": "LineString" } },
     ]
 }
-console.log(Result.features[0].geometry.coordinates = for_cordinate); // Adding the coordinates to the Result and printing the coordinates on the consol same time
+//console.log(Result.features[0].geometry.coordinates = for_cordinate); // Adding the coordinates to the Result and printing the coordinates on the consol same time
 //console.log(Result.features[0].geometry.coordinates[1]=[32.8319655, 39.9557678]);
 
 
 var x="xxx";
-console.log(Result);
+//console.log(Result);
   const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">

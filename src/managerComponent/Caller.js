@@ -56,7 +56,7 @@ const Caller = () => {
       };
     
      
-      const interval = setInterval(fetchCallerData, 2000); // Fetch data every 2 seconds
+      const interval = setInterval(fetchCallerData, 3000); // Fetch data every 2 seconds
 
   return () => {
     clearInterval(interval); // Cleanup interval on component unmount
