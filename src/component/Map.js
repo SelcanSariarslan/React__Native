@@ -15,12 +15,12 @@ import SSortestResult from './mapResultShortest'
 
 
 const LeafletMap = (props) => {
-    const { randomNum } = props?.route?.params ? props?.route?.params : "";
-    const { vehicleName } = props?.route?.params ? props?.route?.params : "";
+   // const { randomNum } = props?.route?.params ? props?.route?.params : "";
+   // const { vehicleName } = props?.route?.params ? props?.route?.params : "";
     const { callerLocation } = props?.route?.params ? props?.route?.params : "";
     const { reciverLocation } = props?.route?.params ? props?.route?.params : "";
-    const reciverMarker= reverseCoordinates(unique_intersection[reciverLocation]);
-    const callerMarker= reverseCoordinates(unique_intersection[callerLocation]);
+    const reciverMarker= reverseCoordinates(unique_intersection[callerLocation]);
+    const callerMarker= reverseCoordinates(unique_intersection[reciverLocation]);
 
     const fastestresult = FastestResult.FasttestResult;
     const  shortestresult = SSortestResult.ShortesrRes;
@@ -47,13 +47,7 @@ const LeafletMap = (props) => {
         setShowCancelButton(true);
     };
 
-    useEffect(() => {
-        if (vehicleName) {
-            Alert.alert('Please choose a vehicle!', '', [
-                { text: 'Tamam', onPress: () => props.navigation.navigate('Araçlar') }
-            ]);
-        }
-    }, [vehicleName]);
+    
 
 
     const handleCancelButtonPress = () => {

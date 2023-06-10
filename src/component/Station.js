@@ -169,7 +169,7 @@ export default function Vehicle(props) {
         
 
   const handlePress = () => {
-    const randomNum = selectedNumber;
+    
     navigation.navigate('Map', { callerLocation, reciverLocation });
   };
   const handleOptionPress = (number) => {

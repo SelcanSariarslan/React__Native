@@ -198,7 +198,7 @@ const Media = (props) => {
         emergency_explenation: inputName,
         image: null,
         voiceUrl: null,
-        location: userLocation,
+        location: userLocation ? userLocation :0,
         emergency_level: userEmergency_level,
         Id: uid
       };

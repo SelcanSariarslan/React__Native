@@ -19,8 +19,8 @@ const Caller = () => {
   const navigation = useNavigation();
   const reciverTargetlocation = ReciverTargetlocation.TargetVehiclelocation;
 
-  //console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
-  //console.log(reciverTargetId);
+  console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
+  //console.log(callerData[0].location);
   const db = firebase.firestore();
   const user = firebase.auth().currentUser;
   useEffect(() => {
@@ -90,7 +90,7 @@ const Caller = () => {
 
     }
     setShowMessageToAccept(false);
-    navigation.navigate('Map', (22, 33));
+    navigation.navigate('Map', (callerData[0]?.location, callerData[0]?.caller_location)); //callerData[0]?.location, callerData[0]?.caller_location
 
   };
 
