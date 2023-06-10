@@ -44,7 +44,7 @@ const Media = (props) => {
 
 
 
-
+  const reciverLocation = props.ReciverLocation;
   const userLocation = props.Location;
   const userEmergency_level = props.EmergencyLevel;
   const caller_object = props.Caller_object;
@@ -476,7 +476,7 @@ const Media = (props) => {
     
     if ( currentUser) {
       await firebase.firestore().collection('users').doc(caller_id).update({
-        ReciverLocation: userLocation,
+        ReciverLocation: reciverLocation,
       });
 
     }
@@ -484,10 +484,10 @@ const Media = (props) => {
   };
   addUserToFirestore();
   
-}, []);
+}, [userLocation]);
 
-console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-  console.log(userLocation)
+//console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+ // console.log(reciverLocation)
 
 
 

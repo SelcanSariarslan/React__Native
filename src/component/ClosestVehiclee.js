@@ -288,7 +288,7 @@ const AllVehicle = (props) => {
 
     };
    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
-    console.log(location);
+    console.log(ClosestVehicleNum);
    // console.log(emergencyData);
    // console.log("locations");
    // console.log(targetVehicleId);
@@ -322,7 +322,7 @@ const AllVehicle = (props) => {
     return (
 
         <View>
-          <Media TargetVehicleId={targetemergencyData.Id} Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
+          <Media  ReciverLocation ={ClosestVehicleNum}TargetVehicleId={targetemergencyData.Id} Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
             
         </View>
 
