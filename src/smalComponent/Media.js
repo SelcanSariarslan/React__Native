@@ -231,9 +231,7 @@ const Media = (props) => {
 
 
 
-  console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-
-  console.log(targetVehicleId);
+  
 
   {/**
 
@@ -403,7 +401,7 @@ const Media = (props) => {
         if (caller_id) {
 
 
-          await db.collection(collection).doc("cQjMfetencet3xZVJ9dNreGjtW93").update({  //targetVehicleId  BS4FKnewJyeUoXyA6TzebsgWZNg1
+          await db.collection(collection).doc(targetVehicleId).update({  //targetVehicleId  cQjMfetencet3xZVJ9dNreGjtW93
             caller_id: caller_object?.Id,
             caller_location: caller_object?.location,
             caller_image: caller_object?.image,
@@ -423,6 +421,10 @@ const Media = (props) => {
     };
     fetchCallerData();
   }, [caller_object]);
+
+  console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+  console.log(targetVehicleId)
+
 
   const clearUserData = async () => {
 

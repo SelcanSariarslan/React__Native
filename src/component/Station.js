@@ -121,7 +121,7 @@ export default function Vehicle(props) {
         setCallerobject(data[0]);
         setcallerLocation(data[0]?.location);
         setReciverLocation(data[0]?.ReciverLocation);
-        console.log(data[0]);
+      //  console.log(data[0]);
 
 
 

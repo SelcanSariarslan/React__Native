@@ -66,7 +66,7 @@ const AllVehicle = (props) => {
     const [callerobject, setCallerobject] = useState([]);
     const [ClosestVehicle, setClosestVehicle] = useState("");
     const [ClosestVehicleNum, setClosestVehicleNum] = useState("");
-    const [targetVehicleId, setTargetVehicleId] = useState('');
+    const [targetVehicleId, setTargetVehicleId] = useState([]);
     const [ClosestVehicleId, setClosestVehicleId] = useState("");
 
 
@@ -130,7 +130,7 @@ const AllVehicle = (props) => {
             // If no matching object is found, clear the targetemergencyData
             setTargetEmergencyData([]);
         }
-    }, [emergencyData, targetVehicleId[0]]);
+    }, [emergencyData, targetVehicleId[0],ClosestVehicleNum]);
 
 
     {/**
@@ -171,15 +171,15 @@ const AllVehicle = (props) => {
                 const querySnapshot = await collectionRef.where("location", "==", ClosestVehicleNum).get();  //461
                 const data = querySnapshot.docs.map((doc) => doc.data());
                 setTargetVehicleId(data.map(data => data.Id));
-                //console.log("setttttttttttttttttttttttttttttttttttttttttt");
-              //  console.log(data);
+                console.log("setttttttttttttttttttttttttttttttttttttttttt");
+               console.log(data);
             } catch (error) {
                 console.log(`Error getting ${collection} documents: `, error);
             }
         };
 
         fetchData();
-    }, [collection]); //ClosestVehicleNum
+    }, [collection,ClosestVehicleNum]); //ClosestVehicleNum
 
 
     function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -287,8 +287,8 @@ const AllVehicle = (props) => {
        // props.handlePress();
 
     };
-   // console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
-   // console.log(ClosestVehicleNum);
+   console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
+    console.log(ClosestVehicleNum);
    // console.log(emergencyData);
    // console.log("locations");
    // console.log(targetVehicleId);
@@ -320,7 +320,7 @@ const AllVehicle = (props) => {
     return (
 
         <View>
-          <Media TargetVehicleId={targetVehicleId[0]} Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
+          <Media TargetVehicleId={targetemergencyData.Id} Location={location} EmergencyLevel={emergency_level} Caller_object={caller_object} CallerId={caller_id} Collection={collection} moveTomap={props.handlePress}/>
             
         </View>
 
