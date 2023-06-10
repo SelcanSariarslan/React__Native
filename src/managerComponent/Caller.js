@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button,TouchableOpacity,ScrollView } from 'react-native';
+import { View, Text, Button, TouchableOpacity, ScrollView } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Image } from 'react-native';
 import AcceptCaller from './acceptCaller';
 import { useNavigation } from '@react-navigation/native';
+import ReciverTargetlocation from './manager';
 
 const Caller = () => {
   const [callerData, setCallerData] = useState([]);
@@ -16,57 +17,58 @@ const Caller = () => {
   const [caller_id, setCaller_id] = useState(null);
   const [callerIdExecuted, setCallerIdExecuted] = useState(false);
   const navigation = useNavigation();
+  const reciverTargetlocation = ReciverTargetlocation.TargetVehiclelocation;
 
+  //console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
+  //console.log(reciverTargetId);
+  const db = firebase.firestore();
+  const user = firebase.auth().currentUser;
+  useEffect(() => {
+    const fetchCallerData = async () => {
+      try {
+        if (user) {
+          const userId = user.uid;
+          setCurrentId(userId);
+          const policeDoc = await db.collection('police').doc(userId).get();
+          const ambulanceDoc = await db.collection('ambulance').doc(userId).get();
+          const fireDoc = await db.collection('fire').doc(userId).get();
 
-  //console.log("5555555555555555555555555555555555555555");
-    const db = firebase.firestore();
-    const user = firebase.auth().currentUser;
-    useEffect(() => {
-      const fetchCallerData = async () => {
-        try {
-          if (user) {
-            const userId = user.uid;
-            setCurrentId(userId);
-            const policeDoc = await db.collection('police').doc(userId).get();
-            const ambulanceDoc = await db.collection('ambulance').doc(userId).get();
-            const fireDoc = await db.collection('fire').doc(userId).get();
-    
-            const policeData = policeDoc.data();
-            const ambulanceData = ambulanceDoc.data();
-            const fireData = fireDoc.data();
-    
-            const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
-    
-            setCallerData(combinedData);
-            if (!callerIdExecuted && combinedData[0].caller_image != null) {
-              setCallerIdExecuted(true);
-              setShowMessageToAccept(true);
-            }
-           
-            /**if(showMessageToAccept != "")
-            {
-              console.log("ididididiidididididiiddi");
-              console.log(showMessageToAccept);
-            } */
-            setLoading(false);
+          const policeData = policeDoc.data();
+          const ambulanceData = ambulanceDoc.data();
+          const fireData = fireDoc.data();
+
+          const combinedData = [policeData, ambulanceData, fireData].filter(data => data !== undefined);
+
+          setCallerData(combinedData);
+          if (!callerIdExecuted && combinedData[0].caller_image != null) {
+            setCallerIdExecuted(true);
+            setShowMessageToAccept(true);
           }
-        } catch (error) {
-          console.log('Error:', error);
+
+          /**if(showMessageToAccept != "")
+          {
+            console.log("ididididiidididididiiddi");
+            console.log(showMessageToAccept);
+          } */
+          setLoading(false);
         }
-      };
-    
-     
-      const interval = setInterval(fetchCallerData, 3000); // Fetch data every 2 seconds
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    };
 
-  return () => {
-    clearInterval(interval); // Cleanup interval on component unmount
-  };
-    }, [callerData]);//callerData
 
-   
-    
+    const interval = setInterval(fetchCallerData, 3000); // Fetch data every 2 seconds
 
-    
+    return () => {
+      clearInterval(interval); // Cleanup interval on component unmount
+    };
+  }, [callerData]);//callerData
+
+
+
+
+
   if (loading) {
     return (
       <View>
@@ -74,37 +76,37 @@ const Caller = () => {
       </View>
     );
   }
- console.log("callerData in the caller.js");
- // console.log(callerData[0].caller_emergencylevel);
+  console.log("callerData in the caller.js");
+  // console.log(callerData[0].caller_emergencylevel);
 
- const addUserToFirestore = async () => {
- // console.log(callerData[0].caller_id);
-  const currentUser = firebase.auth().currentUser;
-  if (callerData[0].caller_id && currentUser) {
-    await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
-      isAccepted: true,
-      ReciverLocation: 555,
-    });
-    
-  }
-  setShowMessageToAccept(false);
-  navigation.navigate('Map',(22,33));
+  const addUserToFirestore = async () => {
+    // console.log(callerData[0].caller_id);
+    const currentUser = firebase.auth().currentUser;
+    if (callerData[0].caller_id && currentUser) {
+      await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
+        isAccepted: true,
+        ReciverLocation: reciverTargetlocation,
+      });
 
-};
+    }
+    setShowMessageToAccept(false);
+    navigation.navigate('Map', (22, 33));
 
-const handleCancel = () => {
-  setShowMessageToAccept(false);
-  
-};
+  };
 
-  
+  const handleCancel = () => {
+    setShowMessageToAccept(false);
+
+  };
+
+
   return (
     <View>
-      
-      
-      {/** */}{showMessageToAccept ? <AcceptCaller CallerData={callerData} onPress={addUserToFirestore} oncancel={handleCancel}/>:null}
+
+
+      {/** */}{showMessageToAccept ? <AcceptCaller CallerData={callerData} onPress={addUserToFirestore} oncancel={handleCancel} /> : null}
     </View>
-   
+
   );
 };
 
