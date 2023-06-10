@@ -95,6 +95,7 @@ export default function Vehicle(props) {
         const querySnapshot = await collectionRef.where("Id", "==", userId).get();
         const data = querySnapshot.docs.map((doc) => doc.data());
         console.log("************************************************************************************************************");
+        
         console.log(userId);
         setCallerobject(data[0]);
         
@@ -153,7 +154,11 @@ export default function Vehicle(props) {
 
   };
 
-
+  console.log("------------------------------------------------------------------------------");
+  //console.log(fastestresult && fastestresult.features && fastestresult.features[0].geometry.coordinates);
+ // console.log(fastestresult.features[0].geometry.coordinates.length);
+  
+        
 
   const handlePress = () => {
     const randomNum = selectedNumber;
@@ -288,7 +293,7 @@ export default function Vehicle(props) {
 
       <ClosestVehiclee location={selectedNumber} level={selectedLevel} vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject} />
       <MapResult callerLocation={callerLocation}  reciverLocation={reciverLocation} />
-      {!callerobject || !fastestresult ? 
+      {!callerobject || fastestresult?.features[0]?.geometry?.coordinates.length === 0  ? 
         <Splash
         title="My App"
             backgroundColor="#000000a2"

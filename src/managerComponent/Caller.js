@@ -88,7 +88,7 @@ const Caller = () => {
     
   }
   setShowMessageToAccept(false);
-  navigation.navigate('Map',(22,665));
+  navigation.navigate('Map',(22,33));
 
 };
 
