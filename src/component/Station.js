@@ -39,8 +39,11 @@ const styles = StyleSheet.create({
     paddingLeft: 300,
   },
   image: {
+    
+   
     width: 50,
     height: 50,
+   
   },
 
   selectedNumber: {

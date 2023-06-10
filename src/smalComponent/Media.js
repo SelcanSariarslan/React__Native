@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
-import { View, Button, TextInput, Image, Text, StyleSheet,TouchableOpacity } from 'react-native';
+import { View, Button, TextInput, Image, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -19,10 +19,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   playButtonText: {
     fontSize: 24,
     marginLeft: 8,
+  }, container: {
+    flex: 1,
+  },
+  playButtonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  playButtonContainer: {
+    alignItems: 'center',
+  },
+  playButtonText: {
+    // Your play button text styles
+  },
+  image: {
+
+
+    width: 50,
+    height: 50,
+
   },
 
 
@@ -41,6 +62,7 @@ const Media = (props) => {
   const [data, setData] = useState(null);
   const [MovetoMap, setMoveToMap] = useState(false);
   const [clearData, setClearData] = useState(true);
+  const [modal2Visible, setModal2Visible] = useState(false);
 
 
 
@@ -64,7 +86,12 @@ const Media = (props) => {
     }
   }, []);
 
-
+  const openModal2 = () => {
+    setModal2Visible(true);
+  };
+  const closeModal2 = () => {
+    setModal2Visible(false);
+  };
 
   useEffect(() => {
     // microphone erişimi izni alma
@@ -198,7 +225,7 @@ const Media = (props) => {
         emergency_explenation: inputName,
         image: null,
         voiceUrl: null,
-        location: userLocation ? userLocation :0,
+        location: userLocation ? userLocation : 0,
         emergency_level: userEmergency_level,
         Id: uid
       };
@@ -232,7 +259,7 @@ const Media = (props) => {
 
 
 
-  
+
 
   {/**
 
@@ -423,7 +450,7 @@ const Media = (props) => {
     fetchCallerData();
   }, [caller_object]);
 
-  
+
 
 
   const clearUserData = async () => {
@@ -471,70 +498,117 @@ const Media = (props) => {
   useEffect(() => {
     const db = firebase.firestore();
     const currentUser = firebase.auth().currentUser;
-  const addUserToFirestore = async () => {
-    // console.log(callerData[0].caller_id);
-    
-    if ( currentUser) {
-      await firebase.firestore().collection('users').doc(caller_id).update({
-        ReciverLocation: reciverLocation,
-      });
+    const addUserToFirestore = async () => {
+      // console.log(callerData[0].caller_id);
 
-    }
-   
-  };
-  addUserToFirestore();
-  
-}, [userLocation]);
+      if (currentUser) {
+        await firebase.firestore().collection('users').doc(caller_id).update({
+          ReciverLocation: reciverLocation,
+        });
 
-//console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
- // console.log(reciverLocation)
+      }
+
+    };
+    addUserToFirestore();
+
+  }, [userLocation]);
+
+  //console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+  // console.log(reciverLocation)
 
 
 
 
 
   return (
-    <View >
-       <View style={{  }}>
-          <Text style={{ color: 'red', fontSize: 25, fontWeight: 'bold' }}>Message:</Text>
-        </View>
-      <TextInput
-        style={{ height: '20%', width:'96%', borderColor: 'red', borderWidth: 3, marginBottom: 10 }}
-        multiline={true}
-        numberOfLines={4}
-        onChangeText={setInputName}
-        value={inputName}
-        placeholder="Please explain the event in short"
-      />
-
-      {imageUri && (
-        <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
-      )}
-
-      <View style={styles.playButtonContainer}>
-        <Ionicons name="ios-camera" size={70} color="red" onPress={pickImage} />
-        <Text style={styles.playButtonText}></Text>
+    <View  >
+      <View style={{}}>
+        <Text style={{ color: 'red', fontSize: 25, fontWeight: 'bold', paddingBottom: 4, paddingLeft: '5%' }}>Explain In Short:</Text>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <TextInput
+          style={{ height: 70, width: '91%', borderColor: 'red', borderWidth: 2, marginBottom: 0, borderRadius: 10 }}
+          multiline={true}
+          numberOfLines={4}
+          onChangeText={setInputName}
+          value={inputName}
+          placeholder="  Please explain the event in short"
+        />
       </View>
 
-      {isRecording ? (
-        <View style={styles.playButtonContainer}>
-          <Ionicons name="ios-pause" size={30} color="red" onPress={stopRecording} />
-          <Text style={styles.playButtonText}></Text>
+
+
+
+
+      <View style={styles.container}>
+        <View style={styles.playButtonRow}>
+          <View style={styles.playButtonContainer}>
+            <Ionicons name="ios-camera" size={80} color="red" onPress={pickImage} />
+            {imageUri ?
+              <TouchableOpacity onPress={openModal2}>
+                <Text style={{ paddingTop: 0, fontSize: 20, color: 'green' }}>View</Text>
+              </TouchableOpacity>
+              :
+              <Text style={{ paddingTop: 0, fontSize: 20 }}>Take a Photo</Text>
+
+            }
+
+          </View>
+
+          {isRecording ? (
+            <View style={styles.playButtonContainer}>
+              <Ionicons name="ios-pause" size={80} color="red" onPress={stopRecording} />
+              <Text style={{ paddingTop: 0 ,fontSize: 20 }}> Recording</Text>
+            </View>
+          ) : (
+            <View style={styles.playButtonContainer}>
+              <Ionicons name="ios-play" size={80} color="red" onPress={startRecording} />
+            {/**  <Text style={{ paddingTop: 0, fontSize: 20 }}>Record a Voice</Text>
+              */}
+             <TouchableOpacity >
+                <Text style={{ paddingTop: 0, fontSize: 20, color: 'green' }}>Listen</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
-      ) : (
-        <View style={styles.playButtonContainer}>
-          <Ionicons name="ios-play" size={70} color="red" onPress={startRecording} />
-          <Text style={styles.playButtonText}></Text>
+        <View style={{ height: 20 }}>
+
         </View>
-      )}
+      </View>
+
 
       {transcription && <Text>{transcription}</Text>}
 
-     
 
       <TouchableOpacity onPress={combine} >
-        <Text style={{width:'100%',color: 'white',backgroundColor:'RED', fontSize: 25, fontWeight: 'bold', borderWidth:1.5, padding:10,borderRadius:5,alignSelf:'flex-start',textAlign:'center'}}>CALL THE SERVIE</Text>
+        <Text style={{width:'100%',color: 'white',backgroundColor:'red', fontSize: 25, fontWeight: 'bold', borderWidth:1.5, padding:10,borderRadius:5,alignSelf:'flex-start',textAlign:'center'}}>CALL THE SERVIE</Text>
       </TouchableOpacity>
+
+      <Modal visible={modal2Visible} animationType="fade" transparent={true}>
+        <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <View style={{ backgroundColor: '#fff', paddingTop: 40 }}>
+            <Text style={styles.label}></Text>
+            {imageUri && (
+              <Image source={{ uri: imageUri }} style={{ width: '100%', height: '60%', paddingTop: 50 }} />
+            )}
+            <View style={{ height: 60 }} ></View>
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'red',
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 10,
+                marginTop: 10,
+                alignItems: 'center', // Center the content horizontally
+                justifyContent: 'center', // Center the content vertically
+              }}
+              onPress={closeModal2}
+            >
+              <Text style={{ fontSize: 18, color: 'white', fontSize: 30 }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       <View>
         {loading ? (
