@@ -1,16 +1,23 @@
-import React from 'react';
-import { WebView } from 'react-native-webview';
-import { Text, View } from 'react-native';
+
+import React, { useEffect, useState } from 'react';
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // the varaible must be exactlly the same that is insde the file
+import { lights } from '../assets/private_map/TrafficSignals';
 
-var Traffic_lenth = Traffic_Roads.features.length;
-//var Road_lenth =Traffic_Roads.features[0].geometry.coordinates.length;
-var counter1 = 0;
+import { View } from  'react-native';
 
-// -------------------------------------------------------- intersections  ---------------------------------------
+import { unique_intersection } from './ShortestPath';
 
+
+function MyComponent(props) {
+
+    const [shortest, setShortest] = useState([]);
+    const callerLocation = props.callerLocation;
+    const reciverLocation = props.reciverLocation;
+    useEffect(() => {
+
+      
 var all_intersections = [];    // to keep all the intersections
-export var unique_intersection = [];   // to keep unrepeated intersections
+var unique_intersection = [];   // to keep unrepeated intersections
 var lenth_road = Traffic_Roads.features.length;
 var counter_intersection = 0;
 var counter = 0;
@@ -291,7 +298,7 @@ for (let i = 0; i < cordinate_path.length; i++) {
 }
 
 
-export var Result = {
+ var Result = {
     "type": "FeatureCollection",
     "name": "shortIntersection",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -302,11 +309,28 @@ export var Result = {
 
 Result.features[0].geometry.coordinates = for_cordinate; // Adding the coordinates to the Result and printing the coordinates on the consol same time
 //console.log(Result.features[0].geometry.coordinates = for_cordinate);
-
+setShortest(Result);
 
 
 function shortest_path(){
-    g.dijkstra(unique_intersection[23]);  // from  129
-g.findOptimalPath(unique_intersection[55]);  // to  14
+    g.dijkstra(unique_intersection[callerLocation]);  // from  129
+g.findOptimalPath(unique_intersection[reciverLocation]);  // to  14
 }
 //console.log("Shortest_Result is: "+Result.features[0].geometry.coordinates);
+      
+    }, [callerLocation,reciverLocation]);
+    
+  //  console.log(shortest && shortest.features && shortest.features[0]?.geometry?.coordinates);
+ console.log("üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü");
+   console.log(unique_intersection.length);
+   console.log(shortest && shortest.features && shortest.features[0]?.geometry?.coordinates);
+
+  
+   MyComponent.ShortesrRes = shortest;
+     // MyComponent.FasttestResult = shortest;
+
+    // Rest of your component code
+
+};
+export default MyComponent;
+

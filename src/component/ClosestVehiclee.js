@@ -288,13 +288,15 @@ const AllVehicle = (props) => {
 
     };
    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
-    console.log(ClosestVehicleNum);
+    console.log(location);
    // console.log(emergencyData);
    // console.log("locations");
    // console.log(targetVehicleId);
     
     AllVehicle.location = location;
     AllVehicle.ClosestVehicleNum = ClosestVehicleNum;
+   
+
 
     
 /**

@@ -15,6 +15,7 @@ export const Manager = () => {
   const [isReady, setIsReady] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [callerData, setCallerData] = useState([]);
+  const [reciverlocation, setReciverlocation] = useState("");
 
   const handleImagePress = async () => {
     const randomNum = Math.floor(Math.random() * unique_intersection.length);
@@ -35,6 +36,10 @@ export const Manager = () => {
       try {
         if (user) {
           const userId = user.uid;
+          //  console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
+
+          setReciverlocation(selectedNumber);
+
 
           const policeDoc = await db.collection('police').doc(userId).get();
           const ambulanceDoc = await db.collection('ambulance').doc(userId).get();
@@ -66,6 +71,7 @@ export const Manager = () => {
   }, []);//callerData
   console.log("All the dataaaaaaa ");
   console.log(!!callerData.caller_image);
+  Manager.TargetVehiclelocation = reciverlocation;
 
 
   return (

@@ -7,9 +7,14 @@ import { unique_intersection } from './ShortestPath';
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
 import ClosestVehiclee from './ClosestVehiclee'
-import MapResult from './mapResult';
+import MapResult from './mapResultFastest';
 import Splash from '../smalComponent/splash';
-import FastestResult from './mapResult';
+import FastestResult from './mapResultFastest';
+import ShortestResult from './ShortestPath'
+import MapSortestResult from './mapResultShortest';
+
+
+
 
 import 'firebase/firestore';
 
@@ -81,8 +86,11 @@ export default function Vehicle(props) {
   const [callerLocation, setcallerLocation] = useState("");
   const [reciverLocation, setReciverLocation] = useState(true);
   const fastestresult = FastestResult.FasttestResult;
+  const sortestresult = MapSortestResult.ShortesrRes;
+  const [rendered, setRendered] = useState(false);
 
-
+ 
+  
 
 
   {/**
@@ -290,10 +298,13 @@ export default function Vehicle(props) {
 
       </View>
 
-
+     
       <ClosestVehiclee location={selectedNumber} level={selectedLevel} vehicle={vehicleName} caller_location={selectedNumber} user_Id={userId} handlePress={handlePress} callerData={callerobject} />
       <MapResult callerLocation={callerLocation}  reciverLocation={reciverLocation} />
-      {!callerobject || fastestresult?.features[0]?.geometry?.coordinates.length === 0  ? 
+      <MapSortestResult callerLocation={callerLocation}  reciverLocation={reciverLocation}  />
+      
+
+      {!callerobject || fastestresult?.features[0]?.geometry?.coordinates.length === 0 || sortestresult?.features[0]?.geometry?.coordinates.length === 0  ? 
         <Splash
         title="My App"
             backgroundColor="#000000a2"

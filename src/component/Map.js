@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { WebView } from 'react-native-webview';
 import { Text, View, Alert, TouchableOpacity } from 'react-native';
 import { Result } from './ShortestPath';
+
 import { Fastest_Result } from './FastestPath';
 import { fastest_Path } from './FastestPath'
 import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads';
@@ -9,7 +10,8 @@ import Cancel_Button from '../smalComponent/CancelButton';
 import Araçlar from './Araçlar';
 import { unique_intersection } from './ShortestPath';
 import ClosestVehiclee from './ClosestVehiclee'
-import FastestResult from './mapResult';
+import FastestResult from './mapResultFastest';
+import SSortestResult from './mapResultShortest'
 
 
 const LeafletMap = (props) => {
@@ -21,6 +23,7 @@ const LeafletMap = (props) => {
     const callerMarker= reverseCoordinates(unique_intersection[callerLocation]);
 
     const fastestresult = FastestResult.FasttestResult;
+    const  shortestresult = SSortestResult.ShortesrRes;
 
     // fastest_Path(callerLocation,reciverLocation);
 
@@ -57,14 +60,23 @@ const LeafletMap = (props) => {
 
         Alert.alert('Are you sure  you want to cancel the emergency vehicle!!!', '', [
             {
-                text: 'Tamam', onPress: () => {
+                text: 'Yes', onPress: () => {
                     if (props.navigation.navigate('Station')) {
                         props.navigation.navigate('Station')
                     } else {
                         props.navigation.goBack();
                     }
+                    Alert.alert('Emergency vehicle cancellation  was successful!', '', [
+                        { text: 'OK' }
+                      ]);
                 }
-            }
+            },{
+                text: 'No',
+                onPress: () => {
+                   
+                },
+                style: 'cancel', // This will make the button look like a "Cancel" button
+              },
         ]);
 
 
@@ -141,11 +153,11 @@ map.fitBounds(polyline.getBounds());-->
 });
  osm.addTo(map);
  //heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
- var log = ${JSON.stringify(Result)}; //Traffic_Roads
-L.geoJSON(log).addTo(map);
+// var log = ${JSON.stringify(Traffic_Roads)}; //Traffic_Roads
+//L.geoJSON(log).addTo(map);
 
 
-var Result = ${JSON.stringify(Result)};
+var Result = ${JSON.stringify(shortestresult)};
 L.geoJSON(Result, {
     style: RoudStyleBlack
 }).addTo(map);
@@ -261,8 +273,8 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
 </script>
 
   `;
-    console.log("--------------------------------------------------------------------------------------");
-   // console.log(fastestresult?.features[0]?.geometry?.coordinates);
+    console.log("----------------------------------------------------------99----------------------------");
+   console.log(shortestresult?.features[0]?.geometry?.coordinates);
     //console.log(Fastest_Result.features[0].geometry.coordinates);
     console.log("yes--> randomNum ");
     // console.log(fastest_Path(callerLocation,reciverLocation));

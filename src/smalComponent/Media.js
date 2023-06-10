@@ -10,6 +10,7 @@ import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import Splash from './../smalComponent/splash';
 import Splashbox from './../smalComponent/splashbox';
+import ReciverTargetlocation from './../managerComponent/manager';
 
 import { Alert, ActivityIndicator } from 'react-native';
 
@@ -50,7 +51,7 @@ const Media = (props) => {
   const caller_id = props.CallerId;
   const collection = props.Collection;
   const targetVehicleId = props.TargetVehicleId;
-
+  const reciverTargetlocation = ReciverTargetlocation.TargetVehiclelocation;
 
 
 
@@ -422,8 +423,7 @@ const Media = (props) => {
     fetchCallerData();
   }, [caller_object]);
 
-  console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-  console.log(targetVehicleId)
+  
 
 
   const clearUserData = async () => {
@@ -468,6 +468,30 @@ const Media = (props) => {
       setImageUri(result.uri);
     }
   };
+  useEffect(() => {
+    const db = firebase.firestore();
+    const currentUser = firebase.auth().currentUser;
+  const addUserToFirestore = async () => {
+    // console.log(callerData[0].caller_id);
+    
+    if ( currentUser) {
+      await firebase.firestore().collection('users').doc(caller_id).update({
+        ReciverLocation: userLocation,
+      });
+
+    }
+   
+  };
+  addUserToFirestore();
+  
+}, []);
+
+console.log("settttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+  console.log(userLocation)
+
+
+
+
 
   return (
     <View >

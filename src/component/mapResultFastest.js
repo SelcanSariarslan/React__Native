@@ -3,6 +3,7 @@ import { Traffic_Roads } from '../assets/private_map/TrafficSignals_Roads'; // t
 import { lights } from '../assets/private_map/TrafficSignals';
 import { teeeest } from './ClosestVehiclee';
 import AllVehicle from './ClosestVehiclee';
+import { View } from  'react-native';
 
 
 
@@ -12,6 +13,7 @@ function MyComponent(props) {
     const [meees, setMssse] = useState([]);
     const callerLocation = props.callerLocation;
     const reciverLocation = props.reciverLocation;
+   
     
     useEffect(() => {
 
@@ -81,7 +83,7 @@ function MyComponent(props) {
         // -------------------------------------------------------- intersections  ---------------------------------------
 
         var all_intersections = [];    // to keep all the intersections
-        var unique_intersection = [];   // to keep unrepeated intersections
+       var unique_intersection = [];   // to keep unrepeated intersections
         var lenth_road = Traffic_Roads.features.length;
         var counter_intersection = 0;
         var counter = 0;
@@ -133,8 +135,8 @@ function MyComponent(props) {
                 repeated_cordinates = 0;
             }
         }
-        Find_intersections();
-        Find_unique_intersection();
+       Find_intersections();
+       Find_unique_intersection();
 
         var distances = [], parents = [], Final_path = [], cordinate_path = [], visited = new Set();
         class Graph {
@@ -393,9 +395,11 @@ function MyComponent(props) {
 
         Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest;
         setMssse(Fastest_Result);
-        
+        console.log("*-*-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*");
+
+        console.log(Fastest_Result.features[0].geometry.coordinates);
       
-        // console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee222");
+       // console.log(unique_intersection);
        
 
         //console.log(Fastest_Result.features[0].geometry.coordinates = for_cordinate_fastest);
@@ -414,7 +418,7 @@ function MyComponent(props) {
         //console.log(location);
 
     }, [callerLocation,reciverLocation]);
-    console.log("*-*-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*");
+  
         
     console.log(meees && meees.features && meees.features[0]?.geometry?.coordinates);
 
@@ -423,6 +427,7 @@ function MyComponent(props) {
 
       MyComponent.FasttestResult = meees;
 
+      
     // Rest of your component code
 }
 
