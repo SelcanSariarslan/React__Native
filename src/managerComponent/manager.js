@@ -13,7 +13,7 @@ import SplashForReciving from './../smalComponent/splashForReciving'
 import MapResult from './../component/mapResultFastest';
 
 import FastestResult from './../component/mapResultShortest';
-import Splash from '../smalComponent/splash';
+
 
 
 
@@ -22,7 +22,7 @@ export const Manager = () => {
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [callerData, setCallerData] = useState([]);
   const [reciverlocation, setReciverlocation] = useState("");
-  const[isSplash,setIssplash]= useState(false);
+
 
 
   {/**useEffect(() => {
@@ -84,13 +84,13 @@ export const Manager = () => {
 
 
 
-  }, []);//callerData
+  }, [isReady]);//callerData
   console.log("All the dataaaaaaa ");
   console.log(!!callerData.caller_image);
   Manager.TargetVehiclelocation = reciverlocation;
 
-  console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
-  console.log(callerData);
+  //console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
+  //console.log(callerData);
 
   return (
     <View style={styles.container}>
@@ -98,7 +98,7 @@ export const Manager = () => {
         style={[styles.button, { backgroundColor: isReady ? 'green' : 'red' }]}
         onPress={handleButtonClick}
       >
-        <Text style={styles.buttonText}>{isReady ? 'Cancel' : 'Ready'}</Text>
+        <Text style={styles.buttonText}>{isReady ? 'Reciving' : 'Ready'}</Text>
       </TouchableOpacity>
       <Text>{isReady}</Text>
       <View style={{ height: '65%', borderWidth: 2, borderRadius: 10 }}>
@@ -107,7 +107,7 @@ export const Manager = () => {
 
         {!isReady
           ?
-          (!!callerData.caller_image ? <CallerMedia /> : <Instructurs />)
+          (!callerData.caller_image ? <CallerMedia /> : <Instructurs />)
           :
           (!!callerData.caller_image ? <CallerMedia /> : <SplashForReciving />)
         }
@@ -154,11 +154,7 @@ export const Manager = () => {
 
       <MapResult callerLocation={callerData.caller_location}  reciverLocation={callerData.location } />
       <FastestResult callerLocation={callerData.caller_location}  reciverLocation={callerData.location}  />
-      {isSplash ? <Splash
-        title="My App"
-            backgroundColor="#000000a2"
-            textColor="white" />:null
-      }
+      
       
       <Caller />
     </View>

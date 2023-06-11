@@ -117,7 +117,7 @@ if (!plateRegex.test(plate)) {
       <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Name</Text>
       <TextInput
         style={styles.input}
-        placeholder="Ahmet"
+        placeholder="Name"
         onChangeText={setName}
         value={name}
         autoCapitalize="words"
@@ -126,7 +126,7 @@ if (!plateRegex.test(plate)) {
       <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Surname</Text>
       <TextInput
         style={styles.input}
-        placeholder="Yılmaz"
+        placeholder="Surname"
         onChangeText={setSurname}
         value={surname}
         autoCapitalize="words"
@@ -135,7 +135,7 @@ if (!plateRegex.test(plate)) {
       <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf:'flex-start',marginLeft:35,marginBottom:5}}>Driver Address</Text>
       <TextInput
         style={styles.input}
-        placeholder="Ankara/Yenimahalle"
+        placeholder="Address"
         onChangeText={setAddress}
         value={address}
         autoCapitalize="words"

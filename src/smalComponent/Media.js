@@ -475,6 +475,7 @@ const Media = (props) => {
         location: null,
         emergency_level: null,
         isAccepted: false,
+        ReciverLocation: 0,
       };
 
       await firebase.firestore().collection('users').doc(uid).set(userDetails, { merge: true });
@@ -562,22 +563,6 @@ const Media = (props) => {
             }
 
           </View>
-
-          {isRecording ? (
-            <View style={styles.playButtonContainer}>
-              <Ionicons name="ios-pause" size={80} color="red" onPress={stopRecording} />
-              <Text style={{ paddingTop: 0, fontSize: 20 }}> Recording</Text>
-            </View>
-          ) : (
-            <View style={styles.playButtonContainer}>
-              <Ionicons name="ios-play" size={80} color="red" onPress={startRecording} />
-              {/**  <Text style={{ paddingTop: 0, fontSize: 20 }}>Record a Voice</Text>
-              */}
-              <TouchableOpacity >
-                <Text style={{ paddingTop: 0, fontSize: 20, color: 'green' }}>Listen</Text>
-              </TouchableOpacity>
-            </View>
-          )}
         </View>
         <View style={{ height: 20 }}>
 

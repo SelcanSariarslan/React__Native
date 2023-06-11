@@ -9,6 +9,7 @@ import ReciverTargetlocation from './manager';
 import Map from './../component/Map';
 import FastestResult from './../component/mapResultFastest';
 import SSortestResult from './../component/mapResultShortest'
+import Splash from '../smalComponent/splash';
 
 const Caller = () => {
   const [callerData, setCallerData] = useState([]);
@@ -21,9 +22,13 @@ const Caller = () => {
   const [callerIdExecuted, setCallerIdExecuted] = useState(false);
   const navigation = useNavigation();
   const reciverTargetlocation = ReciverTargetlocation.TargetVehiclelocation;
-  
+  const [isSplash, setIssplash] = useState(false);
+  const [isMoved, setisMoved] = useState(true);
+
+
+
   const fastestresult = FastestResult.FasttestResult;
-  const  shortestresult = SSortestResult.ShortesrRes;
+  const shortestresult = SSortestResult.ShortesrRes;
   console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
   console.log(fastestresult);
   const db = firebase.firestore();
@@ -95,17 +100,22 @@ const Caller = () => {
 
     }
     setShowMessageToAccept(false);
+    setisMoved(false);
 
-    setTimeout(() => {
 
-      navigation.navigate('Map', {
-        location: callerData[0]?.location,
-        caller_location: callerData[0]?.caller_location
-      });
 
-    }, 8000); //callerData[0]?.location, callerData[0]?.caller_location //, (callerData[0]?.location, callerData[0]?.caller_location)
+    if (callerData[0]) {
+      setTimeout(() => {
+        setisMoved(true);
+        navigation.navigate('Map', {
+          location: callerData[0]?.location,
+          caller_location: callerData[0]?.caller_location
+        });
+      }, 10000);
+      //callerData[0]?.location, callerData[0]?.caller_location //, (callerData[0]?.location, callerData[0]?.caller_location)
 
-  };
+    };
+  }
 
   const handleCancel = () => {
     setShowMessageToAccept(false);
@@ -113,11 +123,24 @@ const Caller = () => {
   };
   console.log(callerData[0]?.caller_location);
 
+
   return (
     <View>
 
 
-      {/** */}{showMessageToAccept ? <AcceptCaller CallerData={callerData} onPress={addUserToFirestore} oncancel={handleCancel} /> : null}
+      {/** */}{showMessageToAccept && isMoved ? <AcceptCaller CallerData={callerData} onPress={addUserToFirestore} oncancel={handleCancel} /> : null}
+      {!showMessageToAccept && !isMoved ?
+        <Splash
+          title="My App"
+          backgroundColor="#000000a2"
+          textColor="white" /> : null
+      }
+
+      {isSplash ? <Splash
+        title="My App"
+        backgroundColor="#000000a2"
+        textColor="white" /> : null
+      }
     </View>
 
   );
