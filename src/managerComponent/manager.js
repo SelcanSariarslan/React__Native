@@ -10,12 +10,29 @@ import Caller from './Caller';
 import Instructurs from './instructurs'
 import CallerMedia from './CallerMedia'
 import SplashForReciving from './../smalComponent/splashForReciving'
+import MapResult from './../component/mapResultFastest';
+
+import FastestResult from './../component/mapResultShortest';
+import Splash from '../smalComponent/splash';
+
+
 
 export const Manager = () => {
   const [isReady, setIsReady] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [callerData, setCallerData] = useState([]);
   const [reciverlocation, setReciverlocation] = useState("");
+  const[isSplash,setIssplash]= useState(false);
+
+
+  {/**useEffect(() => {
+    // Set Issplash to true after a delay of 7 seconds
+    const timer = setTimeout(() => {
+      setIssplash(true);
+    }, 7000);
+    setIssplash(false);
+    return () => clearTimeout(timer);
+  }, []); */}
 
   const handleImagePress = async () => {
     const randomNum = Math.floor(Math.random() * unique_intersection.length);
@@ -36,8 +53,7 @@ export const Manager = () => {
       try {
         if (user) {
           const userId = user.uid;
-          //  console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
-
+          
           setReciverlocation(selectedNumber);
 
 
@@ -73,6 +89,8 @@ export const Manager = () => {
   console.log(!!callerData.caller_image);
   Manager.TargetVehiclelocation = reciverlocation;
 
+  console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
+  console.log(callerData);
 
   return (
     <View style={styles.container}>
@@ -133,6 +151,15 @@ export const Manager = () => {
       </View>
 
       <StatusPage status={isReady} location={selectedNumber} />
+
+      <MapResult callerLocation={callerData.caller_location}  reciverLocation={callerData.location } />
+      <FastestResult callerLocation={callerData.caller_location}  reciverLocation={callerData.location}  />
+      {isSplash ? <Splash
+        title="My App"
+            backgroundColor="#000000a2"
+            textColor="white" />:null
+      }
+      
       <Caller />
     </View>
   );

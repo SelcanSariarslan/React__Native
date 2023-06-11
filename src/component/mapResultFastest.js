@@ -408,8 +408,8 @@ function MyComponent(props) {
             // const location = AllVehicle.location;
             //const ClosestVehicleNum = AllVehicle.ClosestVehicleNum;
             //console.log("AllVehicle : " + ClosestVehicleNum + " and the locatıon is " + location + "randomNum is " + Fastest_Result); 
-            fasttest.dijkstra(unique_intersection[callerLocation]); // from  129 location  350
-            fasttest.findOptimalPath(unique_intersection[reciverLocation]);  // to  22 555
+            fasttest.dijkstra(unique_intersection[callerLocation]); // from  129 location  871
+            fasttest.findOptimalPath(unique_intersection[reciverLocation]);  // to  22     76
 
 
         }

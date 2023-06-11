@@ -11,6 +11,8 @@ import { Ionicons } from '@expo/vector-icons';
 import Splash from './../smalComponent/splash';
 import Splashbox from './../smalComponent/splashbox';
 import ReciverTargetlocation from './../managerComponent/manager';
+import { Permissions } from 'expo-permissions';
+
 
 import { Alert, ActivityIndicator } from 'react-native';
 
@@ -122,6 +124,12 @@ const Media = (props) => {
 
   const startRecording = async () => {
     try {
+
+      const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+      if (status !== 'granted') {
+        console.error('Audio recording permission not granted');
+        return;
+      }
       setIsRecording(true);
       setTranscription('');
 
@@ -558,14 +566,14 @@ const Media = (props) => {
           {isRecording ? (
             <View style={styles.playButtonContainer}>
               <Ionicons name="ios-pause" size={80} color="red" onPress={stopRecording} />
-              <Text style={{ paddingTop: 0 ,fontSize: 20 }}> Recording</Text>
+              <Text style={{ paddingTop: 0, fontSize: 20 }}> Recording</Text>
             </View>
           ) : (
             <View style={styles.playButtonContainer}>
               <Ionicons name="ios-play" size={80} color="red" onPress={startRecording} />
-            {/**  <Text style={{ paddingTop: 0, fontSize: 20 }}>Record a Voice</Text>
+              {/**  <Text style={{ paddingTop: 0, fontSize: 20 }}>Record a Voice</Text>
               */}
-             <TouchableOpacity >
+              <TouchableOpacity >
                 <Text style={{ paddingTop: 0, fontSize: 20, color: 'green' }}>Listen</Text>
               </TouchableOpacity>
             </View>
@@ -581,7 +589,7 @@ const Media = (props) => {
 
 
       <TouchableOpacity onPress={combine} >
-        <Text style={{width:'100%',color: 'white',backgroundColor:'red', fontSize: 25, fontWeight: 'bold', borderWidth:1.5, padding:10,borderRadius:5,alignSelf:'flex-start',textAlign:'center'}}>CALL THE SERVIE</Text>
+        <Text style={{ width: '100%', color: 'white', backgroundColor: 'red', fontSize: 25, fontWeight: 'bold', borderWidth: 1.5, padding: 10, borderRadius: 5, alignSelf: 'flex-start', textAlign: 'center' }}>CALL THE SERVIE</Text>
       </TouchableOpacity>
 
       <Modal visible={modal2Visible} animationType="fade" transparent={true}>

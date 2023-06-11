@@ -6,6 +6,9 @@ import { Image } from 'react-native';
 import AcceptCaller from './acceptCaller';
 import { useNavigation } from '@react-navigation/native';
 import ReciverTargetlocation from './manager';
+import Map from './../component/Map';
+import FastestResult from './../component/mapResultFastest';
+import SSortestResult from './../component/mapResultShortest'
 
 const Caller = () => {
   const [callerData, setCallerData] = useState([]);
@@ -18,9 +21,11 @@ const Caller = () => {
   const [callerIdExecuted, setCallerIdExecuted] = useState(false);
   const navigation = useNavigation();
   const reciverTargetlocation = ReciverTargetlocation.TargetVehiclelocation;
-
+  
+  const fastestresult = FastestResult.FasttestResult;
+  const  shortestresult = SSortestResult.ShortesrRes;
   console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
-  //console.log(callerData[0].location);
+  console.log(fastestresult);
   const db = firebase.firestore();
   const user = firebase.auth().currentUser;
   useEffect(() => {
@@ -85,12 +90,20 @@ const Caller = () => {
     if (callerData[0].caller_id && currentUser) {
       await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
         isAccepted: true,
-        ReciverLocation: reciverTargetlocation,
+        ReciverLocation: reciverTargetlocation ? reciverTargetlocation : 100,
       });
 
     }
     setShowMessageToAccept(false);
-    navigation.navigate('Map', (callerData[0]?.location, callerData[0]?.caller_location)); //callerData[0]?.location, callerData[0]?.caller_location
+
+    setTimeout(() => {
+
+      navigation.navigate('Map', {
+        location: callerData[0]?.location,
+        caller_location: callerData[0]?.caller_location
+      });
+
+    }, 8000); //callerData[0]?.location, callerData[0]?.caller_location //, (callerData[0]?.location, callerData[0]?.caller_location)
 
   };
 
@@ -98,7 +111,7 @@ const Caller = () => {
     setShowMessageToAccept(false);
 
   };
-
+  console.log(callerData[0]?.caller_location);
 
   return (
     <View>

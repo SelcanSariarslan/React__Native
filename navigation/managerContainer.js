@@ -10,6 +10,7 @@ import DetialsScrean from './screans/DetailsScreen';
 import HomeScrean from './screans/HomeScreen';
 import SettingScrean from './screans/SettingSecreen';
 import Map from '../src/component/Map';
+import MapReciver from '../src/component/Map';
 import Araçlar from '../src/component/Araçlar';
 import Manager from '../src/managerComponent/manager';
 
@@ -45,7 +46,7 @@ export default function MainContianer() {
         }}
       >
         <Tab.Screen name={homeName} component={Manager} options={{ headerShown: false }} />
-        <Tab.Screen name={MapName} component={Map} options={{ headerShown: false }} />
+        <Tab.Screen name={MapName} component={MapReciver} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
