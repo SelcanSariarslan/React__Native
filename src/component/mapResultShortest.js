@@ -321,9 +321,9 @@ g.findOptimalPath(unique_intersection[reciverLocation]);  // to  14
     }, [callerLocation,reciverLocation]);
     
   //  console.log(shortest && shortest.features && shortest.features[0]?.geometry?.coordinates);
- console.log("üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü");
-   console.log(unique_intersection.length);
-   console.log(shortest && shortest.features && shortest.features[0]?.geometry?.coordinates);
+ //console.log("üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü");
+  // console.log(unique_intersection.length);
+  // console.log(shortest && shortest.features && shortest.features[0]?.geometry?.coordinates);
 
   
    MyComponent.ShortesrRes = shortest;

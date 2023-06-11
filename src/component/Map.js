@@ -148,8 +148,8 @@ map.fitBounds(polyline.getBounds());-->
 });
  osm.addTo(map);
  //heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-// var log = ${JSON.stringify(Traffic_Roads)}; //Traffic_Roads
-//L.geoJSON(log).addTo(map);
+var log = ${JSON.stringify(Traffic_Roads)}; //Traffic_Roads
+L.geoJSON(log).addTo(map);
 
 
 var Result = ${JSON.stringify(shortestresult)};

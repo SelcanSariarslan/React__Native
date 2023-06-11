@@ -29,8 +29,8 @@ const Caller = () => {
 
   const fastestresult = FastestResult.FasttestResult;
   const shortestresult = SSortestResult.ShortesrRes;
-  console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
-  console.log(fastestresult);
+ // console.log("5555555555555555555555555555555555555555555555500000000000000000005555555555555555555555555555555555555");
+ // console.log(fastestresult);
   const db = firebase.firestore();
   const user = firebase.auth().currentUser;
   useEffect(() => {
@@ -86,7 +86,7 @@ const Caller = () => {
       </View>
     );
   }
-  console.log("callerData in the caller.js");
+ // console.log("callerData in the caller.js");
   // console.log(callerData[0].caller_emergencylevel);
 
   const addUserToFirestore = async () => {
@@ -95,7 +95,7 @@ const Caller = () => {
     if (callerData[0].caller_id && currentUser) {
       await firebase.firestore().collection('users').doc(callerData[0].caller_id).update({
         isAccepted: true,
-        ReciverLocation: reciverTargetlocation ? reciverTargetlocation : 100,
+        ReciverLocation: callerData[0]?.location,
       });
 
     }
@@ -111,7 +111,7 @@ const Caller = () => {
           location: callerData[0]?.location,
           caller_location: callerData[0]?.caller_location
         });
-      }, 10000);
+      }, 5000);
       //callerData[0]?.location, callerData[0]?.caller_location //, (callerData[0]?.location, callerData[0]?.caller_location)
 
     };

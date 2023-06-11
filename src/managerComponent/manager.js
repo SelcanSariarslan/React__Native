@@ -84,9 +84,9 @@ export const Manager = () => {
 
 
 
-  }, [isReady]);//callerData
-  console.log("All the dataaaaaaa ");
-  console.log(!!callerData.caller_image);
+  }, [isReady,callerData]);//callerData
+  //console.log("All the dataaaaaaa ");
+  //console.log(!!callerData.caller_image);
   Manager.TargetVehiclelocation = reciverlocation;
 
   //console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
@@ -111,11 +111,7 @@ export const Manager = () => {
           :
           (!!callerData.caller_image ? <CallerMedia /> : <SplashForReciving />)
         }
-        {!isReady && !!callerData.caller_image
-          ?
-          (!!callerData.caller_image ? <CallerMedia /> : <SplashForReciving />):null
-        }
-
+       
         {(!callerData.caller_image && isReady) ? (
           <React.Fragment>
             <Text style={{ fontSize: 40, color: 'red', paddingLeft: 50, paddingTop: 20 }}>
@@ -158,7 +154,7 @@ export const Manager = () => {
 
       <MapResult callerLocation={callerData.caller_location}  reciverLocation={callerData.location } />
       <FastestResult callerLocation={callerData.caller_location}  reciverLocation={callerData.location}  />
-      
+       
       
       <Caller />
     </View>

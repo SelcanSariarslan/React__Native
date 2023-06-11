@@ -60,8 +60,8 @@ export const Manager = () => {
 
 
   }, []);//callerData
-  console.log("All the data ");
-  console.log(callerData);
+  //console.log("All the data ");
+ // console.log(callerData);
 
   return (
     <View style={{ flex: 1, padding: 15 }}>

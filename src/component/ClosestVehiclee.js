@@ -233,7 +233,7 @@ const AllVehicle = (props) => {
                 for (var x = 0; x < emergencyLocations.length; x++) {
 
                     if (emergencyLocations[x] === i) {
-                          console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
+                     //     console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx    " + emergencyLocations[x]);
                         coordinatelon22 = unique_intersection[emergencyLocations[x]][0];
                         coordinatelat22 = unique_intersection[emergencyLocations[x]][1];
 

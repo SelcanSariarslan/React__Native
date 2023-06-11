@@ -80,7 +80,7 @@ const MainNavigator = createStackNavigator({
   Station: {
     screen: Station,
     navigationOptions: {
-      headerShown: false, // hide header
+      headerShown: true, // hide header
     },
   },
   Map: { screen: Map },
