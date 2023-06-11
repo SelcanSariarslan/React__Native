@@ -8,10 +8,11 @@ import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
 import ClosestVehiclee from './ClosestVehiclee'
 import MapResult from './mapResultFastest';
-import Splash from '../smalComponent/splash';
+
 import FastestResult from './mapResultFastest';
 import ShortestResult from './ShortestPath'
 import MapSortestResult from './mapResultShortest';
+import Splash from '../smalComponent/splash';
 
 
 

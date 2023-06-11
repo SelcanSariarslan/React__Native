@@ -7,7 +7,6 @@ import { Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 
-
 const StatusPage = (props) => {
   const [inputName, setInputName] = useState('');
   const status = props.status;
@@ -89,6 +88,8 @@ const StatusPage = (props) => {
 
       </TouchableOpacity>
       {displayedImageUrl && <Image source={{ uri: displayedImageUrl }} style={styles.image} />}
+
+      
     </View>
   );
 };
