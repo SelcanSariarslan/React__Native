@@ -107,9 +107,13 @@ export const Manager = () => {
 
         {!isReady
           ?
-          (!callerData.caller_image ? <CallerMedia /> : <Instructurs />)
+          (!!callerData.caller_image ? <CallerMedia /> : <Instructurs />)
           :
           (!!callerData.caller_image ? <CallerMedia /> : <SplashForReciving />)
+        }
+        {!isReady && !!callerData.caller_image
+          ?
+          (!!callerData.caller_image ? <CallerMedia /> : <SplashForReciving />):null
         }
 
         {(!callerData.caller_image && isReady) ? (
