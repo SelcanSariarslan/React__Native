@@ -245,7 +245,7 @@ const AllVehicle = (props) => {
                             coordinatelat22
                         );
                         
-                        console.log("The distaince of the service viechle number "+" is  ---> "  + newDistance);
+                        console.log("The distaince of the service viechle  "+" is  ---> "  + newDistance);
                         myArray.push(newDistance);
                         if (newDistance < Shortest) {
                             Shortest = newDistance;
