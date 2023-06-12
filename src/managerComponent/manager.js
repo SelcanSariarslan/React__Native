@@ -114,13 +114,13 @@ export const Manager = () => {
        
         {(!callerData.caller_image && isReady) ? (
           <React.Fragment>
-            <Text style={{ fontSize: 40, color: 'red', paddingLeft: 50, paddingTop: 20 }}>
+            <Text style={{ fontSize: 40, color: 'red', paddingLeft: '10%', paddingTop: 20 }}>
               please be careful
             </Text>
-            <Text style={{ fontSize: 30, color: 'red', paddingLeft: 23 }}>
-              any time may you receive an emergency call message !!!
+            <Text style={{ fontSize: 25, color: 'red', paddingLeft: '18%' }}>
+              May you receive a call
             </Text>
-            <Text style={{ fontSize: 25, color: 'red', paddingTop: 89, paddingLeft: 20 }}>
+            <Text style={{ fontSize: 25, color: 'red', paddingTop: '40%', paddingLeft: 20 }}>
               please Do not forget to Click
             </Text>
             <Text style={{ fontSize: 30, color: 'red', paddingTop: 1, paddingLeft: 130 }}>

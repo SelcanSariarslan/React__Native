@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     position: 'absolute',
     justifyContent: 'flex-start',
-    marginTop: 540,
-    paddingLeft: 300,
+    marginTop: '155%',
+    paddingLeft: '85%',
   },
   image: {
     
@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
   },
 
   selectedNumber: {
-    marginTop: 20,
+    marginTop: 10,
+    fontSize:5,
   }, button: {
     backgroundColor: "red",
     padding: 16,

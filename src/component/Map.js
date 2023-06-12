@@ -25,8 +25,8 @@ const LeafletMap = (props) => {
 
     const fastestresult = FastestResult.FasttestResult;
     const  shortestresult = SSortestResult.ShortesrRes;
-    console.log("????????????????????????????????????????????????????????????????");
-    console.log(fastestresult);
+    //console.log("????????????????????????????????????????????????????????????????");
+   // console.log(fastestresult);
 
 
 
@@ -148,8 +148,8 @@ map.fitBounds(polyline.getBounds());-->
 });
  osm.addTo(map);
  //heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-var log = ${JSON.stringify(Traffic_Roads)}; //Traffic_Roads
-L.geoJSON(log).addTo(map);
+//var log = ${JSON.stringify(Traffic_Roads)}; //Traffic_Roads
+//L.geoJSON(log).addTo(map);
 
 
 var Result = ${JSON.stringify(shortestresult)};
@@ -268,10 +268,10 @@ L.circle([unique_intersection[y][1],unique_intersection[y][0]], {radius: 3 ,colo
 </script>
 
   `;
-    console.log("----------------------------------------------------------99----------------------------");
-   console.log(shortestresult?.features[0]?.geometry?.coordinates);
+   // console.log("----------------------------------------------------------99----------------------------");
+   //console.log(shortestresult?.features[0]?.geometry?.coordinates);
     //console.log(Fastest_Result.features[0].geometry.coordinates);
-    console.log("yes--> randomNum ");
+   // console.log("yes--> randomNum ");
     // console.log(fastest_Path(callerLocation,reciverLocation));
 
 

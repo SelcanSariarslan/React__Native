@@ -223,11 +223,11 @@ const AllVehicle = (props) => {
                 if (i == caller_object.location) {
                     setCoordinatelog1(unique_intersection[i][0]);
                     setCoordinatelat1(unique_intersection[i][1]);
-                    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh caller location :  " + i + " its cordinates is: " + unique_intersection[i]);
+                    console.log("---------------------------- caller location is :  " + i + " and its cordinates is: ---> " + unique_intersection[i]);
                 }
             }
 
-
+            console.log("------------------------------------------------------------------------------");
             for (var i = 0; i < unique_intersection.length; i++) {
 
                 for (var x = 0; x < emergencyLocations.length; x++) {
@@ -244,7 +244,8 @@ const AllVehicle = (props) => {
                             coordinatelon22,
                             coordinatelat22
                         );
-                        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq   " + newDistance);
+                        
+                        console.log("The distaince of the service viechle number "+" is  ---> "  + newDistance);
                         myArray.push(newDistance);
                         if (newDistance < Shortest) {
                             Shortest = newDistance;
@@ -259,7 +260,8 @@ const AllVehicle = (props) => {
                 if (ClosestVehicle == myArray[x]) {
 
                     setClosestVehicleNum(emergencyLocations[x]);
-                    console.log("the closest node is the num : " + emergencyLocations[x] + " that is: " + Shortest);
+                    console.log("\n");
+                    console.log("The closest vehicle is number: ---" + emergencyLocations[x] + "--- that its real distaince is: ---" + Shortest + "--- and its real cordinates is: ---"+ unique_intersection[x]+"---");
                     console.log(emergencyLocations);
                 }
             }
@@ -287,8 +289,8 @@ const AllVehicle = (props) => {
        // props.handlePress();
 
     };
-   console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
-    console.log(ClosestVehicleNum);
+   //console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyypppppppppppppppppppppppppppppppppyyy  emergencyLocations ");
+   // console.log(ClosestVehicleNum);
    // console.log(emergencyData);
    // console.log("locations");
    // console.log(targetVehicleId);
