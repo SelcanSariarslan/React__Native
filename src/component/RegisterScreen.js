@@ -40,6 +40,7 @@ export default function RegisterScreen({ navigation }) {
                 .collection("users")
                 .doc(user.uid)
                 .set({
+                  Id:user.uid,
                   name,
                   surname,
                   email,
