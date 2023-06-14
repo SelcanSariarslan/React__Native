@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   textstyle: {
     color: 'white',
-    fontSize: 35,
+    fontSize: 40,
     fontWeight: 'bold',
     backgroundColor: '',
     alignSelf:'center'
@@ -250,7 +250,7 @@ export default function Vehicle(props) {
        
       <View style={styles.border}>
       <ImageBackground
-        source={require('./../image/emergencytitle.jpg')}
+        source={require('./../image/mainPage.jpeg')}
         style={{flex:1,height:'100%',marginTop:10,borderRadius: 40,width:'100%'}}
         imageStyle={{ borderRadius: 15}}
         >

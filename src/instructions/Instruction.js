@@ -92,8 +92,15 @@ const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
                                         marginTop: 20,
                                         color: 'red',
                                     }}>
-                                    First Page
+                                  
                                 </Text>
+                                <Image style={{
+                                    width: '96%',
+                                    height: '79%',
+                                    marginBottom: 110,
+                                    marginRight:8,
+                                    }}
+                                    source={require('./../image/firstPage.jpeg')}/>
                             </View>
                         </View>
                    
@@ -125,8 +132,15 @@ const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
                                     marginTop: 20,
                                     color: 'red',
                                 }}>
-                                Second Page
+                              
                             </Text>
+                            <Image style={{
+                                    width: '111%',
+                                    height: '68%',
+                                    marginBottom: 110,
+                                    marginRight:8,
+                                    }}
+                                    source={require('./../image/secondPage.jpeg')}/>
                         </View>
                     </View>
                 )}
@@ -159,12 +173,12 @@ const FirstInstruction = ({ visible, onCancel, onConfirm }) => {
                                 }}>
                             </Text>
                             <Image style={{
-                                    width: '111%',
-                                    height: '85%',
+                                    width: '112%',
+                                    height: '80%',
                                     marginBottom: 110,
                                     marginRight:8,
                                     }}
-                                    source={require('./../image/intromap.png')}/>
+                                    source={require('./../image/thirdPage.jpeg')}/>
                         </View>
                     </View>
                 )}
